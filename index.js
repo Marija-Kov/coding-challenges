@@ -36,7 +36,6 @@ function convertToRoman(num) {
   let str = num.toString();
   let len = str.length;
   let output = [];
-  let output2 = [];
   for (let i = 0; i < len; ++i) {
     let char = str.charAt(i);
     let roman = parseInt(char) * Math.pow(10, len - i - 1);
@@ -50,13 +49,13 @@ function convertToRoman(num) {
 
 //positive integer
 //max 3 same letters in a row
-// I          1
-// V          5
-// X          10
-// L          50
-// C          100
-// D          500
-// M          1000
+// I     1       IV   4   (1 + 5)   DC  600   (500 + 100)
+// V     5       VI   6   (5 + 1)   CM  900   (100 + 1000)
+// X     10      IX   9   (1 + 10)
+// L     50      XL   40  (10 + 50)
+// C     100     LX   60  (50 + 10)
+// D     500     XC   90  (10 + 100)
+// M     1000    CD   400 (100 + 500)
 }
 
-convertToRoman(2022)
+convertToRoman(2099)
