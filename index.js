@@ -39,22 +39,11 @@ function convertToRoman(num) {
   for (let i = 0; i < len; ++i) {
     let char = str.charAt(i);
     let roman = parseInt(char) * Math.pow(10, len - i - 1);
-    for(let j = 0; j < parseInt(char); ++j){
+   // for(let j = 0; j < parseInt(char); ++j){
      if (char != 0) {
       output = output
-        .concat(roman / char)
-        .replace("1000", "M")
-        .replace("CCCCCCCCC", "CM")
-        .replace("LXXXX", "XC")
-        .replace("100", "C")
-        .replace("XXXXXX", "LX")
-        .replace("XXXXX", "L")
-        .replace("XXXX", "XL")
-        .replace("10", "X")
-        .replace("11111", "V")
-        .replace("1", "I");
-                     
-    }
+        .concat(roman)        
+   // }
    }
   }
   console.log(output);
@@ -70,4 +59,4 @@ function convertToRoman(num) {
 // M     1000    CD   400 (100 + 500)
 }
 
-convertToRoman(1990)
+convertToRoman(1996)
