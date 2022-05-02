@@ -1,1 +1,1 @@
-This is my sandbox repository. Mostly codewars functions.
+This is my sandbox repository for coding challenges.
