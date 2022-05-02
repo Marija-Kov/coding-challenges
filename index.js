@@ -59,4 +59,27 @@ function convertToRoman(num) {
 // M     1000    CD   400 (100 + 500)
 }
 
-convertToRoman(1996)
+function findEvenIndex(arr) {
+  //forfeited - no shame!
+  let sumL = 0;
+  // let sumR = arr.reduce((x, y) => x + y, 0);  //popular solution, also slower than for loop..  https://stackoverflow.com/questions/43556132/javascript-performance-reduce-vs-for-loop
+  function sum(a) {
+    let total = 0;
+    for (let i = 0; i < a.length; ++i) {
+      total += a[i];
+    }
+    return total;
+  }
+  let sumR = sum(arr);
+  let n = -1;
+  for (let i = 0; i < arr.length; ++i) {
+    i <= 0 ? sumL : (sumL += arr[i - 1]);
+    sumR -= arr[i];
+    sumL === sumR ? (n = i) : n;
+  }
+  console.log(n);
+}
+findEvenIndex([1,2,3,4,3,2,1]);
+findEvenIndex([1, 100, 50, -51, 1, 1]);
+findEvenIndex([1, 2, 3, 4, 5, 6]);
+findEvenIndex([20, 10, 30, 10, 10, 15, 35]);
