@@ -83,3 +83,31 @@ function findEvenIndex(arr) {
   console.log(n);
 }
 
+function titleCase(title, minorWords) {
+let minor = minorWords.split(' ');
+let arr = Array.from(title);
+arr[0] = arr[0].toUpperCase();
+let len = arr.length;
+let len1 = minor.length;
+for (let i = 1; i < len; ++i){
+  arr[i] = arr[i].toUpperCase();
+  if (arr[i-1] != ('' || ' ' || null || undefined)){
+    arr[i] = arr[i].toLowerCase();
+  }
+}
+let titleCased = arr.join("");
+
+for (let y = 0; y < len1; ++y){
+  if (titleCased.toLowerCase().includes(minor[y].toLowerCase())){
+  titleCased = titleCased.replace(/minor[y]/ig, `${minor[y].toLowerCase()}`);
+   console.log(`${minor[y]} yes`);
+  }else{
+    console.log(`${minor[y]} no`);
+  }
+  
+}
+console.log(titleCased)
+
+}
+
+titleCase('a clash of KINGS', 'a an the of')
