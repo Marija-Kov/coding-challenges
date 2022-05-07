@@ -84,30 +84,19 @@ function findEvenIndex(arr) {
 }
 
 function titleCase(title, minorWords) {
-let minor = minorWords.split(' ');
-let arr = Array.from(title);
-arr[0] = arr[0].toUpperCase();
-let len = arr.length;
-let len1 = minor.length;
-for (let i = 1; i < len; ++i){
-  arr[i] = arr[i].toUpperCase();
-  if (arr[i-1] != ('' || ' ' || null || undefined)){
-    arr[i] = arr[i].toLowerCase();
+  let titleC = title.toLowerCase().split(' ');
+  let minor = minorWords.toLowerCase();
+  for(let i = 0; i<titleC.length; ++i){
+    if(!minor.includes(titleC[i])){
+      titleC[i] = titleC[i].replace(`${titleC[i].charAt(0)}`,`${titleC[i].charAt(0).toUpperCase()}`);
+    }
   }
-}
-let titleCased = arr.join("");
 
-for (let y = 0; y < len1; ++y){
-  if (titleCased.toLowerCase().includes(minor[y].toLowerCase())){
-  titleCased = titleCased.replace(/minor[y]/ig, `${minor[y].toLowerCase()}`);
-   console.log(`${minor[y]} yes`);
-  }else{
-    console.log(`${minor[y]} no`);
-  }
-  
-}
+let firstLetter = titleC.join(' ').charAt(0);
+let titleCased = titleC.join(' ').replace(`${firstLetter}`, `${firstLetter.toUpperCase()}`)
 console.log(titleCased)
 
+
 }
 
-titleCase('a clash of KINGS', 'a an the of')
+titleCase("THE WIND IN THE WILLOWS", "The In");
