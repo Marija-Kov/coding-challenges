@@ -99,4 +99,37 @@ console.log(titleCased)
 
 }
 
-titleCase("THE WIND IN THE WILLOWS", "The In");
+// titleCase("THE WIND IN THE WILLOWS", "The In");   //Solved, but still needs to handle undefined
+
+class Polygon {
+  constructor(sides, length) {
+  this.sides = sides;
+  this.length = length;
+  }
+
+  total() {
+    return this.sides * this.length
+  }
+}
+
+let heptagon = new Polygon (5, 2);
+
+
+let dog = {
+  name: 'Keech',
+  bark() {
+    console.log(`${this.name}: "woof woof yap yap"`);
+  }
+};
+
+console.log(dog.bark())
+
+
+
+
+let dogSound = dog.bark;
+console.log(dogSound()); // not bound, 'this' is not myButton - it is the globalThis
+
+let dogNoise = dog.bark.bind(dog);
+
+console.log(dogNoise());
