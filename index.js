@@ -62,10 +62,10 @@ function convertToRoman(num) {
 // M     1000    CD   400 (100 + 500)
 }
 
-function findEvenIndex(arr) {
+function findEvenIndex(nums) {
   //forfeited - no shame!
   let sumL = 0;
-  // let sumR = arr.reduce((x, y) => x + y, 0);  //popular solution, also slower than for loop?..  https://stackoverflow.com/questions/43556132/javascript-performance-reduce-vs-for-loop
+  // let sumR = nums.reduce((x, y) => x + y, 0);  //popular solution, also slower than for loop?..  https://stackoverflow.com/questions/43556132/javascript-performance-reduce-vs-for-loop
   function sum(a) {
     let total = 0;
     for (let i = 0; i < a.length; ++i) {
@@ -73,11 +73,11 @@ function findEvenIndex(arr) {
     }
     return total;
   }
-  let sumR = sum(arr);
+  let sumR = sum(nums);
   let n = -1;
-  for (let i = 0; i < arr.length; ++i) {
-    i <= 0 ? sumL : (sumL += arr[i - 1]);
-    sumR -= arr[i];
+  for (let i = 0; i < nums.length; ++i) {
+    i <= 0 ? sumL : (sumL += nums[i - 1]);
+    sumR -= nums[i];
     sumL === sumR ? (n = i) : n;
   }
   console.log(n);
@@ -122,14 +122,25 @@ let dog = {
   }
 };
 
-console.log(dog.bark())
+// console.log(dog.bark())
 
 
 
 
 let dogSound = dog.bark;
-console.log(dogSound()); // not bound, 'this' is not myButton - it is the globalThis
+//console.log(dogSound()); 
 
 let dogNoise = dog.bark.bind(dog);
 
-console.log(dogNoise());
+// console.log(dogNoise());
+
+function createPhoneNum(){
+  const nums = [];
+   for (let i = 0; i < 10; ++i){
+    nums.push(Math.floor(Math.random() * 10));
+   } 
+   console.log(`(${nums[0]}${nums[1]}${nums[2]}) ${nums[3]}${nums[4]}${nums[5]}-${nums[6]}${nums[7]}${nums[8]}${nums[9]}`)
+}
+
+//createPhoneNum()
+
