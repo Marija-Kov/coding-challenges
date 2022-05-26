@@ -144,3 +144,21 @@ function createPhoneNum(){
 
 //createPhoneNum()
 
+function maxBall(v0){
+//v0 km/h speed at 0s
+//h = v*t - 0.5*g*t*t  ; g = 9.81m/s**2
+// get current height at every 1/10s
+// task: get max height **recorded** this may not be the max height reached by the ball as the said values may be 1/10s apart
+//
+let v;
+let h = 0;
+let g = 10;
+let t = 0;
+for (v = v0; v > 0; v - g*t, ++t){
+ h = v*t;
+  console.log(` at ${t} seconds ${h} meters`)
+}
+
+}
+
+maxBall(1)
