@@ -153,7 +153,16 @@ let t = Math.round(v/g * 10);
   
 }
 
-maxBall(37)
-maxBall(45);
-maxBall(99);
-maxBall(85);
+// maxBall(37)
+// maxBall(45);
+// maxBall(99);
+// maxBall(85);
+
+function validBraces(braces) {
+//total number of braces has to be divisible by 2
+//for each opening brace has to be a symmetrically positioned closing brace
+//in other words each set of open/close braces has to be positioned so the opening brace index is lower 
+//than a closing brace index
+//and can't contain anything between them
+//but null or other symmetrical sets of open-close braces 
+}
