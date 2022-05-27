@@ -170,11 +170,18 @@ let i;
 let n = 0;
 let l = br.length-1;
 for( i = 0; i < br.length/2; ++i){
-  if(`${br[n+i]}${br[l-i]}` === '{}' || '()' || '[]') {
-    console.log('valid')
-    console.log(`${br[n+i]}${br[l-i]}`)
-  }else{
-    console.log("not valid");
+  if (`${br[n + i]}${br[l - i]}` === "{}" || "()" || "[]") {
+    console.log(`valid - ${br[n + i]}${br[l - i]}`);
+  } else {
+    console.log(`not valid - ${br[n + i]}${br[l - i]}`);
+  } 
+}
+
+for( i = 0; i < br.length-1; ++i ){
+  if(`${br[i]}${br[i+1]}` === '{}' || '()' || '[]') {
+    console.log(`valid - ${br[i]}${br[i + 1]}`);
+  } else {
+    console.log(`not valid - ${br[i]}${br[i + 1]}`);
   }
 }
 }
