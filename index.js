@@ -195,5 +195,64 @@ let l = br.length-1;
 
 }
 
-validBraces('{{{[][(){}]]}}}')
+// validBraces('{{{[][(){}]]}}}')
 
+
+class Contractor {
+  constructor(name, role) {
+    this._name = name;
+    this._role = role;
+    }
+
+    get name(){ 
+      return this._name
+    } 
+
+    get role(){ 
+      return this._role
+    } 
+
+    sayHello(){
+      console.log(`hello, my name is ${this._name} and I'm on the ${this._role} team`)
+    }
+
+}
+
+class Front extends Contractor{
+  constructor(name, role, tech){
+    super(name, role)
+    this._tech = tech;
+  }
+  get tech() {
+    return this._tech
+  }
+
+  sayHello() {
+    console.log(`hello, I'm ${this._name} and i work on the front end and i write cool ${this._tech}`)
+  }
+}
+
+class Back extends Contractor {
+  constructor(name, role, tech) {
+    super(name, role);
+    this._tech = tech;
+  }
+  get tech() {
+    return this._tech;
+  }
+
+  sayHello() {
+    console.log(
+      `hello, I'm ${this._name} and i work on the back end and i write cool ${this._tech}`
+    );
+  }
+}
+
+let machi = new Contractor('the machine', 'front end')
+
+let keech = new Front ('keechy', 'front', 'javascript')
+
+let poozh = new Back ('poozha', 'back', 'node')
+
+console.log(keech.sayHello())
+console.log(poozh.sayHello());
