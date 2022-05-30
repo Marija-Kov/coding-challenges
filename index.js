@@ -250,8 +250,9 @@ class Back extends Contractor {
 }
 
 
-let keech = new Front ('keechy', 'javascript')
-console.log(keech.sayHello());
+let keech = new Front ('keechy', 'front', 'javascript')
+// console.log(keech.sayHello());
+// console.log(keech)
 
 // let poozh = new Back ('poozha', 'back', 'node')
 
@@ -292,3 +293,52 @@ console.log(keech.sayHello());
 // console.log(oatMilkFlatBread)
 // console.log(oatMilkFlatBread.makeFlat())
 // console.log(oatMilkFlatBread.gear)
+
+// function addItem(item, arr = []) {
+//   arr.push(item);
+//   console.log(arr)
+// }
+
+// addItem('foo')
+// addItem('bar')
+
+let upperBody = {
+  head: [
+    {
+      ears: 2,
+      nose: 'alright',
+      cheeks(){
+        return 'not to be confused with buttcheeks'
+      }
+    },
+    {
+      mouth: 'opens when needed',
+      speak() {
+        if(this.mouth){
+          console.log(`mouth ${this.mouth}, good job!`)
+        }
+
+      }
+    }
+  ],
+  shoulders: 'wide',
+  arms: 'flappy',
+  torso: 'flexible'
+}
+
+let lowerBody = {
+  pelvis: 'mobile',
+  legs: 'strong',
+  feet: 'piscean'
+}
+
+let body = {...upperBody, ...lowerBody, hasSoul: false, tellMeMore(){
+  return `the torso is ${this.torso} while arms are ${this.arms} and the pevis is quite ${this.pelvis}. ${this.head[0].cheeks()}`
+} };
+
+console.log(body.tellMeMore())
+
+let clone = Object.assign({chill: true}, body);
+
+console.log(clone.head[1].speak());
+
