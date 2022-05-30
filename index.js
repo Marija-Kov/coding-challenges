@@ -222,13 +222,14 @@ class Front extends Contractor{
   constructor(name, role, tech){
     super(name, role)
     this._tech = tech;
+    this._role = 'front';
   }
   get tech() {
     return this._tech
   }
 
   sayHello() {
-    console.log(`hello, I'm ${this._name} and i work on the front end and i write cool ${this._tech}`)
+    console.log(`hello, I'm ${this._name} and i work on the ${this._role} end and i write cool ${this._tech}`)
   }
 }
 
@@ -248,11 +249,46 @@ class Back extends Contractor {
   }
 }
 
-let machi = new Contractor('the machine', 'front end')
 
-let keech = new Front ('keechy', 'front', 'javascript')
+let keech = new Front ('keechy', 'javascript')
+console.log(keech.sayHello());
 
-let poozh = new Back ('poozha', 'back', 'node')
+// let poozh = new Back ('poozha', 'back', 'node')
 
-console.log(keech.sayHello())
-console.log(poozh.sayHello());
+// console.log(keech.sayHello())
+// console.log(poozh.sayHello());
+
+// class Bread {
+//   constructor(flour, liquid, yeast) {
+//     this.flour = flour;
+//     this.liquid = liquid;
+//     this.yeast = yeast;
+//   }
+
+//   mixBread() {
+//     console.log(
+//       `add ${this.liquid} to ${this.flour} with a little ${this.yeast}`
+//     );
+//   }
+// }
+
+// class flatBread extends Bread {
+//   constructor(flour, liquid, yeast, gear){
+//     super(flour, liquid, yeast)
+//     this.gear = gear;
+//   }
+
+//   makeFlat(){
+//     console.log(`add any flour to oat milk with no yeast and take a ${this.gear}`)
+//   }
+// }
+
+// let oatMilkFlatBread = new flatBread('wheat flour', 'oat milk', 'no yeast', 'pan')
+
+// let ryeBread = new Bread('rye', 'water', 'dry yeast')
+
+// console.log(ryeBread.mixBread())
+
+// console.log(oatMilkFlatBread)
+// console.log(oatMilkFlatBread.makeFlat())
+// console.log(oatMilkFlatBread.gear)
