@@ -201,10 +201,10 @@ let l = br.length-1;
 class Contractor {
   constructor(name, role) {
     this._name = name;
-    this._role = role;
+    this._role = role;  //without underscore after "this." returns an error
     }
 
-    get name(){ 
+    get name(){   // without the getter returns undefined
       return this._name
     } 
 
@@ -224,12 +224,13 @@ class Front extends Contractor{
     this._tech = tech;
     this._role = 'front';
   }
+
   get tech() {
     return this._tech
   }
 
   sayHello() {
-    console.log(`hello, I'm ${this._name} and i work on the ${this._role} end and i write cool ${this._tech}`)
+    console.log(`hello, I'm ${this._name}, I work on the ${this._role} end and I write cool ${this._tech}`)
   }
 }
 
@@ -244,55 +245,69 @@ class Back extends Contractor {
 
   sayHello() {
     console.log(
-      `hello, I'm ${this._name} and i work on the back end and i write cool ${this._tech}`
+      `hello, I'm ${this._name}, I work on the back end and I write cool ${this._tech}`
     );
   }
 }
 
 
-let keech = new Front ('keechy', 'front', 'javascript')
-// console.log(keech.sayHello());
-// console.log(keech)
+// let keech = new Front ('keechy', 'front', 'javascript')
+// // console.log(keech.sayHello());
+
 
 // let poozh = new Back ('poozha', 'back', 'node')
 
-// console.log(keech.sayHello())
-// console.log(poozh.sayHello());
+// console.log(keech.name)
+// console.log(poozh.role);
 
-// class Bread {
-//   constructor(flour, liquid, yeast) {
-//     this.flour = flour;
-//     this.liquid = liquid;
-//     this.yeast = yeast;
-//   }
 
-//   mixBread() {
-//     console.log(
-//       `add ${this.liquid} to ${this.flour} with a little ${this.yeast}`
-//     );
-//   }
-// }
 
-// class flatBread extends Bread {
-//   constructor(flour, liquid, yeast, gear){
-//     super(flour, liquid, yeast)
-//     this.gear = gear;
-//   }
+class Bread {
+  constructor(flour, liquid, yeast) {
+    this._flour = flour;
+    this._liquid = liquid;
+    this._yeast = yeast;
+  }
 
-//   makeFlat(){
-//     console.log(`add any flour to oat milk with no yeast and take a ${this.gear}`)
-//   }
-// }
+  get flour() {
+    return this._flour
+  }
 
-// let oatMilkFlatBread = new flatBread('wheat flour', 'oat milk', 'no yeast', 'pan')
+  get liquid() {
+    return this._liquid
+  }
 
-// let ryeBread = new Bread('rye', 'water', 'dry yeast')
+  get yeast() {
+    return this._yeast
+  }
 
-// console.log(ryeBread.mixBread())
+  mixBread() {
+    console.log(`add ${this._liquid} to ${this._flour} with a little ${this._yeast}`);
+  }
+}
 
-// console.log(oatMilkFlatBread)
-// console.log(oatMilkFlatBread.makeFlat())
-// console.log(oatMilkFlatBread.gear)
+class flatBread extends Bread {
+  constructor(flour, liquid, yeast, gear){
+    super(flour, liquid, yeast)
+    this._gear = gear;
+  }
+
+  get gear() {
+    return this._gear
+  }
+
+  makeFlat(){
+    console.log(`add any flour to oat milk with no yeast and take a ${this._gear}`)
+  }
+}
+
+let oatMilkFlatBread = new flatBread('wheat flour', 'oat milk', 'no yeast', 'pan');
+
+let ryeBread = new Bread('rye flour', 'water', 'dry yeast');
+
+console.log(oatMilkFlatBread.gear)
+console.log(oatMilkFlatBread.flour);
+console.log(ryeBread.mixBread())
 
 // function addItem(item, arr = []) {
 //   arr.push(item);
@@ -302,43 +317,43 @@ let keech = new Front ('keechy', 'front', 'javascript')
 // addItem('foo')
 // addItem('bar')
 
-let upperBody = {
-  head: [
-    {
-      ears: 2,
-      nose: 'alright',
-      cheeks(){
-        return 'not to be confused with buttcheeks'
-      }
-    },
-    {
-      mouth: 'opens when needed',
-      speak() {
-        if(this.mouth){
-          console.log(`mouth ${this.mouth}, good job!`)
-        }
+// let upperBody = {
+//   head: [
+//     {
+//       ears: 2,
+//       nose: 'alright',
+//       cheeks(){
+//         return 'not to be confused with buttcheeks'
+//       }
+//     },
+//     {
+//       mouth: 'opens when needed',
+//       speak() {
+//         if(this.mouth){
+//           console.log(`mouth ${this.mouth}, good job!`)
+//         }
 
-      }
-    }
-  ],
-  shoulders: 'wide',
-  arms: 'flappy',
-  torso: 'flexible'
-}
+//       }
+//     }
+//   ],
+//   shoulders: 'wide',
+//   arms: 'flappy',
+//   torso: 'flexible'
+// }
 
-let lowerBody = {
-  pelvis: 'mobile',
-  legs: 'strong',
-  feet: 'piscean'
-}
+// let lowerBody = {
+//   pelvis: 'mobile',
+//   legs: 'strong',
+//   feet: 'piscean'
+// }
 
-let body = {...upperBody, ...lowerBody, hasSoul: false, tellMeMore(){
-  return `the torso is ${this.torso} while arms are ${this.arms} and the pevis is quite ${this.pelvis}. ${this.head[0].cheeks()}`
-} };
+// let body = {...upperBody, ...lowerBody, hasSoul: false, tellMeMore(){
+//   return `the torso is ${this.torso} while arms are ${this.arms} and the pevis is quite ${this.pelvis}. ${this.head[0].cheeks()}`
+// } };
 
-console.log(body.tellMeMore())
+// console.log(body.tellMeMore())
 
-let clone = Object.assign({chill: true}, body);
+// let clone = Object.assign({chill: true}, body);
 
-console.log(clone.head[1].speak());
+// console.log(clone.head[1].speak());
 
