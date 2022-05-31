@@ -197,11 +197,11 @@ let l = br.length-1;
 
 // validBraces('{{{[][(){}]]}}}')
 
-
+/////
 class Contractor {
   constructor(name, role) {
-    this._name = name;
-    this._role = role;  //without underscore after "this." returns an error
+    this._name = name;  // <-
+    this._role = role;  // <--private properties . without underscore after "this." returns an error
     }
 
     get name(){   // without the getter returns undefined
@@ -237,7 +237,7 @@ class Front extends Contractor{
 class Back extends Contractor {
   constructor(name, role, tech) {
     super(name, role);
-    this._tech = tech;
+    this._tech = tech;  
   }
   get tech() {
     return this._tech;
@@ -251,16 +251,12 @@ class Back extends Contractor {
 }
 
 
-// let keech = new Front ('keechy', 'front', 'javascript')
-// // console.log(keech.sayHello());
+let keech = new Front ('keechy', 'front', 'javascript')
+let poozh = new Back ('poozha', 'back', 'node')
 
 
-// let poozh = new Back ('poozha', 'back', 'node')
 
-// console.log(keech.name)
-// console.log(poozh.role);
-
-
+/////
 
 class Bread {
   constructor(flour, liquid, yeast) {
@@ -270,20 +266,27 @@ class Bread {
   }
 
   get flour() {
-    return this._flour
+    return this._flour;
   }
 
   get liquid() {
-    return this._liquid
+    return this._liquid;
   }
 
   get yeast() {
-    return this._yeast
+    return this._yeast;
   }
 
   mixBread() {
-    console.log(`add ${this._liquid} to ${this._flour} with a little ${this._yeast}`);
+    console.log(
+      `add ${this._liquid} to ${this._flour} with a little ${this._yeast}`
+    );
   }
+
+  hasSesame() {
+    return `I'm ${this._flour} bread and I have sesame!`;
+  }
+
 }
 
 class flatBread extends Bread {
@@ -305,9 +308,13 @@ let oatMilkFlatBread = new flatBread('wheat flour', 'oat milk', 'no yeast', 'pan
 
 let ryeBread = new Bread('rye flour', 'water', 'dry yeast');
 
-console.log(oatMilkFlatBread.gear)
-console.log(oatMilkFlatBread.flour);
-console.log(ryeBread.mixBread())
+const assortment = [oatMilkFlatBread, ryeBread];
+
+for (bun of assortment) {
+  bun.hasSesame()
+}
+
+////
 
 // function addItem(item, arr = []) {
 //   arr.push(item);
@@ -317,43 +324,64 @@ console.log(ryeBread.mixBread())
 // addItem('foo')
 // addItem('bar')
 
-// let upperBody = {
-//   head: [
-//     {
-//       ears: 2,
-//       nose: 'alright',
-//       cheeks(){
-//         return 'not to be confused with buttcheeks'
-//       }
-//     },
-//     {
-//       mouth: 'opens when needed',
-//       speak() {
-//         if(this.mouth){
-//           console.log(`mouth ${this.mouth}, good job!`)
-//         }
+////
 
-//       }
-//     }
-//   ],
-//   shoulders: 'wide',
-//   arms: 'flappy',
-//   torso: 'flexible'
+let upperBody = {
+  head: [
+    {
+      ears: 2,
+      nose: 'alright',
+      cheeks(){
+        return 'not to be confused with buttcheeks'
+      }
+    },
+    {
+      mouth: 'opens when needed',
+      speak() {
+        if(this.mouth){
+          console.log(`mouth ${this.mouth}, good job!`)
+        }
+
+      }
+    }
+  ],
+  shoulders: 'wide',
+  arms: 'flappy',
+  torso: 'flexible'
+}
+
+let lowerBody = {
+  pelvis: 'mobile',
+  legs: 'strong',
+  feet: 'piscean'
+}
+
+let body = {
+  ...upperBody, 
+  ...lowerBody, 
+  "has Soul": false, 
+  tellMeMore(){
+  return `the torso is ${this.torso} while arms are ${this.arms} and the pevis is quite ${this.pelvis}. ${this.head[0].cheeks()}`
+  } 
+};
+
+let clone = Object.assign({}, body);  // shallow copy
+let deepClone = JSON.parse(JSON.stringify(body)); // deep copy? does not get methods
+
+// delete clone.pelvis;
+
+
+// for (key in clone){
+//   console.log(`${key} : ${clone[key]}`)
 // }
 
-// let lowerBody = {
-//   pelvis: 'mobile',
-//   legs: 'strong',
-//   feet: 'piscean'
-// }
-
-// let body = {...upperBody, ...lowerBody, hasSoul: false, tellMeMore(){
-//   return `the torso is ${this.torso} while arms are ${this.arms} and the pevis is quite ${this.pelvis}. ${this.head[0].cheeks()}`
-// } };
 
 // console.log(body.tellMeMore())
-
-// let clone = Object.assign({chill: true}, body);
-
 // console.log(clone.head[1].speak());
+
+
+
+console.log(clone)
+
+console.log(deepClone)
 
