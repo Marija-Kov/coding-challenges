@@ -379,11 +379,12 @@ let deepClone = JSON.parse(JSON.stringify(body)); // deep copy? does not get met
 // console.log(body.tellMeMore())
 // console.log(clone.head[1].speak());
 
-document.querySelector('button'). addEventListener('click', getFetch);
+let btn = document.querySelector('button');
+btn.addEventListener('click', getFetch);
 
 function getFetch(){
 let choice = document.querySelector('input').value;
-let url = ''+choice
+let url = `https://api.nasa.gov/planetary/apod?api_key=UZFUhnbzOzEyEcXZQNXcWHmzlq6af93DHddH1BOU `;
 
 fetch(url)
   .then(response => {
@@ -399,3 +400,5 @@ fetch(url)
   .catch(err => console.log(err))
 
 }
+
+getFetch()
