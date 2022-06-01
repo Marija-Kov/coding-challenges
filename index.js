@@ -379,9 +379,23 @@ let deepClone = JSON.parse(JSON.stringify(body)); // deep copy? does not get met
 // console.log(body.tellMeMore())
 // console.log(clone.head[1].speak());
 
+document.querySelector('button'). addEventListener('click', getFetch);
 
+function getFetch(){
+let choice = document.querySelector('input').value;
+let url = ''+choice
 
-console.log(clone)
+fetch(url)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    } else {
+      return response.json();
+    }
+  })
+  .then((data) => {
+    console.log(data);
+  })
+  .catch(err => console.log(err))
 
-console.log(deepClone)
-
+}
