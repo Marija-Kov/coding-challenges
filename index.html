@@ -5,102 +5,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-    <title>Frontend Mentor | Interactive rating component</title>
+    <title>Sandbox</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
+    
 </head>
 
-<body style="display: flex; justify-content: center; align-items: center">
-
-    <input type="text" style=" border-radius: 0; width: 150px">
-    <button style="background: pink; color: black; margin: 0 30px">GET</button>
-
-    <h1 style="color: pink;">Picture of the day</h1>
-
-    <div class="container" style="position: absolute;  top: 40%; border: solid 1px white; height: 40vh; width: 80wv; display: flex; justify-content: center; align-content: center">
-        <img src="" alt="">
-        <h3 style="color: white">Explanation</h3>
-</div>
+<body style="font-family: sans-serif; display: flex; flex-direction: column; gap: 1vh; align-items: center; background: rgb(44, 44, 44); color: rgb(224, 212, 255)">
 
     
 
-    <!-- <div id="card">
+    <h1>Picture of the day</h1>
 
-        <div id="one" class="rows"><img src="images/icon-star.svg"></div>
-        <div id="two" class="rows">How did we do ?</div>
-        <div id="three" class="rows"> Please let us know how we did with your support request. All feedback is
-            appreciated
-            to help us improve our offering!</div>
+    <input type="date" style=" border-radius: 0; width: 150px">
 
-        <div id="four" class="rows" >
-               <form>
-                <input name="in" label="1" type="radio" value="1" class="btn">
-                <input name="in" label="2" type="radio" value="2" class="btn">
-                <input name="in" label="3" type="radio" value="3" class="btn">
-                <input name="in" label="4" type="radio" value="4" class="btn">
-                <input name="in" label="5" type="radio" value="5" class="btn">
-               </form>
-        </div>
+    <button style="background: pink; color: black; ">GET</button>
 
-        <div id="five" class="rows"><button class="submit" type="submit" >SUBMIT</button></div>
-
-    </div>
-
-    <div id="thankyoucard">
-
-        <div id="onee" class="rows2"><img class="illthankyou" src="images/illustration-thank-you.svg"></div>
-        <div id="twoo" class="rows2"></div>
-        <div id="threee" class="rows2">Thank You</div>
-        <div id="fourr" class="rows2">We appreciate you taking the time to give a rating. If you ever need more support,
-            don’t hesitate to get in touch!</div>
-
+    <div class="container" style="position: absolute; top: 30%; max-width: 80vw; background: rgb(27, 27, 27); border-radius: 0.5em; height: fit-content; display: flex; flex-direction: column; align-items: center; margin-bottom: 3em">
+        <img src="" alt="" style="display: none; width: 80vw; border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;">
+        <video src="" style="display: none; width: 80vw; border-top-left-radius: 0.5em; border-top-right-radius: 0.5em;"></video>
+        <h5 style=" padding: 10vh 10vw; font-size: clamp(12px, 1vw, 16px)">Explanation</h5>
     </div>
 
 
-    <script>
-      let options = Array.from(document.getElementsByClassName("btn"));
-      let submit = document.querySelector(".submit");
-      let showSelection = document.getElementById("twoo"); 
 
-      function selectOption() {
-          options.forEach(option => {
-              if (option.checked){
-                  initSubmit(option)
-              }
-          })
-      }
-      function initSubmit(option){
-          submit.addEventListener('click', ()=> {
-           showSelection.innerText = "You selected " + option.value + " out of 5 ";
-           document.getElementById("card").style = "visibility:hidden";
-           document.getElementById("thankyoucard").style = "visibility:visible";   
-          })
-      } -->
-<!-- 
-    // function myfunction() {
+<script>
+    let btn = document.querySelector('button');
+    btn.addEventListener('click', getFetch);
 
-    //         document.getElementById("card").style = "visibility:hidden";
-    //         document.getElementById("thankyoucard").style = "visibility:visible";
+    function getFetch() {
+        let choice = document.querySelector('input').value;
+        let url = `https://api.nasa.gov/planetary/apod?api_key=UZFUhnbzOzEyEcXZQNXcWHmzlq6af93DHddH1BOU&date=${choice} `;
 
+        fetch(url)
+            .then(response => {
+             return response.json();    
+            })
+            .then((data) => {
+                console.log(data);
+                if(data.media_type === 'image'){
+                document.querySelector('img').style.display = "block"; 
+                document.querySelector('img').src = data.hdurl;   
+                }else if(data.media_type === 'video'){
+                document.querySelector('video').style.display = "block";   
+                document.querySelector('img').src = data.url;
+                }
 
-    //         for (let i = 0; i < document.forms[0].in.length; i++) {
+                document.querySelector('h5').innerText = data.explanation;
+            })
+            .catch(err => console.log(`Error! --> ${err}`))
 
-    //             if (document.forms[0].in[i].checked){
-    //                  let radiovalue = document.forms[0].in[i].value; }
+    }
 
-    //         }
+    getFetch()
 
-    //         document.getElementById('twoo').innerHTML = " You selected " + radiovalue + " out of 5 ";
+</script> 
 
-    //     } -->
      
-      
-      
-
-    </script>
-
 </body>
 
-</html>
+</html>      
+      
+
+
