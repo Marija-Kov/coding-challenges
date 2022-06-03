@@ -35,11 +35,27 @@
 //make sure that refreshing the page once some cards have been drawn does not overwrite the deck with '' (previously, deckId was assigned '' globally)
 //which is solved by making deckId take the value of deckId item from the localStorage with each page load!
 
-
+        let pl1Card = document.querySelector('#pl1'); 
+        let pl2Card = document.querySelector('#pl2');
         let deckId = localStorage.getItem('deckId');
-        console.log(deckId);
+        let player1Card = localStorage.getItem('player1Card'); //will return error 404 at the start of the game (before any cards are drawn) which is ugly but harmless i.e. doesn't cause any bugs later on
+        let player2Card = localStorage.getItem('player2Card');
 
-        localStorage.getItem('deckId') ?
+        if(!player1Card || !player2Card){     // this conditional 'takes care' of the 404 error at the start of the game
+            console.log(`Let's start the Wharr!`)
+        } else {
+        pl1Card.src = player1Card;
+        pl2Card.src = player2Card;
+        }
+        
+
+        console.log(deckId);
+        console.log(player1Card);
+        console.log(player2Card);
+        
+
+
+        localStorage.getItem('deckId')?
          null : 
               fetch('https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
                 .then(response => {
@@ -75,8 +91,14 @@
                 })
                 .then((data) => {
                     console.log(data);
-                    document.querySelector('#pl1').src = data.cards[0].image;
-                    document.querySelector('#pl2').src = data.cards[1].image;
+                    pl1Card.src = data.cards[0].image;
+                    pl2Card.src = data.cards[1].image;
+                    player1Card = data.cards[0].image;
+                    player2Card = data.cards[1].image;
+                    localStorage.setItem('player1Card', data.cards[0].image);
+                    localStorage.setItem('player2Card', data.cards[1].image);
+                    localStorage.setItem('pl1Card', data.cards[0].code);
+                    localStorage.setItem('pl2Card', data.cards[1].code);
                     if (data.remaining === 0){
                         btnNewDeck.click()
                     }
