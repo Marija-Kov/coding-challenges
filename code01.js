@@ -10,7 +10,7 @@ function likes(names) {
 
   //some questions:
   //will the array contain only strings?
-  //how do I handle the non-string values in the array?
+  //how do I handle the non-string values in the array? Filter them out? Replace them?
 
 
   if (names.length === 0){

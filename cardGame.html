@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <title>Wharr</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+<h1>Card Game</h1>
+
+<button id="deal">Deal 2 Cards</button>
+<button id="newDeck">Start Over</button>
+<h2>Player 1</h2>
+<img id="pl1" src="" alt="playing card">
+<h2>Player 2</h2>
+<img id="pl2" src="" alt="playing card">
+
+    <script>
+
+
+//make sure the game is not restarted on refresh?
+//check if there is an existing deck of card before the fetch
+//if yes, do nothing
+//if no fetch a deck of cards
+
+//make sure that refreshing the page once some cards have been drawn does not overwrite the deck with '' 
+//which is solved by making deckId take the value of deckId item from the localStorage with each page load!
+
+
+        let deckId = localStorage.getItem('deckId');
+        console.log(deckId);
+
+        localStorage.getItem('deckId') ?
+         null : 
+              fetch('https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
+                .then(response => {
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    deckId = data.deck_id;
+                    console.log(deckId)
+                    localStorage.setItem('deckId', data.deck_id)
+                    
+                })
+                .catch(err => console.log(`Error! ${err}`))
+            
+    
+         
+
+        let btnDeal = document.querySelector('#deal');
+        btnDeal.addEventListener('click', draw2);
+        
+        let btnNewDeck = document.querySelector('#newDeck');
+        btnNewDeck.addEventListener('click', ()=> {
+            localStorage.clear();
+            window.location.reload()
+        })
+        
+
+        function draw2() {
+            let url = `https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=2`
+            fetch(url)
+                .then(response => {
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                    document.querySelector('#pl1').src = data.cards[0].image;
+                    document.querySelector('#pl2').src = data.cards[1].image;
+                    if (data.remaining === 0){
+                        btnNewDeck.click()
+                    }
+
+                })
+                .catch(err => console.log(`Error! ${err}`))
+
+        }
+         
+       
+
+    </script>
+
+
+</body>
+
+</html>

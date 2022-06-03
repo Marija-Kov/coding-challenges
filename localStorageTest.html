@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,9 @@
  <p>Score</p>
 
   <script>
-
+//localStorageTest.html -- demonstrates how the browser saves the user input in the local storage 
+//on click, it checks whether the botScore property exists
+//if botScore doesn't exist, it is created and set to 0
     let btn = document.querySelector('button');
     
     btn.addEventListener('click', addMore);
@@ -20,9 +23,9 @@
     
 
     function addMore() {
-      let botScoreVal = Number(localStorage.getItem('botScore'));
-      botScoreVal += 1;
-      localStorage.setItem('botScore', botScoreVal)
+      let botScoreVal = Number(localStorage.getItem('botScore')); //get botScore from localStorage and store it in botScoreVal
+      botScoreVal += 1;  
+      localStorage.setItem('botScore', botScoreVal) 
       
     }
 
