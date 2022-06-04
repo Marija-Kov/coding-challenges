@@ -27,8 +27,20 @@ function likes(names) {
 
 }
 
-likes([])
-likes(["keech"]);
-likes(["keech", "poozh"]);
-likes(["keech", "poozh", "cecee"]);
-likes(["keech", "poozh", "cecee", "pij", "chook", "woo"]);
+// likes([])
+// likes(["keech"]);
+// likes(["keech", "poozh"]);
+// likes(["keech", "poozh", "cecee"]);
+// likes(["keech", "poozh", "cecee", "pij", "chook", "woo"]);
+
+document.addEventListener('click', e => {
+ console.log(`you clicked on the ${e.target.tagName} element`);
+ console.log(`${e.clientX}px away from the left edge of the body element of the page (clientX)`);
+ console.log(`${e.pageX}px away from the left edge of the body element of the page (pageX)`);
+ console.log(`${e.screenX}px away from the left edge of your screen (screenX)`);
+ console.log(
+   `${e.offsetX}px away from the left edge of the ${e.target.tagName}(offsetX)`
+ );
+})
+    
+
