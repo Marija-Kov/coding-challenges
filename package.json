@@ -1,0 +1,26 @@
+
+
+{
+  "type": "module",
+  "name": "sandbox",
+  "version": "1.0.0",
+  "description": "This is my sandbox repository for coding challenges and tryouts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marija-Kov/sandbox.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Marija-Kov/sandbox/issues"
+  },
+  "homepage": "https://github.com/Marija-Kov/sandbox#readme",
+  "dependencies": {
+    "node-fetch": "^3.2.5"
+  }
+}

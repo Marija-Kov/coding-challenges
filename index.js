@@ -351,9 +351,9 @@ let upperBody = {
 }
 
 let lowerBody = {
-  pelvis: 'mobile',
-  legs: 'strong',
-  feet: 'piscean'
+  'pelvis': 'mobile',
+  'legs': 'strong',
+  'feet': ['piscean', 3, 'flappy']
 }
 
 let body = {
@@ -377,7 +377,7 @@ let deepClone = JSON.parse(JSON.stringify(body)); // deep copy? does not get met
 
 
 // console.log(body.tellMeMore())
-// console.log(clone.head[1].speak());
-
+console.log(deepClone.feet);
+console.log(clone.feet[0]);
 ////
 

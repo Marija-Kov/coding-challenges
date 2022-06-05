@@ -1,5 +1,7 @@
 // JUNE 2022
 
+import fetch from 'node-fetch';
+
 function likes(names) {
   //takes in array of names
   //if array is empty, return: "no one likes this"
@@ -33,14 +35,32 @@ function likes(names) {
 // likes(["keech", "poozh", "cecee"]);
 // likes(["keech", "poozh", "cecee", "pij", "chook", "woo"]);
 
-document.addEventListener('click', e => {
- console.log(`you clicked on the ${e.target.tagName} element`);
- console.log(`${e.clientX}px away from the left edge of the body element of the page (clientX)`);
- console.log(`${e.pageX}px away from the left edge of the body element of the page (pageX)`);
- console.log(`${e.screenX}px away from the left edge of your screen (screenX)`);
- console.log(
-   `${e.offsetX}px away from the left edge of the ${e.target.tagName}(offsetX)`
- );
-})
-    
 
+// let arr = [];
+// let v2 = arr.push(7);
+
+// console.log(arr)
+// console.log(v2)
+
+
+
+async function getDeck(){
+  try {
+    let response = await fetch(  //** 
+      "https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
+    );
+    if (!response.ok) {
+      throw new Error(`Error! status: ${response.status}`);
+    }
+    // console.log(response);  // this logs a 'raw' Response object 
+    const result = await response.json();
+     console.log(result); 
+  } catch (err) {
+    console.log(err);
+     }
+
+}
+
+//** Encountered an error "fetch is not defined". Found the solution here: https://everythingfla.com/javascript-fetch-is-not-defined/
+
+getDeck()
