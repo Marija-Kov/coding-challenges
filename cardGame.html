@@ -27,8 +27,8 @@
     <script>
 
 
-//make sure the game is not restarted on refresh?
-//check if there is an existing deck of card before the fetch
+//make sure the game is not restarted on refresh
+//check if there is an existing deck of cards before the fetch
 //if yes, do nothing
 //if no fetch a deck of cards
 
@@ -43,9 +43,9 @@
         let pl1Points;
         let pl2Points;
 
-        if(!localStorage.getItem('pl1Points') || !localStorage.getItem('pl2Points')){
+        if(!localStorage.getItem('pl1Points') || !localStorage.getItem('pl2Points')){ 
         pl1Points = 0;
-        pl2Points = 0;
+        pl2Points = 0;    // only set points to 0 at the beginning if there's no points alreadu in the local storage
         }else{
             pl1Points = localStorage.getItem('pl1Points');
             pl2Points = localStorage.getItem('pl2Points');
@@ -65,7 +65,7 @@
         
 
 
-        localStorage.getItem('deckId')?
+        localStorage.getItem('deckId')?  // checks if there's a deck of cards in use
          null : 
               fetch('https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
                 .then(response => {
@@ -84,12 +84,12 @@
          
 
         let btnDeal = document.querySelector('#deal');
-        btnDeal.addEventListener('click', draw2);
+        btnDeal.addEventListener('click', draw2); 
         
-        let btnNewDeck = document.querySelector('#newDeck');
-        btnNewDeck.addEventListener('click', ()=> {
+        let btnNewDeck = document.querySelector('#newDeck'); 
+        btnNewDeck.addEventListener('click', ()=> { 
             localStorage.clear();
-            window.location.reload()
+            window.location.reload() 
         })
         
 
@@ -111,7 +111,7 @@
                     localStorage.setItem('pl2Card', data.cards[1].value);
                     let pl1Val = convertToNumber(data.cards[0].value);
                     let pl2Val = convertToNumber(data.cards[1].value);
-                    if(pl1Val > pl2Val){
+                    if(pl1Val > pl2Val){ //compares two cards on the table
                     localStorage.setItem('pl1Points', ++pl1Points)
                        console.log(`Player1: ${++pl1Points}, Player2: ${pl2Points}`)  
                     } else if (pl1Val < pl2Val){
@@ -123,14 +123,12 @@
                     
 
 
-                    if (data.remaining === 0){
-
+                    if (data.remaining === 0){  //displays the outcome of the game and restarts the game
                        pl1Points === pl2Points ?
                        console.log(`It's tied! But the Wharr will start over in a bit.`) :
                        pl1Points > pl2Points ?
                        console.log('Player1 wins!  But the Wharr will start over in a bit.') :
                        console.log('Player2 wins!  But the Wharr will start over in a bit.') ;
-                       
                        setTimeout(() =>  {btnNewDeck.click()}, 5000)
                       
                     }
@@ -140,8 +138,8 @@
 
         }
          
-       function convertToNumber(val){
-           if(val ==='ACE'){
+       function convertToNumber(val){ //little helper function converts all string values to numbers
+           if(val ==='ACE'){          //also all text strings to numerical strings if needed
                return 14
            }else if(val === 'KING'){
                return 13
