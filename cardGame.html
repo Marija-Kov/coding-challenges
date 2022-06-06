@@ -40,6 +40,16 @@
         let deckId = localStorage.getItem('deckId');
         let player1Card = localStorage.getItem('player1Card'); //will return error 404 at the start of the game (before any cards are drawn) which is ugly but harmless i.e. doesn't cause any bugs later on
         let player2Card = localStorage.getItem('player2Card');
+        let pl1Points;
+        let pl2Points;
+
+        if(!localStorage.getItem('pl1Points') || !localStorage.getItem('pl2Points')){
+        pl1Points = 0;
+        pl2Points = 0;
+        }else{
+            pl1Points = localStorage.getItem('pl1Points');
+            pl2Points = localStorage.getItem('pl2Points');
+        }
 
         if(!player1Card || !player2Card){     // this conditional 'takes care' of the 404 error at the start of the game
             console.log(`Let's start the Wharr!`)
@@ -97,10 +107,32 @@
                     player2Card = data.cards[1].image;
                     localStorage.setItem('player1Card', data.cards[0].image);
                     localStorage.setItem('player2Card', data.cards[1].image);
-                    localStorage.setItem('pl1Card', data.cards[0].code);
-                    localStorage.setItem('pl2Card', data.cards[1].code);
+                    localStorage.setItem('pl1Card', data.cards[0].value);
+                    localStorage.setItem('pl2Card', data.cards[1].value);
+                    let pl1Val = convertToNumber(data.cards[0].value);
+                    let pl2Val = convertToNumber(data.cards[1].value);
+                    if(pl1Val > pl2Val){
+                    localStorage.setItem('pl1Points', ++pl1Points)
+                       console.log(`Player1: ${++pl1Points}, Player2: ${pl2Points}`)  
+                    } else if (pl1Val < pl2Val){
+                    localStorage.setItem('pl2Points', ++pl2Points)
+                    console.log(`Player1: ${pl1Points}, Player2: ${++pl2Points}`);
+                    }else{
+                        console.log('WHARR!')
+                    }
+                    
+
+
                     if (data.remaining === 0){
-                        btnNewDeck.click()
+
+                       pl1Points === pl2Points ?
+                       console.log(`It's tied! But the Wharr will start over in a bit.`) :
+                       pl1Points > pl2Points ?
+                       console.log('Player1 wins!  But the Wharr will start over in a bit.') :
+                       console.log('Player2 wins!  But the Wharr will start over in a bit.') ;
+                       
+                       setTimeout(() =>  {btnNewDeck.click()}, 5000)
+                      
                     }
 
                 })
@@ -108,7 +140,19 @@
 
         }
          
-       
+       function convertToNumber(val){
+           if(val ==='ACE'){
+               return 14
+           }else if(val === 'KING'){
+               return 13
+           }else if(val === 'QUEEN'){
+               return 12
+           }else if(val === 'JACK'){
+               return 11
+           }else{
+               return Number(val)
+           }
+       }
 
     </script>
 

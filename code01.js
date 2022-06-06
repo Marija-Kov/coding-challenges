@@ -61,6 +61,48 @@ async function getDeck(){
 
 }
 
-//** Encountered an error "fetch is not defined". Found the solution here: https://everythingfla.com/javascript-fetch-is-not-defined/
+//** Error: "fetch is not defined"? The solution here: https://everythingfla.com/javascript-fetch-is-not-defined/
 
-getDeck()
+
+
+
+/// CLONING 
+
+let greet = {
+    esp: 'hola',
+    eng: 'hi',
+
+    sayHi(){
+        return `${this.esp} is ${this.eng} in Spanish`
+    }
+
+} 
+
+// console.log(greet)
+// greet();
+
+let copy = greet.toString()
+let arr = Array.from(copy);
+let copy2 = Object.assign({}, greet);
+//console.log(copy);
+//console.log(arr);
+//console.log(copy2); // {}
+//console.log(copy2()); //TypeError: not a function
+
+function deepClone(greet) {
+  
+  if (!greet) return greet;
+
+  let greetCopy = Array.isArray(greet) ? [] : {};
+
+  let value;
+  for (const key in greet) {
+    if (Object.is(greet[key], greet)) continue;
+    value = greet[key];
+    greetCopy[key] = typeof value === "object" ? copy(value) : value;
+  }
+
+  console.log(greetCopy);
+}
+
+deepClone(greet)
