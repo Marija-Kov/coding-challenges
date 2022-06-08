@@ -105,4 +105,35 @@ function deepClone(greet) {
   console.log(greetCopy);
 }
 
-deepClone(greet)
+// deepClone(greet)
+
+
+
+function isValidWalk(walk) {
+  //walk is always an array of 10 one-alphabet-letter strings that can only be 'n', 's', 'w' and/or 'e'
+  //walk is valid if for each 'n' there is an 's' and for each 'w' an 'e'
+if (walk.length ==! 10){
+  return false
+}else if(walk.length === 10){
+  let north = 0;let south = 0;let west = 0;let east = 0;
+  for (let i = 0; i<10; ++i){
+  if (walk[i] === "n") {
+    ++north;
+  } else if (walk[i] === "s") {
+    ++south;
+  } else if (walk[i] === "w") {
+    ++west;
+  } else if (walk[i] === "e") {
+    ++east;
+  }
+  }
+  if((north === south) && (west === east)){
+    return true
+  }else{
+    return false
+  }
+}
+
+}
+
+console.log([...walk])
