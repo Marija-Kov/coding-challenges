@@ -112,28 +112,24 @@ function deepClone(greet) {
 function isValidWalk(walk) {
   //walk is always an array of 10 one-alphabet-letter strings that can only be 'n', 's', 'w' and/or 'e'
   //walk is valid if for each 'n' there is an 's' and for each 'w' an 'e'
-if (walk.length ==! 10){
-  return false
-}else if(walk.length === 10){
-  let north = 0;let south = 0;let west = 0;let east = 0;
-  for (let i = 0; i<10; ++i){
-  if (walk[i] === "n") {
-    ++north;
-  } else if (walk[i] === "s") {
-    ++south;
-  } else if (walk[i] === "w") {
-    ++west;
-  } else if (walk[i] === "e") {
-    ++east;
+if (walk.length == !10) {
+  return false;
+} else if (walk.length === 10) {
+  let north = 0; let south = 0; let west = 0; let east = 0;
+  for (let i = 0; i<10; ++i) {
+    if (walk[i] === "n") {
+      ++north; console.log('n')
+    } else if (walk[i] === "s") {
+      ++south; console.log('s');
+    } else if (walk[i] === "w") {
+      ++west; console.log('w');
+    } else if (walk[i] === "e") {
+      ++east; console.log('e');
+    }
   }
-  }
-  if((north === south) && (west === east)){
-    return true
-  }else{
-    return false
-  }
+  return north === south && west === east;
 }
 
 }
 
-console.log([...walk])
+console.log(isValidWalk(["n", "n", "n", "s", "n", "s", "n", "s", "n", "s"]));
