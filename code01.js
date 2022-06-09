@@ -131,4 +131,15 @@ return false
 
 }
 
-console.log(isValidWalk(["n", "n", "n", "s", "n", "s", "n", "s", "n", "s"]));
+function countRice(){
+  //array members will always be numbers
+  let sum = 1;
+  let chessboard = [1];
+  for(let i = 1; i<64; ++i){
+   chessboard.push(chessboard[i-1]*2);
+   sum += chessboard[i - 1] * 2;
+ }
+ console.log(chessboard, sum, chessboard.length)
+}
+
+countRice()
