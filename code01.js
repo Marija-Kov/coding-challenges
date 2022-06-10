@@ -133,6 +133,7 @@ return false
 
 function countRice(){
   //array members will always be numbers
+  // for i = 2**[i]
   let sum = 1;
   let chessboard = [1];
   for(let i = 1; i<64; ++i){
@@ -142,4 +143,46 @@ function countRice(){
  console.log(chessboard, sum, chessboard.length)
 }
 
-countRice()
+function randomArray(){
+//will create an array of random integers 0 - 100
+let arr = [];
+for (let i = 0; i < 10; ++i){
+  let num = Math.round(Math.random()* 100); 
+  arr.push(num);
+}
+return arr
+}
+
+
+
+function ascending(arr){
+//array will only contain random integers from 0 to 100 
+//none of the integers will be the same
+let asc = [];
+let temp;
+for (let i = arr.length; i > 0; --i){
+  let n = arr[0];
+  let m = Math.min(...arr);
+  if (n < m){
+   asc = [...asc, n]
+  }else if(n > m){
+  asc = [...asc, m];
+   temp = n;
+   arr[0] = m;
+   arr[arr.indexOf(m)] = temp;
+   arr.slice(1);
+  } 
+  
+
+}
+console.log(asc)
+
+}
+
+//ascending([48, 25, 19, 92, 2]);
+
+//[2,]
+
+let arrrr = [1, 2, 3, 5];
+delete arrrr[0]
+console.log(arrrr);
