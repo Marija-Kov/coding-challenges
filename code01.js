@@ -143,7 +143,7 @@ function countRice(){
  console.log(chessboard, sum, chessboard.length)
 }
 
-function randomArray(){
+async function randomArray(){
 //will create an array of random integers 0 - 100
 let arr = [];
 for (let i = 0; i < 10; ++i){
@@ -154,32 +154,19 @@ return arr
 }
 
 
-
-function ascending(arr){
-//array will only contain random integers from 0 to 100 
-//none of the integers will be the same
-let asc = [];
-let len = arr.length;
-let i = 0;
-while (asc.length < len){
-  let n = arr[i];
+async function getMinIndex() {
+  let arr = await randomArray();
   let m = Math.min(...arr);
-  if (n < m){
-   asc = [...asc, n]
-   ++i;
-  }else if(n > m){
-  asc = [...asc, m];
-   arr[arr.indexOf(Math.min(...arr))] = Math.max(...arr);
-   ++i;
-  } 
-//will try again tomorrow
-}
-console.log(asc)
-
+  let iMin = arr.indexOf(m)
+  console.log(arr, m, iMin)
 }
 
-ascending([48, 25, 19, 92, 2]);
+// getMinIndex();
+
 
 let arrrr = [1, 2, 3, 5];
+let arr1 = [1, 2, 3, 5];
 delete arrrr[0] // unlike in object literals, where the whole key:value pair is deleted, only the value under the stated index is deleted - the length stays the same and everything else is where it was before the deletion 
+arr1.length = 3; // resizes the array removing / adding items from the end; the added items are empty items
+arr1.length = 10;
 
