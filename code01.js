@@ -170,3 +170,36 @@ delete arrrr[0] // unlike in object literals, where the whole key:value pair is 
 arr1.length = 3; // resizes the array removing / adding items from the end; the added items are empty items
 arr1.length = 10;
 
+
+
+function convertToString(input){
+
+  let converted;
+  if (typeof input === "number" || typeof input === "boolean") {
+    converted = `"${input}"`;
+  } else if (typeof input === "object") {
+    //assign empty array to converted
+    //loop through the array
+    //if val is a number, converted.push(val)
+    //if val is a string, converted.push( ** double quotes removed, single added : slice off the first)
+    converted = double2Single(input);
+  }
+  console.log(converted)
+}
+
+convertToString(Math.PI)
+convertToString(true)
+convertToString([1, 2, 3, "bleep"])
+
+function double2Single(arr){
+  let str = '';
+  for (let i = 0; i < arr.length; ++i){
+    if(typeof arr[i] === 'string'){
+    str += `'${arr[i]}', `
+    } else if ( typeof arr[i] === 'number'){
+      str += `${arr[i]}, `;
+    }
+  }
+  console.log(`[${str.slice(0, Number(str.length-2))}]`)
+}
+
