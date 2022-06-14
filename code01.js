@@ -209,6 +209,7 @@ collection[50] = 'a';
 console.log(collection);
 
 const another = new Array('a', 50);
+console.log(another);
 
 let url = `https://api.nasa.gov/planetary/apod?api_key=UZFUhnbzOzEyEcXZQNXcWHmzlq6af93DHddH1BOU&date=2022-04-22`;
 async function getData(){
