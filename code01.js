@@ -187,9 +187,9 @@ function convertToString(input){
   console.log(converted)
 }
 
-convertToString(Math.PI)
-convertToString(true)
-convertToString([1, 2, 3, "bleep"])
+// convertToString(Math.PI)
+// convertToString(true)
+// convertToString([1, 2, 3, "bleep"])
 
 function double2Single(arr){
   let str = '';
@@ -203,3 +203,18 @@ function double2Single(arr){
   console.log(`[${str.slice(0, Number(str.length-2))}]`)
 }
 
+const collection = [];
+collection.length = 100;
+collection[50] = 'a';
+console.log(collection);
+
+const another = new Array('a', 50);
+
+let url = `https://api.nasa.gov/planetary/apod?api_key=UZFUhnbzOzEyEcXZQNXcWHmzlq6af93DHddH1BOU&date=2022-04-22`;
+async function getData(){
+  let res = await fetch(url);
+  let data = await res.json();
+  console.log(res, data)
+}
+
+getData()
