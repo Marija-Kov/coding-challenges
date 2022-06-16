@@ -206,10 +206,10 @@ function double2Single(arr){
 const collection = [];
 collection.length = 100;
 collection[50] = 'a';
-console.log(collection);
+//console.log(collection);
 
 const another = new Array('a', 50);
-console.log(another);
+//console.log(another);
 
 let url = `https://api.nasa.gov/planetary/apod?api_key=UZFUhnbzOzEyEcXZQNXcWHmzlq6af93DHddH1BOU&date=2022-04-22`;
 async function getData(){
@@ -218,4 +218,9 @@ async function getData(){
   console.log(res, data)
 }
 
-getData()
+
+let keech = "poozh"
+
+
+console.log(keech.charCodeAt(3))
+console.log(String.fromCharCode(80, 111, 111, 122, 104))
