@@ -203,12 +203,12 @@ function double2Single(arr){
   console.log(`[${str.slice(0, Number(str.length-2))}]`)
 }
 
-const collection = [];
+const collection = []; // array literal
 collection.length = 100;
 collection[50] = 'a';
 //console.log(collection);
 
-const another = new Array('a', 50);
+const another = new Array('a', 50);  //constructor
 //console.log(another);
 
 let url = `https://api.nasa.gov/planetary/apod?api_key=UZFUhnbzOzEyEcXZQNXcWHmzlq6af93DHddH1BOU&date=2022-04-22`;
@@ -219,8 +219,26 @@ async function getData(){
 }
 
 
-let keech = "poozh"
+let keech = "poozh" //simple assignment
 
 
-console.log(keech.charCodeAt(3))
-console.log(String.fromCharCode(80, 111, 111, 122, 104))
+//console.log(keech.charCodeAt(3)) // ASCII code
+//console.log(String.fromCharCode(80, 111, 111, 122, 104)) 
+
+//on binding
+
+let spareRoom = {
+  shelf : 'book',
+  getBook : function() {
+    return `Please get me the ${this.shelf} from this shelf`
+  }
+}
+
+let livingRoom = spareRoom.getBook;
+
+
+let itsInTheSpareRoom = livingRoom.bind(spareRoom);
+console.log(`${itsInTheSpareRoom()}. But go to the spare room first, it's where the shelf is`)
+
+//console.log(livingRoom())
+console.log(`I've put a book on this shelf in the spare room. ${spareRoom.getBook()}`)
