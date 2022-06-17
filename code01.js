@@ -225,20 +225,50 @@ let keech = "poozh" //simple assignment
 //console.log(keech.charCodeAt(3)) // ASCII code
 //console.log(String.fromCharCode(80, 111, 111, 122, 104)) 
 
-//on binding
+//on .bind():
 
-let spareRoom = {
-  shelf : 'book',
+let spareRoom = {  
+  shelf : 'book', // there's a shelf in the spareRoom with a book on it
   getBook : function() {
     return `Please get me the ${this.shelf} from this shelf`
   }
 }
 
-let livingRoom = spareRoom.getBook;
+let livingRoom = spareRoom.getBook;  
+
+//console.log(livingRoom()) // imagine going to the livingRoom and asking about the book that you left on a shelf in a different room without being explicit about the location of the shelf (the name of the room) the book is on
 
 
-let itsInTheSpareRoom = livingRoom.bind(spareRoom);
-console.log(`${itsInTheSpareRoom()}. But go to the spare room first, it's where the shelf is`)
+let itsInTheSpareRoom = livingRoom.bind(spareRoom); // binding context(.bind(context)) is like specifying where the shelf the book you're asking for is on (spareRoom)
+console.log(`${itsInTheSpareRoom()}. But go to the spareRoom first, it's where the shelf is`)
 
 //console.log(livingRoom())
-console.log(`I've put a book on this shelf in the spare room. ${spareRoom.getBook()}`)
+//console.log(`I've put a book on this shelf in the spare room. ${spareRoom.getBook()}`)
+
+let c = [1, 2, 3, 4]
+
+function* generateY(){
+  yield 1;
+  yield 2; 
+  yield 3;
+  yield 4;
+}
+function* generateS(){
+  let len = c.length;
+for (let i = 0; i < len; ++i){
+  yield c[i]
+}
+return
+}
+let gen1 = generateY();
+let gen = generateS()
+console.log(gen.next())
+console.log(gen.next());
+console.log(gen.next());
+console.log(gen.next());
+
+console.log(gen1.next());
+console.log(gen1.next());
+console.log(gen1.next());
+console.log(gen1.next());
+console.log(gen1.next());
