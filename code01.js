@@ -240,7 +240,7 @@ let livingRoom = spareRoom.getBook;
 
 
 let itsInTheSpareRoom = livingRoom.bind(spareRoom); // binding context(.bind(context)) is like specifying where the shelf the book you're asking for is on (spareRoom)
-console.log(`${itsInTheSpareRoom()}. But go to the spareRoom first, it's where the shelf is`)
+//console.log(`${itsInTheSpareRoom()}. But go to the spareRoom first, it's where the shelf is`)
 
 //console.log(livingRoom())
 //console.log(`I've put a book on this shelf in the spare room. ${spareRoom.getBook()}`)
@@ -262,13 +262,9 @@ return
 }
 let gen1 = generateY();
 let gen = generateS()
-console.log(gen.next())
-console.log(gen.next());
-console.log(gen.next());
-console.log(gen.next());
 
-console.log(gen1.next());
-console.log(gen1.next());
-console.log(gen1.next());
-console.log(gen1.next());
-console.log(gen1.next());
+let keechy = { color: "blue"};
+let poozh = keechy;
+poozh.color = "yellow"
+//console.log(keechy) // {color: "yellow"}
+//console.log(poozh)  // {color: "yellow"}
