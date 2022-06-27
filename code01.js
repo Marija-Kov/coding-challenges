@@ -268,3 +268,4 @@ let poozh = keechy;
 poozh.color = "yellow"
 //console.log(keechy) // {color: "yellow"}
 //console.log(poozh)  // {color: "yellow"}
+
