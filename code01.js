@@ -225,7 +225,7 @@ let keech = "poozh" //simple assignment
 //console.log(keech.charCodeAt(3)) // ASCII code
 //console.log(String.fromCharCode(80, 111, 111, 122, 104)) 
 
-//on .bind():
+///////////on .bind():
 
 let spareRoom = {  
   shelf : 'book', // there's a shelf in the spareRoom with a book on it
@@ -266,6 +266,6 @@ let gen = generateS()
 let keechy = { color: "blue"};
 let poozh = keechy;
 poozh.color = "yellow"
-//console.log(keechy) // {color: "yellow"}
-//console.log(poozh)  // {color: "yellow"}
+console.log(keechy) // {color: "yellow"}
+console.log(poozh)  // {color: "yellow"}
 
