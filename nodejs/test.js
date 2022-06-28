@@ -17,9 +17,13 @@ const fs = require('fs');
 
 // console.log('last line')
 
-// fs.writeFile('./assets/msg3.txt', 'hello there', () => {
-//     console.log('file was written')
-// });
+fs.writeFile(
+  "/Users/marijak/Desktop/sandbox/nodejs2/views/partials/nav.ejs",
+  "hello there",
+  () => {
+    console.log("file was written");
+  }
+);
 
 // if (!fs.existsSync('./assets')) {
 // fs.mkdir('./assets', (err) => {
@@ -53,13 +57,13 @@ const fs = require('fs');
     // })
 // }
 
-// fs.unlink('./docs/mensaje2.txt', (err) => {
-//     err ? console.log(err) : console.log('deleted file');
+// fs.unlink("/Users/marijak/Desktop/sandbox/nodejs2/pages/page.html", (err) => {
+//   err ? console.log(err) : console.log("deleted file");
 // });
 
-const readStream = fs.createReadStream('../code01.html', {encoding: 'utf8'});  // doesn't need encoding with .pipe()
+// const readStream = fs.createReadStream('../code01.html', {encoding: 'utf8'});  // doesn't need encoding with .pipe()
 
-const writeStream = fs.createWriteStream('./docs/mensaje2.txt');
+// const writeStream = fs.createWriteStream('./docs/mensaje2.txt');
 
 // readStream.on('data', (chunk) => {
 // console.log('-----NEW CHUNK-----');
@@ -70,6 +74,12 @@ const writeStream = fs.createWriteStream('./docs/mensaje2.txt');
 
 //////PIPING
 
-readStream.pipe(writeStream);   // this is an abstraction of the code block above
+//readStream.pipe(writeStream);   // this is an abstraction of the code block above
 
 
+// fs.mkdir("/Users/marijak/Desktop/sandbox/nodejs2/views/partials", (err) => {
+//   if (err) {
+//     console.log(`Error! ${err}`);
+//   }
+//   console.log("folder created");
+// });
