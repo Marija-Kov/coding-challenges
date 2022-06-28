@@ -53,7 +53,11 @@ const fs = require('fs');
     // })
 // }
 
-const readStream = fs.createReadStream('./docs/mensaje.txt', {encoding: 'utf8'});  // doesn't need encoding with .pipe()
+// fs.unlink('./docs/mensaje2.txt', (err) => {
+//     err ? console.log(err) : console.log('deleted file');
+// });
+
+const readStream = fs.createReadStream('../code01.html', {encoding: 'utf8'});  // doesn't need encoding with .pipe()
 
 const writeStream = fs.createWriteStream('./docs/mensaje2.txt');
 

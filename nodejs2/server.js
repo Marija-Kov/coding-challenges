@@ -1,30 +1,55 @@
 const http = require('http'); // this is a built-in node.js module
 const fs = require('fs'); // this one, too
+const _ = require('lodash');
+
 
 const server = http.createServer((req, res) => { 
-  console.log(req.url, req.method);
+
+   ///// LODASH
+   const num = _.random(0, 20);
+   console.log(num);
+
+   const greet = _.once(() => {
+       console.log('hello')
+   });
+
+   greet();
+ 
+
+  //console.log(req.url, req.method);
 
   res.setHeader('Content-Type', 'text/html');  
 
   let path = "./pages/"; // directory where all the files we're serving are located
 
-  switch(req.url) {
-      case '/' :
-          path += 'page.html';
-          break;
-      case '/about':
-          path += 'about.html';
-          break;
-        default:
-            path += '404.html';
-            break;
+  ///// BASIC ROUTING --
+
+  switch (req.url) {
+    case "/":
+      path += "page.html";
+      res.statusCode = 200;
+      break;
+    case "/about":
+      path += "about.html";
+      res.statusCode = 200;
+      break;
+    case "/about-bleh":
+      res.statusCode = 301;
+      res.setHeader('Location', "/about")
+      res.end();
+      break;
+    default:
+      path += "404.html";
+      res.statusCode = 404;
+      break;
   }
 
 fs.readFile(path, (err, data) => {
   err
     ? console.log(err)
     : //res.write(data); // for only one 'data', write can be omitted, data can go in the end() 
-      res.end(data);
+    
+    res.end(data);
 });
 
 });
