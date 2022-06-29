@@ -292,12 +292,14 @@
     };
 
 
-    const romans = Object.keys(rules) // array of keys from rules object
-    console.log(romans[5])
+    // const romans = Object.keys(rules) // array of keys from rules object
+    // console.log(romans[5])
 
-    for (let i = 0; i < romans.length; ++i){  
-     console.log(rules[romans[i]]) 
-    }
+    // for (let i = 0; i < romans.length; ++i){  
+    //  console.log(rules[romans[i]]) // object[key]
+    // }
+
+    console.log(undefined == null)
  
 
 

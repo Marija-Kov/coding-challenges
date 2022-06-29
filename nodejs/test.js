@@ -17,13 +17,13 @@ const fs = require('fs');
 
 // console.log('last line')
 
-fs.writeFile(
-  "/Users/marijak/Desktop/sandbox/nodejs2/views/partials/nav.ejs",
-  "hello there",
-  () => {
-    console.log("file was written");
-  }
-);
+// fs.writeFile(
+//   "/Users/marijak/Desktop/sandbox/nodejs2/views/partials/nav.ejs",
+//   "hello there",
+//   () => {
+//     console.log("file was written");
+//   }
+// );
 
 // if (!fs.existsSync('./assets')) {
 // fs.mkdir('./assets', (err) => {
@@ -77,9 +77,9 @@ fs.writeFile(
 //readStream.pipe(writeStream);   // this is an abstraction of the code block above
 
 
-// fs.mkdir("/Users/marijak/Desktop/sandbox/nodejs2/views/partials", (err) => {
-//   if (err) {
-//     console.log(`Error! ${err}`);
-//   }
-//   console.log("folder created");
-// });
+fs.mkdir("/Users/marijak/Desktop/sandbox/nodejs2/public", (err) => {
+  if (err) {
+    console.log(`Error! ${err}`);
+  }
+  console.log("folder created");
+});
