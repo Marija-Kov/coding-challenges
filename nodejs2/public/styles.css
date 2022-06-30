@@ -23,10 +23,8 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background:rgb(211, 211, 211);
-  color: whitesmoke;
+  background:rgb(209, 247, 237);
   width: 100vw;
-  border-bottom: solid 1px orangered;
 }
 
 
@@ -41,7 +39,7 @@ nav {
 }
 
 .content {
-        padding-left: 20px;
+        padding-left: 50px;
         height: 75vh;
         
     }
@@ -66,7 +64,9 @@ footer {
     bottom: 1%;
     color: gray;
 }
-
+.about {
+    max-width: 700px;
+}
 .not-found {
     font-family: 'PT Sans', sans-serif;
     font-size: 2em;
@@ -101,4 +101,26 @@ button {
     height: 2.2em;
     background: rgb(36, 36, 36);
     color: whitesmoke;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 530px) {
+    nav {
+        flex-direction: column;
+        align-items: unset;
+    }
+    title, h1 {
+        width: 100vw;
+    }
+
+    .links {
+        width: 100vw;
+        margin: 0 auto;
+    }
+
+    .content {
+        padding-left: 20px;
+        height: 75vh;
+        
+    }
 }
