@@ -33,7 +33,6 @@ app.get("/about", (req, res) => {
 });
 
 /// blog routes
-
 app.get('/blogs', (req, res) => {
  Blog.find().sort({ createdAt: -1 })
    .then(result => {

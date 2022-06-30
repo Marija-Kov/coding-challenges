@@ -5,7 +5,7 @@ const _ = require('lodash');
 
 const server = http.createServer((req, res) => { 
 
-   ///// LODASH
+   ///// lodash :
    const num = _.random(0, 20);
    console.log(num);
 
@@ -14,16 +14,12 @@ const server = http.createServer((req, res) => {
    });
 
    greet();
- 
-
-  //console.log(req.url, req.method);
 
   res.setHeader('Content-Type', 'text/html');  
 
   let path = "./pages/"; // directory where all the files we're serving are located
 
-  ///// BASIC ROUTING --
-
+// basic routing :
   switch (req.url) {
     case "/":
       path += "page.html";
