@@ -22,70 +22,34 @@ app.use(express.static('public'));  // everything in the 'public' folder will be
 app.use(morgan('dev'));
 
 
+/// routes
 
-// mongoose & mongo sandbox routes
-
-app.get('/add-blog', (req, res) => {
-  const blog = new Blog({
-    title: 'Today in Keech Two',
-    snippet: 'In this blog you will find out..',
-    body: 'A lot more than you did yesterday'
-  });
-
-  blog.save()   // this is async
-    .then(result => {
-      res.send(result)
-    })
-    .catch(err => {
-      console.log(`Error: ${err}`)
-    })
-});
-
-
-app.get('/all-blogs', (req, res) => {  // self-explanatory, yes, this will return all the blogs
-  Blog.find()
-    .then(result => {
-      res.send(result);
-    })
-    .catch(err => console.log(`Error: ${err}`))
-})
-
-app.get('/single-blog', (req, res) => {
-  Blog.findById("62bdae45f37e4a4bd442f45b")
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => console.log(`Error: ${err}`));
-})
 app.get('/', (req, res) => {  // route handler function
-    const blogs = [
-      {
-        title: "Keech sniffs arse",
-        snippet: "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
-      },
-      {
-        title: "Keech eats garbage",
-        snippet: "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
-      },
-      {
-        title: "Keech runs home",
-        snippet: "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
-      }
-    ];
-    res.render('index', {title: "Home", blogs});      // this replaces res.sendFile('./pages/page.html', {root: __dirname}); syntax 
+    res.redirect('/blogs'); 
 })                            //the directory name HAS TO be VIEWS
 
 app.get("/about", (req, res) => {
   res.render("about", { title: "About" }); 
 });
 
+/// blog routes
 
-app.get("/create", (req, res) => {   //this route handler as well as app.use(...404..) are looking for blogs/styles.css  and I can't explain why. Until I can, I'll remove '/blogs' from the route.
-   res.render("create", { title: "Create" }); 
+app.get('/blogs', (req, res) => {
+ Blog.find().sort({ createdAt: -1 })
+   .then(result => {
+     res.render('index', {title: 'All Blogs', blogs: result })
+   }) 
+   .catch(err => {
+     console.log(`Error: ${err}`)
+   })
 })
 
 
 
+
+app.get("/create", (req, res) => {   //this route handler as well as app.use(...404..) are looking for blogs/styles.css  and I can't explain why. Until I can, I'll remove '/blogs' from the route.
+   res.render("create", { title: "Create" }); 
+})
 
 
 // 404 -- has to be at the bottom so express can go through all the other options
