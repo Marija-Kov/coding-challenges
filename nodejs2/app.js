@@ -7,6 +7,7 @@ const app = express();
 
 
 ////// connect to MongoDB
+
 const dbURI =
   "mongodb+srv://doggo45:iLikeTreats666@keechcluster.vudhnux.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })  // the second argument will stop deprecation messages from logging, although it's unnecessary in this case
@@ -15,13 +16,14 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })  //
 
 
 ///// register view engine
+
 app.set('view engine', 'ejs');
 
+
 //// middleware and static files
+
 app.use(express.static('public'));  // everything in the 'public' folder will be available to the front end
 app.use(morgan('dev'));
-
-
 /// routes
 
 app.get('/', (req, res) => {  // route handler function
@@ -32,7 +34,9 @@ app.get("/about", (req, res) => {
   res.render("about", { title: "About" }); 
 });
 
+
 /// blog routes
+
 app.get('/blogs', (req, res) => {
  Blog.find().sort({ createdAt: -1 })
    .then(result => {
