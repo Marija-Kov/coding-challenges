@@ -71,7 +71,7 @@ const fs = require('fs');
 //readStream.pipe(writeStream);   // this is an abstraction of the code block above
 
 fs.writeFile(
-  "/Users/marijak/Desktop/sandbox/nodejs2/models/blog.js",
+  "/Users/marijak/Desktop/sandbox/nodejs2/views/details.ejs",
   "hello there",
   () => {
     console.log("file was written");

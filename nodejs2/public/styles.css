@@ -44,8 +44,20 @@ nav {
 .content {
         padding-left: 50px;
         height: 70vh;
-        
     }
+.snippet {
+    padding-left: 20px;
+}
+
+.single::before {
+    content: '';
+    background: orangered;
+    height: 60px;
+    width: 5px;
+    position: absolute;
+    margin-top: 3px;
+    
+}
 
 .links {
     width: 40%;
@@ -59,6 +71,13 @@ li {
 a:hover {
     color: rgb(77, 77, 245);
 
+}
+.delete {
+     border: solid 1px aquamarine;
+     padding: 1px 15px 3px 15px;
+}
+.delete:hover {
+  cursor: pointer;  
 }
 
 footer {
