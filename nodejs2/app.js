@@ -1,8 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const Blog = require('./models/blog');
-
+const blogRoutes = require('./routes/blogRoutes')
 const app = express();
 
 
@@ -11,7 +10,7 @@ const app = express();
 const dbURI =
   "mongodb+srv://doggo45:iLikeTreats666@keechcluster.vudhnux.mongodb.net/?retryWrites=true&w=majority";  // this is a dummy database, obviously links containing actual sensitive info shouldn't be in a public repository
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })  // the second argument will stop deprecation messages from logging, although it's unnecessary in this case
-     .then(result => app.listen(3000))
+     .then(result => app.listen(3002))
      .catch(err => console.log(`Error: ${err}`));
 
 
@@ -37,61 +36,13 @@ app.get("/about", (req, res) => {
   res.render("about", { title: "About" }); 
 });
 
-
-/// blog routes
-
-app.get('/blogs', (req, res) => {
- Blog.find().sort({ createdAt: -1 })
-   .then(result => {
-     res.render('index', {title: 'All Blogs', blogs: result })
-   }) 
-   .catch(err => {
-     console.log(`Error: ${err}`)
-   })
-})
-
-app.post('/blogs', (req, res)=>{
-  const blog = new Blog(req.body);
-  blog
-    .save()
-    .then((result) => {
-      res.redirect("/blogs");
-    })
-    .catch((err) => {
-      console.log(`Error: ${err}`);
-    });
-  
-})
-
-
-app.get('/blogs/:id', (req, res) => {
-  const id = req.params.id;
-  console.log(id);
-  Blog.findById(id)
-    .then((result) => {
-      res.render("details", { blog: result, title: "Blog Details" });
-    })
-    .catch((err) => {
-      console.log(`Error: ${err}`);
-    });
-})
-
-app.delete("/blogs/:id", (req, res) => {
-  const id = req.params.id;
-  Blog.findByIdAndDelete(id)
-    .then(result => {    
-      res.json({ redirect: '/blogs' }) //can't use redirect NodeJS method here - send JSON with redirect property with the URL as value
-    })
-    .catch((err) => {
-      console.log(`Error: ${err}`);
-    });
+app.get("/create", (req, res) => {
+  //this route handler as well as app.use(...404..) are looking for blogs/styles.css  and I can't explain why. Until I can, I'll remove '/blogs' from the route.*** It's because styles.css is a relative path and I should use absolute i.e. '/styles.css'
+  res.render("create", { title: "Create" });
 });
 
-
-
-app.get("/create", (req, res) => {   //this route handler as well as app.use(...404..) are looking for blogs/styles.css  and I can't explain why. Until I can, I'll remove '/blogs' from the route.*** It's because styles.css is a relative path and I should use absolute i.e. '/styles.css' 
-   res.render("create", { title: "Create" }); 
-})
+//blog routes
+app.use('/blogs', blogRoutes);
 
 
 // 404 -- has to be at the bottom so express can go through all the other options

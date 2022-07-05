@@ -71,14 +71,14 @@ const fs = require('fs');
 //readStream.pipe(writeStream);   // this is an abstraction of the code block above
 
 fs.writeFile(
-  "/Users/marijak/Desktop/sandbox/nodejs2/views/details.ejs",
+  "/Users/marijak/Desktop/sandbox/nodejs2/controllers/blogController.js",
   "hello there",
   () => {
     console.log("file was written");
   }
 );
 
-// fs.mkdir("/Users/marijak/Desktop/sandbox/nodejs2/models", (err) => {
+// fs.mkdir("/Users/marijak/Desktop/sandbox/nodejs2/controllers", (err) => {
 //   if (err) {
 //     console.log(`Error! ${err}`);
 //   }

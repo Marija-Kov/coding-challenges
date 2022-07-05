@@ -32,4 +32,9 @@
     }
   }
 
-  fannkuchRedux([4,2,1,5,3])
+  //fannkuchRedux([4,2,1,5,3])
+
+  for(let i = 1; i<5; ++i){
+    document[`value${i}`] = i;
+    console.log
+  }
