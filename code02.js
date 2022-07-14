@@ -79,7 +79,7 @@
   //oneRange(myArr)
 
 const isSubset = (array1, array2) =>
-  array2.every((element) => array1.includes(element));
+  array2.every((element) => array1.includes(element)); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
 
 
   function theRanger(arr) {
@@ -100,15 +100,19 @@ const isSubset = (array1, array2) =>
       }
      
     }
-    console.log(rangePlus)
     rangePlus.forEach(ran => {
       for(let j=rangePlus.indexOf(ran)+1; j<rangePlus.length; ++j){
        if (isSubset(ran, rangePlus[j])){
-        validRanges.push(ran)
+        delete rangePlus[j]
        }
         }
     })
-    console.log(validRanges)
+    rangePlus.forEach(ran => {
+      if(ran != undefined){
+        validRanges.push(ran)
+      }
+    })
+    console.log(validRanges) // I have isolated all the ranges
   }
 
   theRanger(myArr)
