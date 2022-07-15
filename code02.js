@@ -53,39 +53,24 @@
   //   console.log(newArr.join(','))
   // }
 
-  // toRange([
-  //   -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20,
-  // ]);
+
+  //  ([ -6, -3-1, , , , , 3-5, , , 7-11, , , , , 14, 15, 17-20, , , ]);
 
   let myArr = [
-    -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20,
+    -10, -9, -8, -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18,
+    19, 20,
   ];
-
-  function oneRange(arr) { 
-    let newArr = [];
-    let len = arr.length;
-    for(let i = 0; i < len; ++i){
-      if(arr[i+1] != arr[i]+1){ 
-        if(arr[i+1] != undefined){
-        newArr.push(arr[i], arr[i+1])
-        }else{
-          newArr.push(arr[i])
-        }
-      }
-    }
-    console.log(newArr)
-  }
-
-  //oneRange(myArr)
 
 const isSubset = (array1, array2) =>
   array2.every((element) => array1.includes(element)); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
 
 
   function theRanger(arr) {
+    let nonRange = []; // Array that will contain all the values that don't belong to any range.
     let len = arr.length;
     let rangePlus = []; // Array that will contain all ranges, including subsets
     let validRanges = []; // Array that will contain only longest ranges, which are the only ones I'm interested in.
+    let enranged = []; // This will contain ranges in the correct form ('first-last') and non-range numerals.
     for (let i = 0; i < len-1; ++i){
       if (arr[i]+1 === arr[i+1]){ // This conditional checks if the element to the right of the current element is greater by one than the current element; in other words: whether the current element is eligible for being the start of a range.
        let x = 1;  // Introducing an incrementable.
@@ -98,8 +83,8 @@ const isSubset = (array1, array2) =>
         rangePlus.push(range);  
        } 
       }
-     
     }
+
     rangePlus.forEach(ran => {  // Here we'll go through all the ranges that we stored in rangePlus...
       for(let j=rangePlus.indexOf(ran)+1; j<rangePlus.length; ++j){  // ..and compare each to every range to the right from it.. 
        if (isSubset(ran, rangePlus[j])){ //..in order to check if there are any ranges that contain the exact values that are already within the range they're being compared to..
@@ -112,7 +97,29 @@ const isSubset = (array1, array2) =>
         validRanges.push(ran) // ..and push them into a new array.
       }
     })
-    console.log(validRanges) 
+    let combined = validRanges.join(','); 
+    arr.forEach(e => {      
+      if(!combined.includes(e)){ // This conditional is looking for the arr elements that aren't in the string which is made out of all values that fall within a range.
+        nonRange.push(e)
+      }
+    })
+    for (let i = 0; i < len; ++i){     // This will take each arr element...
+      for(let k = 0; k < validRanges.length; ++k){  // ...and every valid range...
+        if(arr[i]===validRanges[k][0]){  // .. and will check if an array element is equal to the first element in every valid range,...
+          arr[i] = `${validRanges[k][0]}-${validRanges[k][validRanges[k].length - 1]}`; // ...and will replace the arr element with the 'first-last' signature using the first and last element of the corresponding valid range
+          for(let y = 1; y < validRanges[k].length; ++y){ //...also, it will delete every arr value on the right side of the current arr element to the extent of the length of the corresponding valid range.
+            delete arr[i+y]
+          }
+        }
+      }
+     } 
+    
+    for (let i = 0; i < len; ++i){  
+      if(arr[i] != undefined){
+        enranged.push(arr[i])  // Finally, this will get all the remaining (defined) values into an new array.
+      }
+     } 
+    console.log(enranged.join(','));
   }
-
+    
   theRanger(myArr)
