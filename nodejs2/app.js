@@ -36,10 +36,6 @@ app.get("/about", (req, res) => {
   res.render("about", { title: "About" }); 
 });
 
-app.get("/create", (req, res) => {
-  //this route handler as well as app.use(...404..) are looking for blogs/styles.css  and I can't explain why. Until I can, I'll remove '/blogs' from the route.*** It's because styles.css is a relative path and I should use absolute i.e. '/styles.css'
-  res.render("create", { title: "Create" });
-});
 
 //blog routes
 app.use('/blogs', blogRoutes);
