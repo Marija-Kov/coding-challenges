@@ -299,8 +299,8 @@
     //  console.log(rules[romans[i]]) // object[key]
     // }
 
-    console.log(undefined == null)
- 
+
+
 
 
 
