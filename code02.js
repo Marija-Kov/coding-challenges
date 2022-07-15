@@ -84,35 +84,35 @@ const isSubset = (array1, array2) =>
 
   function theRanger(arr) {
     let len = arr.length;
-    let rangePlus = [];
-    let validRanges = [];
+    let rangePlus = []; // Array that will contain all ranges, including subsets
+    let validRanges = []; // Array that will contain only longest ranges, which are the only ones I'm interested in.
     for (let i = 0; i < len-1; ++i){
-      if (arr[i]+1 === arr[i+1]){
-       let x = 1; 
-       let range = [arr[i]];  
-        while ( arr[i+x] === arr[i] + x ) {
-          range.push(arr[i+x])
-          ++x;    
+      if (arr[i]+1 === arr[i+1]){ // This conditional checks if the element to the right of the current element is greater by one than the current element; in other words: whether the current element is eligible for being the start of a range.
+       let x = 1;  // Introducing an incrementable.
+       let range = [arr[i]];  // Declaring a range with the current value as range[0].
+        while ( arr[i+x] === arr[i] + x ) { // Looping through every arr element to the right of arr[i] and while each of them is larger by one than the previous(i.e. larger by x than arr[i])...
+          range.push(arr[i+x]) // ..keep adding them to the range;
+          ++x;  // Incrementing by one; x denotes the equal numerical difference in index as well as value between the current and arr elements to the right from it.
         }
-        if (range.length >= 3) {
+        if (range.length >= 3) {  // Only ranges that contain 3+ elements are considered in this case. 
         rangePlus.push(range);  
        } 
       }
      
     }
-    rangePlus.forEach(ran => {
-      for(let j=rangePlus.indexOf(ran)+1; j<rangePlus.length; ++j){
-       if (isSubset(ran, rangePlus[j])){
-        delete rangePlus[j]
+    rangePlus.forEach(ran => {  // Here we'll go through all the ranges that we stored in rangePlus...
+      for(let j=rangePlus.indexOf(ran)+1; j<rangePlus.length; ++j){  // ..and compare each to every range to the right from it.. 
+       if (isSubset(ran, rangePlus[j])){ //..in order to check if there are any ranges that contain the exact values that are already within the range they're being compared to..
+        delete rangePlus[j]  //...and get rid of them, leaving behind undefined values.
        }
         }
     })
-    rangePlus.forEach(ran => {
-      if(ran != undefined){
-        validRanges.push(ran)
+    rangePlus.forEach(ran => {  // This loops through rangePlus again..
+      if(ran != undefined){   // ..in order to only get defined values...
+        validRanges.push(ran) // ..and push them into a new array.
       }
     })
-    console.log(validRanges) // I have isolated all the ranges
+    console.log(validRanges) 
   }
 
   theRanger(myArr)
