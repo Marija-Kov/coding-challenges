@@ -70,7 +70,8 @@ const isSubset = (array1, array2) =>
     let len = arr.length;
     let rangePlus = []; // Array that will contain all ranges, including subsets
     let validRanges = []; // Array that will contain only longest ranges, which are the only ones I'm interested in.
-    let enranged = []; // This will contain ranges in the correct form ('first-last') and non-range numerals.
+    let enranged = []; // This will contain ranges in the correct form ('first-last') and non-range numerals. p.s. I know it's not a real word.
+
     for (let i = 0; i < len-1; ++i){
       if (arr[i]+1 === arr[i+1]){ // This conditional checks if the element to the right of the current element is greater by one than the current element; in other words: whether the current element is eligible for being the start of a range.
        let x = 1;  // Introducing an incrementable.
@@ -90,19 +91,22 @@ const isSubset = (array1, array2) =>
        if (isSubset(ran, rangePlus[j])){ //..in order to check if there are any ranges that contain the exact values that are already within the range they're being compared to..
         delete rangePlus[j]  //...and get rid of them, leaving behind undefined values.
        }
-        }
+      }
     })
+
     rangePlus.forEach(ran => {  // This loops through rangePlus again..
       if(ran != undefined){   // ..in order to only get defined values...
         validRanges.push(ran) // ..and push them into a new array.
       }
     })
+
     let combined = validRanges.join(','); 
     arr.forEach(e => {      
       if(!combined.includes(e)){ // This conditional is looking for the arr elements that aren't in the string which is made out of all values that fall within a range.
         nonRange.push(e)
       }
     })
+
     for (let i = 0; i < len; ++i){     // This will take each arr element...
       for(let k = 0; k < validRanges.length; ++k){  // ...and every valid range...
         if(arr[i]===validRanges[k][0]){  // .. and will check if an array element is equal to the first element in every valid range,...
