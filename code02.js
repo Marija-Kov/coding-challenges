@@ -61,6 +61,8 @@
     19, 20,
   ];
 
+    let myArr2 = myArr;
+
 const isSubset = (array1, array2) =>
   array2.every((element) => array1.includes(element)); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
 
@@ -72,7 +74,7 @@ const isSubset = (array1, array2) =>
     let validRanges = []; // Array that will contain only longest ranges, which are the only ones I'm interested in.
     let enranged = []; // This will contain ranges in the correct form ('first-last') and non-range numerals. p.s. I know it's not a real word.
 
-    for (let i = 0; i < len-1; ++i){
+    for (let i = 0; i < len-1; ++i){ 
       if (arr[i]+1 === arr[i+1]){ // This conditional checks if the element to the right of the current element is greater by one than the current element; in other words: whether the current element is eligible for being the start of a range.
        let x = 1;  // Introducing an incrementable.
        let range = [arr[i]];  // Declaring a range with the current value as range[0].
@@ -120,10 +122,10 @@ const isSubset = (array1, array2) =>
     
     for (let i = 0; i < len; ++i){  
       if(arr[i] != undefined){
-        enranged.push(arr[i])  // Finally, this will get all the remaining (defined) values into an new array.
+        enranged.push(arr[i])  // Finally, this will get all the remaining (defined) values into a new array.
       }
      } 
     console.log(enranged.join(','));
   }
     
-  theRanger(myArr)
+  //theRanger(myArr)
