@@ -56,12 +56,10 @@
 
   //  ([ -6, -3-1, , , , , 3-5, , , 7-11, , , , , 14, 15, 17-20, , , ]);
 
-  let myArr = [
-    -10, -9, -8, -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18,
-    19, 20,
-  ];
-
-    let myArr2 = myArr;
+  // let myArr = [
+  //   -10, -9, -8, -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18,
+  //   19, 20,
+  // ];
 
 const isSubset = (array1, array2) =>
   array2.every((element) => array1.includes(element)); // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
@@ -129,3 +127,40 @@ const isSubset = (array1, array2) =>
   }
     
   //theRanger(myArr)
+
+
+function spl(arr){
+  let arr2 = arr;
+  return arr2.splice(0,2)
+}
+
+
+function spliced(arr){
+  let len = arr.length;
+  let zeroTemp;
+  let ones = 0;
+  let y = 1;
+  for(let i = 0; i < len; ++i){
+    if (arr[i]===0){
+      zeroTemp = i;
+      while(arr[y]===1) ++y;
+      
+      if(1 + y > ones){
+        console.log(arr)
+        ones = 1 + y; 
+      } else {
+        arr.splice(0, i)
+      }
+      
+    }
+    
+  }
+  console.log(zeroTemp)
+}
+
+spliced([1,0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,0,1,1]) //10
+spliced([1,1,0,1,1,0,1,1]) //5
+spliced([1,1,1,0,1,1,0,1,1,1])//6
+spliced([0,1,1,1])//0
+spliced([1,1,1,0,0,1,1,1,1,1,0,1]) //10
+spliced([0,1,0,0,0,0]) //2
