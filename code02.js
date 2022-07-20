@@ -135,32 +135,23 @@ function spl(arr){
 }
 
 
-function spliced(arr){
+function theMostOfOnes(arr){
   let len = arr.length;
-  let zeroTemp;
-  let ones = 0;
-  let y = 1;
+  let zeroAt; // This variable will hold the last index of a zero which, if replaced by one, would give the longest sequence of ones within the array.
+  let ones = 0; // This will hold the maximum number of ones in sequence in an array upon the replacement of a zero.
   for(let i = 0; i < len; ++i){
     if (arr[i]===0){
-      zeroTemp = i;
-      while(arr[y]===1) ++y;
-      
-      if(1 + y > ones){
-        console.log(arr)
-        ones = 1 + y; 
-      } else {
-        arr.splice(0, i)
-      }
-      
-    }
-    
+      let y = 1; // Holds a number of ones to the right of a zero at the current index...
+      let x = 1; // ...and to the left; 
+      while(arr[i+y]===1) ++y; // These loops will count 1s to the right.. 
+      while(arr[i-x]===1) ++x;// ..and to the left from a zero.
+      if(x + y >= ones){ 
+        //console.log(arr)
+        ones = x + y; 
+        zeroAt = i;
+      }    
+    }  
   }
-  console.log(zeroTemp)
+  console.log(`max ones in a row : ${ones} with zero replaced at index: ${zeroAt}`); 
 }
 
-spliced([1,0,1,1,1,0,1,1,1,1,0,1,1,1,1,0,0,1,1]) //10
-spliced([1,1,0,1,1,0,1,1]) //5
-spliced([1,1,1,0,1,1,0,1,1,1])//6
-spliced([0,1,1,1])//0
-spliced([1,1,1,0,0,1,1,1,1,1,0,1]) //10
-spliced([0,1,0,0,0,0]) //2
