@@ -151,45 +151,20 @@
 // }
 
 
-function addCurry(a){
-  return function (b){
-    return function (c) {
-      return a + b + c
+
+function sum(a, b){
+  return a+b
+}
+// ^ This can only be called wholly : sum(1,2)
+
+function keech(f){
+  return function(a) {  // The number of nested anonymous functions corresponds to the number of arguments.
+    return function(b) {
+      return f(a, b)
     }
   }
 }
 
-function add(a) {
-    let sum = a;
- 
-    const addSum = (b) => {
-        sum = sum + b;
- 
-        return addSum ;
-    }
- 
-    addSum .result = () => sum ;
- 
-    return addSum ;
-};
+let curryKeech = keech(sum);  // Curry - keech - is a wrapper to sum.
 
-function curry(f) { // curry(f) does the currying transform
-  return function(a) {
-    return function(b) {
-      return f(a, b);
-    };
-  };
-}
-
-function sum(a, b) {
-  return a + b;
-}
-
-let curriedSum = curry(sum);
-
-console.log(curriedSum(2))
-console.log(curriedSum(5))
-// console.log(addCurry(1)(2)(3))
-// console.log('result ', add(2)(4).result()); // 6
-// console.log('result ', add(2)(4)(6).result()); // 12
-// console.log('result ', add(2)(4)(6)(9).result()); // 21
+console.log(curryKeech(1)(2));
