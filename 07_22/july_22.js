@@ -1,3 +1,4 @@
+const _ = require('lodash');
 
 //Fannkuch-redux
   //takes in an array of positive integers
@@ -151,20 +152,59 @@
 // }
 
 
+////   ---- CURRYING 
+
+
+// function sum(a, b){
+//   return a+b
+// }
+// // ^ This can only be called wholly : sum(1,2)
+
+// function keech(f){
+//   return function(a) {  // The number of nested anonymous functions corresponds to the number of arguments.
+//     return function(b) {
+//       return f(a, b)  
+//     }
+//   }
+// }
+
+// let curryKeech = keech(sum);  // Curry - keech - is a wrapper to sum.
+
+// console.log(curryKeech(1)(2));
+
+/////  Currying with Lodash
+
+// function log(date, importance, message){
+//   console.log(`[${date.getHours()}:${date.getMinutes()}] [${importance}] ${message}`)
+// }
+
+// log = _.curry(log);
+
+// // log(new Date(), "DEBUG", "some debug");
+// // log(new Date())("DEBUG")("some debug")
+
+// let logNow = log(new Date()); // function with a fixed argument --> partial(ly applied function) 
+
+// // logNow("INFO", "message")
+
+// let debugNow = logNow("DEBUG");
+
+// debugNow("using partials")
+
+// log(new Date(), "ANNOUNCING", "log is called normally")
 
 function sum(a, b){
   return a+b
 }
-// ^ This can only be called wholly : sum(1,2)
 
-function keech(f){
-  return function(a) {  // The number of nested anonymous functions corresponds to the number of arguments.
-    return function(b) {
-      return f(a, b)
+function keech(...args){
+  if (args.length >= sum.length){
+  return sum.apply(this, args);
+  }else{
+    return function(...args2){
+     return keech.apply(this, args.concat(args2))
     }
   }
 }
 
-let curryKeech = keech(sum);  // Curry - keech - is a wrapper to sum.
-
-console.log(curryKeech(1)(2));
+console.log(keech(2)(3))
