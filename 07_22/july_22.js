@@ -193,18 +193,53 @@ const _ = require('lodash');
 
 // log(new Date(), "ANNOUNCING", "log is called normally")
 
-function sum(a, b){
-  return a+b
-}
+// function sum(a, b){
+//   return a+b
+// }
 
-function keech(...args){
-  if (args.length >= sum.length){
-  return sum.apply(this, args);
-  }else{
-    return function(...args2){
-     return keech.apply(this, args.concat(args2))
-    }
+// function keech(...args){
+//   if (args.length >= sum.length){
+//   return sum.apply(this, args);
+//   }else{
+//     return function(...args2){
+//      return keech.apply(this, args.concat(args2))
+//     }
+//   }
+// }
+
+// console.log(keech(2)(3))
+
+// Function that takes an array of numbers
+// Picks a random number ran
+// array[array.indexOf(ran)] = array[len-1];
+// array.length = len-1
+
+
+
+
+let nums = [22,33,67,44,34,90,10,23];
+
+function pickRandom(arr) {
+  let len = arr.length;
+  let shuff = [];
+function* generateRandom() {
+  for (let i = 0; i < len; ++i){
+    let ran = Math.floor(Math.random() * arr.length)
+    yield arr[ran];
+    shuff.push(arr[ran])
+    arr[ran] = arr[arr.length-1]; 
+    arr.pop();
+    //console.log(arr)
   }
+  return `${shuff}`
+}
+let gen = generateRandom(arr);
+for (let i = 0; i <= len ; ++i){
+  console.log(gen.next())
 }
 
-console.log(keech(2)(3))
+}
+       
+pickRandom(nums);
+
+
