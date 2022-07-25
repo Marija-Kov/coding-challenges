@@ -240,6 +240,6 @@ for (let i = 0; i <= len ; ++i){
 
 }
        
-pickRandom(nums);
+// pickRandom(nums);
 
 

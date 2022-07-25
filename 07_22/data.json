@@ -1,0 +1,19 @@
+      [{
+        "q": "What are template literals?",
+        "a": "answer ",
+        "ex": "example",
+        "category": "javascript"
+      },
+      {
+        "q": "What are static class members, how are they created and what are they useful for?",
+        "a": "answer ",
+        "ex": "example",
+        "category": "javascript"
+      },
+      {
+        "q": "What is a curry function and what are its advantages?",
+        "a": "It's a function ( with a fixed number of parameters - f(a, b, c) ) transformed so that it allows us to call it partially ( f(a)(b)(c) - f(a) - f(b)(c) etc. ) .",
+        "ex": "example",
+        "category": "javascript"
+      }
+    ]

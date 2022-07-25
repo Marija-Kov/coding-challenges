@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator shuffle</title>
+</head>
+<body>
+    <button>GET RANDOM</button>
+
+<script>
+
+let btn = document.querySelector('button');
+
+
+let nums = [22,33,67,44,34,90,10,23];
+
+// function initPickRandom(arr) {
+//   let len = arr.length;
+//   let shuff = [];
+// function* generateRandom() {
+//   for (let i = 0; i < len; ++i){
+//     let ran = Math.floor(Math.random() * arr.length)
+//     yield arr[ran];
+//     shuff.push(arr[ran])
+//     arr[ran] = arr[arr.length-1]; 
+//     arr.pop();
+//     //console.log(arr)
+//   }
+//   return `${shuff}`
+// }
+
+//  let gen = generateRandom(arr);
+//   btn.addEventListener('click', () => {
+//     console.log(gen.next())
+//  })
+// }
+
+// initPickRandom(nums);   
+
+// function* generateRandom(arr) {
+//     let shuff = [];
+//     let len = arr.length;
+//   for (let i = 0; i < len; ++i){
+//     let ran = Math.floor(Math.random() * arr.length)
+//     yield arr[ran];
+//     shuff.push(arr[ran])
+//     arr[ran] = arr[arr.length-1]; 
+//     arr.pop();
+//   }
+//   return `${shuff}`
+// }
+
+//  let gen = generateRandom(nums);
+//   btn.addEventListener('click', () => console.log(gen.next()))
+
+let things = "data.json";
+
+const getData = async function getData() {
+  const res = await fetch(things);
+  if (!res.ok) {
+    throw new Error(`Error! status: ${res.status}`);
+  }
+  const data = await res.json();
+  return data
+}
+
+const generateRandom = function* generateRandom(arr) {
+    let shuff = [];
+    let len = arr.length;
+  for (let i = 0; i < len; ++i){
+    let ran = Math.floor(Math.random() * arr.length)
+    yield arr[ran];
+    shuff.push(arr[ran])
+    arr[ran] = arr[arr.length-1]; 
+    arr.pop();
+  }
+  return `${shuff}`
+}
+
+const initAllQsList = function initAllQsList() {  // gets all questions ready
+    getData().then(data => {
+        generateRandom(data);
+        let gen = generateRandom(data);
+        return gen
+     }).then(gen => {
+         btn.addEventListener('click', () => {
+             console.log(gen.next())
+         })
+         
+     })
+  
+    
+
+}
+
+
+initAllQsList();
+
+</script> 
+
+</body>
+
+</html>
