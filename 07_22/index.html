@@ -7,11 +7,23 @@
     <title>Generator shuffle</title>
 </head>
 <body>
-    <button>GET RANDOM</button>
+    <button id = "javascript">JavaScript</button>
+    <button id = "nodejs">NodeJS</button>
+    <button id = "all">Any</button>
+
+    <div class="card">
+        <p class="q"></p>
+        <p class="a"></p>
+    </div>
 
 <script>
 
-let btn = document.querySelector('button');
+let btns = document.querySelectorAll('button');
+let javascript = document.querySelector('#javascript');
+let nodejs = document.querySelector('#nodejs');
+let all = document.querySelector('#all');
+let q = document.querySelector('.q');
+let a = document.querySelector('.a');
 
 
 let nums = [22,33,67,44,34,90,10,23];
@@ -85,18 +97,52 @@ const initAllQsList = function initAllQsList() {  // gets all questions ready
         let gen = generateRandom(data);
         return gen
      }).then(gen => {
-         btn.addEventListener('click', () => {
-             console.log(gen.next())
+         all.addEventListener('click', () => {
+          let n = gen.next();   
+            console.log(n)
+          q.innerText = n.value.q;
+          a.innerText = n.value.a;
+          if (n.done === true){
+             q.innerText = "No more!";
+             a.innerText = "";
+         }
          })
          
-     })
-  
-    
+     })   
 
 }
 
+const initQCatList = function initQCatList(cat) { // gets questions ready by category
+    getData().then(data => {
+        let items = [];
+        data.forEach(d => {
+        if(d.category === cat){
+            items.push(d)
+        }
+      })
+      return items
+    }).then(items => {
+        let gen = generateRandom(items);
+        return gen
+    }).then(gen => {
+        let btn = document.querySelector(`#${cat}`);
+        btn.addEventListener('click', () => {
+          let n = gen.next();  
+           console.log(cat, n)
+          q.innerText = n.value.q;
+          a.innerText = n.value.a;
+          if (n.done === true){
+             q.innerText = "No more!";
+             a.innerText = "";
+         }
+        })
+    })
+  
+}
 
 initAllQsList();
+initQCatList('javascript');
+initQCatList('nodejs');
 
 </script> 
 
