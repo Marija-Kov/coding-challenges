@@ -1,5 +1,14 @@
 const _ = require('lodash');
 
+// const asciiConverter = function asciiConverter(string) {
+//   for (let i = 0; i < string.length; ++i) {
+//     return string
+//       .split("")
+//       .map((letter) => letter.charCodeAt(i))
+//       .join("");
+//   }
+// }
+
 //Fannkuch-redux
   //takes in an array of positive integers
   //takes the array[0], assigns it to n
@@ -215,8 +224,6 @@ const _ = require('lodash');
 // array.length = len-1
 
 
-
-
 let nums = [22,33,67,44,34,90,10,23];
 
 function pickRandom(arr) {
@@ -242,4 +249,15 @@ for (let i = 0; i <= len ; ++i){
        
 // pickRandom(nums);
 
+
+// Task: converting strings to corresponding integers
+// Min "zero" inclusively, max "million"
+// assuming all tested numbers are valid
+
+// determine the string : integer pairs in a form of key : value
+// map()
+
+function parseInt(str){
+  
+}
 
