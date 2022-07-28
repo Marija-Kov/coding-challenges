@@ -1,3 +1,4 @@
+const { before } = require('lodash');
 const _ = require('lodash');
 
 // const asciiConverter = function asciiConverter(string) {
@@ -224,28 +225,28 @@ const _ = require('lodash');
 // array.length = len-1
 
 
-let nums = [22,33,67,44,34,90,10,23];
+// let nums = [22,33,67,44,34,90,10,23];
 
-function pickRandom(arr) {
-  let len = arr.length;
-  let shuff = [];
-function* generateRandom() {
-  for (let i = 0; i < len; ++i){
-    let ran = Math.floor(Math.random() * arr.length)
-    yield arr[ran];
-    shuff.push(arr[ran])
-    arr[ran] = arr[arr.length-1]; 
-    arr.pop();
-    //console.log(arr)
-  }
-  return `${shuff}`
-}
-let gen = generateRandom(arr);
-for (let i = 0; i <= len ; ++i){
-  console.log(gen.next())
-}
+// function pickRandom(arr) {
+//   let len = arr.length;
+//   let shuff = [];
+// function* generateRandom() {
+//   for (let i = 0; i < len; ++i){
+//     let ran = Math.floor(Math.random() * arr.length)
+//     yield arr[ran];
+//     shuff.push(arr[ran])
+//     arr[ran] = arr[arr.length-1]; 
+//     arr.pop();
+//     //console.log(arr)
+//   }
+//   return `${shuff}`
+// }
+// let gen = generateRandom(arr);
+// for (let i = 0; i <= len ; ++i){
+//   console.log(gen.next())
+// }
 
-}
+// }
        
 // pickRandom(nums);
 
@@ -257,7 +258,87 @@ for (let i = 0; i <= len ; ++i){
 // determine the string : integer pairs in a form of key : value
 // map()
 
+const numbers = {
+  "zero" : 0,
+  "one" : 1,
+  "two" : 2,
+  "three": 3,
+  "four" : 4,
+  "five" : 5,
+  "six" : 6,
+  "seven" : 7,
+  "eight" : 8,
+  "nine" : 9,
+  "ten" : 10,
+  "eleven" : 11,
+  "twelve" : 12,
+  "thirteen" : 13,
+  "fourteen" : 14,
+  "fifteen" : 15,
+  "sixteen" : 16,
+  "seventeen" : 17,
+  "eighteen" : 18,
+  "nineteen" : 19,
+  "twenty" : 20,
+  "thirty" : 30,
+  "forty" : 40,
+  "fifty" : 50,
+  "sixty" : 60,
+  "seventy" : 70,
+  "eighty" : 80,
+  "ninety" : 90,
+  "hundred" : 100,
+  "thousand" : 1000,
+  "million" : 1000000,
+  "and": "+",
+};
+
 function parseInt(str){
+  let nums = str.split("-").join(" ")
+  .split(' ')
+  .map(e => numbers[e])
+  .filter(i => typeof i === 'number');
+
+  for(let i = 0; i < nums.length; ++i){
+    if(nums[i] === 100) {
+    nums.splice(i-1, 2, nums[i-1]*100)
+    }
+  }
+  after1000(nums);
+  before1000(nums);
   
+  return before1000(nums) * 1000 + after1000(nums)
+  
+};
+
+console.log(parseInt("one million"))  // fix the one million !
+
+// helper functions
+
+  function before1000(nums) {
+    let tho = nums.indexOf(1000);
+    let before = [];
+    for (let i = 0; i < tho; ++i){
+     before.push(nums[i])
+    }
+    let sum = before.reduce((a,b)=> a+b, 0);
+    return sum
+  }
+
+    function after1000(nums) {
+    let len = nums.length;
+    let tho = nums.indexOf(1000);
+    let after = [];
+    for (let i = tho+1; i < len; ++i){
+     after.push(nums[i])
+    }
+    let sum = after.reduce((a,b)=> a+b, 0);
+    return sum
+  }
+
+function dashDitch(str) {
+ return str.split("-").join(" ")
+
 }
 
+//console.log(dashDitch("two-hundred and twenty-one"))
