@@ -258,87 +258,110 @@ const _ = require('lodash');
 // determine the string : integer pairs in a form of key : value
 // map()
 
-const numbers = {
-  "zero" : 0,
-  "one" : 1,
-  "two" : 2,
-  "three": 3,
-  "four" : 4,
-  "five" : 5,
-  "six" : 6,
-  "seven" : 7,
-  "eight" : 8,
-  "nine" : 9,
-  "ten" : 10,
-  "eleven" : 11,
-  "twelve" : 12,
-  "thirteen" : 13,
-  "fourteen" : 14,
-  "fifteen" : 15,
-  "sixteen" : 16,
-  "seventeen" : 17,
-  "eighteen" : 18,
-  "nineteen" : 19,
-  "twenty" : 20,
-  "thirty" : 30,
-  "forty" : 40,
-  "fifty" : 50,
-  "sixty" : 60,
-  "seventy" : 70,
-  "eighty" : 80,
-  "ninety" : 90,
-  "hundred" : 100,
-  "thousand" : 1000,
-  "million" : 1000000,
-  "and": "+",
-};
+// const numbers = {
+//   "zero" : 0,
+//   "one" : 1,
+//   "two" : 2,
+//   "three": 3,
+//   "four" : 4,
+//   "five" : 5,
+//   "six" : 6,
+//   "seven" : 7,
+//   "eight" : 8,
+//   "nine" : 9,
+//   "ten" : 10,
+//   "eleven" : 11,
+//   "twelve" : 12,
+//   "thirteen" : 13,
+//   "fourteen" : 14,
+//   "fifteen" : 15,
+//   "sixteen" : 16,
+//   "seventeen" : 17,
+//   "eighteen" : 18,
+//   "nineteen" : 19,
+//   "twenty" : 20,
+//   "thirty" : 30,
+//   "forty" : 40,
+//   "fifty" : 50,
+//   "sixty" : 60,
+//   "seventy" : 70,
+//   "eighty" : 80,
+//   "ninety" : 90,
+//   "hundred" : 100,
+//   "thousand" : 1000,
+//   "million" : 1000000,
+//   "and": "+",
+// };
 
-function parseInt(str){
-  let nums = str.split("-").join(" ")
-  .split(' ')
-  .map(e => numbers[e])
-  .filter(i => typeof i === 'number');
+// function parseInt(str){
+//   let nums = str.split("-").join(" ")
+//   .split(' ')
+//   .map(e => numbers[e])
+//   .filter(i => typeof i === 'number');
 
-  for(let i = 0; i < nums.length; ++i){
-    if(nums[i] === 100) {
-    nums.splice(i-1, 2, nums[i-1]*100)
-    }
-  }
-  after1000(nums);
-  before1000(nums);
+//   for(let i = 0; i < nums.length; ++i){
+//     if(nums[i] === 100) {
+//     nums.splice(i-1, 2, nums[i-1]*100)
+//     }
+//     if(nums[i] === 1000000) {
+//     nums.splice(i-1, 2, nums[i])
+//     }
+//   }
+
+//   after1000(nums);
+//   before1000(nums);
   
-  return before1000(nums) * 1000 + after1000(nums)
+//   return before1000(nums) * 1000 + after1000(nums)
   
-};
+// };
 
-console.log(parseInt("one million"))  // fix the one million !
+// console.log(parseInt("one million"))  
 
-// helper functions
+// // helper functions:
 
-  function before1000(nums) {
-    let tho = nums.indexOf(1000);
-    let before = [];
-    for (let i = 0; i < tho; ++i){
-     before.push(nums[i])
+//   function before1000(nums) {
+//     let tho = nums.indexOf(1000);
+//     let before = [];
+//     for (let i = 0; i < tho; ++i){
+//      before.push(nums[i])
+//     }
+//     let sum = before.reduce((a,b)=> a+b, 0);
+//     return sum
+//   }
+
+//     function after1000(nums) {
+//     let len = nums.length;
+//     let tho = nums.indexOf(1000);
+//     let after = [];
+//     for (let i = tho+1; i < len; ++i){
+//      after.push(nums[i])
+//     }
+//     let sum = after.reduce((a,b)=> a+b, 0);
+//     return sum
+//   }
+
+// Challenge: Given a sorted array of distinct integers and a target value, return the index if the target is found. 
+//   if not, return the index where it would be if it were inserted in order.
+// The algorithm has to be O(log n) runtime complexity.
+
+// Ex: nums = [1,3,5,6]  target = 5  returns 2
+// Ex: nums = [1,3,5,6]  target = 2  returns 1
+// Ex: nums = [1,3,5,6]  target = 7  returns 4
+
+function t(nums, target) {
+  if (nums.includes(target)){
+    return nums.indexOf(target)
+  } else {
+    for(let i = 0; i < nums.length; ++i){
+      if((nums[i] < target) && ((nums[i+1] > target) || (nums[i+1] === undefined))){
+        return i + 1
+      } else if (nums[i-1] === undefined){
+        return i
+      }
     }
-    let sum = before.reduce((a,b)=> a+b, 0);
-    return sum
   }
-
-    function after1000(nums) {
-    let len = nums.length;
-    let tho = nums.indexOf(1000);
-    let after = [];
-    for (let i = tho+1; i < len; ++i){
-     after.push(nums[i])
-    }
-    let sum = after.reduce((a,b)=> a+b, 0);
-    return sum
-  }
-
-function dashDitch(str) {
- return str.split("-").join(" ")
-
 }
 
-//console.log(dashDitch("two-hundred and twenty-one"))
+console.log(t([1,3,5,6], 0 )) ;
+
+
