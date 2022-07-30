@@ -343,25 +343,58 @@ const _ = require('lodash');
 // Challenge: Given a sorted array of distinct integers and a target value, return the index if the target is found. 
 //   if not, return the index where it would be if it were inserted in order.
 // The algorithm has to be O(log n) runtime complexity.
+// The index can't be < 0;
 
 // Ex: nums = [1,3,5,6]  target = 5  returns 2
 // Ex: nums = [1,3,5,6]  target = 2  returns 1
 // Ex: nums = [1,3,5,6]  target = 7  returns 4
 
-function t(nums, target) {
-  if (nums.includes(target)){
-    return nums.indexOf(target)
-  } else {
-    for(let i = 0; i < nums.length; ++i){
-      if((nums[i] < target) && ((nums[i+1] > target) || (nums[i+1] === undefined))){
-        return i + 1
-      } else if (nums[i-1] === undefined){
-        return i
-      }
-    }
-  }
-}
+// function t(nums, target) {
+//     for(let i = 0; i < nums.length; ++i){  
+//       if((nums[i] < target) && ((nums[i+1] > target) || (nums[i+1] === undefined))){ // ..and in case nums[0] < target < nums[nums.length -1] or target > nums[nums.length-1]  
+//         return i + 1                                                              //...the index of the target in the array would be the current index increased by one.
+//       } else if (target <= nums[i]){ // if ((target < nums[i] && nums[i-1] === undefined) || nums[i] === target) -- basically if target < nums[0] or if i
+//         return i          //....it would take its place.   
+//       }
+//     }
+//   }
 
-console.log(t([1,3,5,6], 0 )) ;
+
+// function binary(nums,target){
+//   let mid = nums.length/2;
+//   if (target < nums[mid]){
+//     for(let i = 0; i < mid; ++i){
+//      if(nums[i] < target){
+//        return i+1
+//      } else {
+//        return i
+//      } 
+//     }
+//   } else if (target >= nums[mid])  {
+//     for(let i = mid+1; i < nums.length; ++i){
+//      if(nums[i] < target){
+//        return i+1
+//      } else {
+//        return i
+//     }
+//    }
+//   }   
+// }  /// noooope
+
+// console.log(binary([1,3,5,6], 0))
+// console.log(binary([1,3,5,6], 7))
+// console.log(binary([1,3,5,6], 4))
+// console.log(binary([1,3,5,6], 5))
+// console.log(binary([1,3,5,6], 6))
+
+
+// Challenge: Hex to RGB
+// takes in a string in the form "#FF9933", case insensitive
+// returns an object {r: val, g: val, b: val} 
+
+
+
+
+
 
 
