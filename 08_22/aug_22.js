@@ -1,4 +1,4 @@
-//1.
+//1. Generate Hashtag
 //will take any string, convert it to camelCase + the first letter must be capitalized
 //the result must have # as the first char
 //all whitespace must be removed
@@ -30,7 +30,7 @@
 // console.log(generateHashtag(""));
 
 
-// 2.
+// 2. Baker Bad at Math
 // given an object of recipe ingredients and an object of available ingredients
 // calculate max number of cakes that can be made
 // ingredient amounts are just numbers
@@ -56,3 +56,52 @@
 
 // console.log(cakes({flour: 500, sugar: 200, eggs: 1}, {flour: 1200, sugar: 1200, eggs: 5, milk: 200}));
 // console.log(cakes({apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100}, {sugar: 500, flour: 2000, milk: 2000}));
+
+
+// 3. to titleCase with revenge
+// function takes in a string(title) and/or a list of minor words
+// if the title is an empty string returns an empty string
+// else, if the title is not empty and minor words are not provided
+//  converts title to lowercase and array
+//  loops through the title array of words
+//   converts first letters to uppercase
+//    join words into a title
+// else, if the title is not empty amd minor words are provided
+//  converts minor words to lowercase and array
+//   if the word is a minor word and not of index 0, convert to lowercase, else
+//   if the word is not a minor word or a minor word with index 0, convert first letter to uppercase 
+//    join words into a title
+
+
+// function titleCase (title, minor) {
+//     let titleCased = [];
+//     if(title===''){
+//         return ''
+//     } else {
+//         let titleArr = title.toLowerCase().split(' ');
+//         if (title != '' && minor==null){
+//          for(let i = 0; i < titleArr.length; ++i){
+//           titleCased.push(titleArr[i].charAt(0).toUpperCase() + titleArr[i].slice(1));
+//          }
+//          return titleCased.join(' ');
+        
+//         } else if (title != '' && minor != null){
+//           let minorArr = minor.toLowerCase().split(' ');
+//           for(let i = 0; i < titleArr.length; ++i){
+//            if(!minorArr.includes(titleArr[i]) || i === 0){
+//             titleCased.push(titleArr[i].charAt(0).toUpperCase() + titleArr[i].slice(1))
+//             } else {
+//              titleCased.push(titleArr[i])
+//          }
+//        }
+//           return titleCased.join(' ')
+//         }
+    
+//     } 
+    
+// }
+
+// console.log(titleCase('a clash of KINGS', 'a an the of'))
+// console.log(titleCase('THE WIND IN THE WILLOWS', 'The In'))
+// console.log(titleCase(''))
+// console.log(titleCase('the Quick brown fox'))
