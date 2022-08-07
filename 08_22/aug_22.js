@@ -105,3 +105,38 @@
 // console.log(titleCase('THE WIND IN THE WILLOWS', 'The In'))
 // console.log(titleCase(''))
 // console.log(titleCase('the Quick brown fox'))
+
+//4. toString(), but on foot
+// function convertToString(input){
+//   let i = input;
+//   if (typeof i === "number" || typeof i === "boolean") {
+//     return converted = `"${i}"`;
+//   } else if (typeof i === "object") {
+//     return `"[${i}]"`;
+//   }
+// }
+
+
+// 5. The Difference
+// Takes in two arrays (a, b), subtracts - removes ALL occurrences of - one from another and returns the result
+
+
+// Loop through array b 
+// for each b[i] loop through array a and delete all occurences of b[i] in a
+// filter out the empties from array a and return
+
+
+// function arrayDiff(a, b){
+//     let aa = a;
+//     let bb = b;
+//     for (let i = 0; i < bb.length; ++i){
+//         for (let y = 0; y < aa.length; ++y){
+//             if (aa[y] === bb[i]){
+//                 delete aa[y]
+//             }
+//         }
+//     }
+//     return aa.filter(e => e != undefined)
+// }
+
+// console.log(arrayDiff([2,2,2], [2]))
