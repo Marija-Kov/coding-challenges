@@ -9,6 +9,8 @@
 //2. trim whitespace
 //3. add hashtag
 
+//const { countBy } = require("lodash");
+
 // function generateHashtag(str) {
 //  if (str==false){
 //      return false
@@ -107,6 +109,7 @@
 // console.log(titleCase('the Quick brown fox'))
 
 //4. toString(), but on foot
+
 // function convertToString(input){
 //   let i = input;
 //   if (typeof i === "number" || typeof i === "boolean") {
@@ -115,6 +118,8 @@
 //     return `"[${i}]"`;
 //   }
 // }
+
+// console.log(convertToString(Math.random()))
 
 
 // 5. The Difference
@@ -139,4 +144,80 @@
 //     return aa.filter(e => e != undefined)
 // }
 
-// console.log(arrayDiff([2,2,2], [2]))
+// console.log(arrayDiff([1,2,2,2,3,4,4,5,4], [2,4]))
+
+
+// 6. RGB to hex
+// function toRGB(hex){
+//   let chars = Array.from(hex.toLowerCase().slice(1,8)); // "#ee5566" --> "ee5566" --> ['e','e','5','5','6','6']
+//   let nums = chars.map(e => alphaNum[e]);  // ['e','e','5','5','6','6'] --> [14,14,5,5,6,6]
+//   let rgbArr = [];
+//   for (let i = 0; i < nums.length; ++i){
+//     if(i%2 === 0){
+//     rgbArr.push(nums[i]*16 + nums[i+1]) // [14,14,5,5,6,6] --> [238, 153, 0]
+//     }
+//   }
+//   let RGB = {r: rgbArr[0], g: rgbArr[1], b: rgbArr[2]};
+//   return RGB
+
+// }
+
+// console.log(toRGB("#EE9900"))
+
+///// 'member parseInt, tho ? parseInt(h.slice(1,3), 16) : null
+
+
+// Challenge: find a unique number in the array, length over 3 guaranteed
+// 
+
+// function findUniq(arr){
+//   let len = arr.length;
+//   let uniq = arr[0]; // Assume 1st arr item is the unique one...
+//   for (let i = 1; i<len-1; ++i) {  // and for each remaining array item (except the very last one)...
+//     if (arr[i]!== arr[i+1] && arr[i]===uniq){ // check if it's not equal to the one next to it and if it's equal to the current uniq..
+//       uniq = arr[i+1]; // If the condition is true, the one next to it is assigned to uniq...
+//       break // ..and the process stops at the first occurrence of a unique value, since there is only one unique value in the arr..
+//     } else if (arr[i]!== arr[i+1] && arr[i+1]===uniq){ // In case the value next to the current arr[i] is equal to current uniq value..
+//       uniq = arr[i]; // arr[i] is assigned to uniq..
+//       break // and the process stops
+//     } 
+//   }
+//    return uniq
+// }
+
+// console.log(findUniq([2,2,2,23,2,2]))
+
+//What if there are multiple non-unique values?
+//What if there are multiple unique values?
+
+// function findUniq2(arr) {
+//  let vals = new Set();
+//  let len = arr.length;
+//  for(let i = 0; i < len; ++i){
+//      vals.add(arr[i])
+//  };
+//  let valsArr = Array.from(vals);
+
+//  return numCount(arr, valsArr)
+// }
+
+// function numCount(arr1, arr2){
+//     let len1 = arr1.length;
+//     let len2 = arr2.length;
+//     let uniques = []
+//     for (let i = 0; i < len2; ++i ){
+//      let count = 0;
+//      for(let j = 0; j < len1; ++j){
+//          if (arr2[i]===arr1[j]){
+//              ++count;
+//          }  
+//        }
+//      if (count === 1){
+//              uniques.push(arr2[i]);
+//          } 
+//     }
+//     return uniques
+// }
+
+
+// console.log(findUniq2([22,22,22,24,25,2,2]))

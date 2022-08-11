@@ -395,20 +395,3 @@ const _ = require('lodash');
 // const alphaNum = { "0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "a": 10, "b": 11, "c": 12, "d": 13, "e": 14, "f": 15 };
 
 
-// function toRGB(hex){
-//   let chars = Array.from(hex.toLowerCase().slice(1,8)); // "#ee5566" --> "ee5566" --> ['e','e','5','5','6','6']
-//   let nums = chars.map(e => alphaNum[e]);  // ['e','e','5','5','6','6'] --> [14,14,5,5,6,6]
-//   let rgbArr = [];
-//   for (let i = 0; i < nums.length; ++i){
-//     if(i%2 === 0){
-//     rgbArr.push(nums[i]*16 + nums[i+1]) // [14,14,5,5,6,6] --> [238, 153, 0]
-//     }
-//   }
-//   let RGB = {r: rgbArr[0], g: rgbArr[1], b: rgbArr[2]};
-//   return RGB
-
-// }
-
-// console.log(toRGB("#EE9900"))
-
-///// 'member parseInt, tho ? parseInt(h.slice(1,3), 16) : null
