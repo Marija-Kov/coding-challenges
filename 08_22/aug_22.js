@@ -167,7 +167,7 @@
 ///// 'member parseInt, tho ? parseInt(h.slice(1,3), 16) : null
 
 
-// Challenge: find a unique number in the array, length over 3 guaranteed
+//  7. Find a unique number in the array, length over 3 guaranteed
 // 
 
 // function findUniq(arr){
@@ -198,10 +198,10 @@
 //  };
 //  let valsArr = Array.from(vals);
 
-//  return numCount(arr, valsArr)
+//  return getUniq(arr, valsArr)
 // }
 
-// function numCount(arr1, arr2){
+// function getUniq(arr1, arr2){ // returns arr2[i] that appear(s) only once in arr1
 //     let len1 = arr1.length;
 //     let len2 = arr2.length;
 //     let uniques = []
@@ -216,8 +216,47 @@
 //              uniques.push(arr2[i]);
 //          } 
 //     }
-//     return uniques
+//     return uniques.join(',')
 // }
 
 
 // console.log(findUniq2([22,22,22,24,25,2,2]))
+
+
+// 8. Find a unique string - by unique meaning that it contains a set of chars(letters) that is not found in any other string
+// the order, number and case of chars as well as empty spaces do not matter
+
+// function findUniqStr(arr) {
+//     let newArr = [];
+//     arr.forEach(a => newArr.push(Array.from(a.toLowerCase()).sort().join('').trim())); // 'Tom Marvolo Riddle' --> 'tom marvolo riddle' --> '  addeillmooorrtv' --> 'addeillmooorrtv' --> 
+//     let len = newArr.length;
+//     let arr2 = []; // will store strings of unique chars from each (newArr[i]) string
+//     for (let i = 0; i < len; ++i){
+//         let uniqueChars = new Set();
+//         [...newArr[i]].forEach(e => uniqueChars.add(e));
+//         arr2.push([...uniqueChars].join(''))
+//     }  
+//     let set1 = new Set();
+//     let len2 = arr2.length;
+//     for (let i = 0; i < len2; ++i){
+//         set1.add(arr2[i])
+//     }
+//     let arr3 = [...set1];  // arr3 is arr2 minus the duplicates
+//     let uniq = getUniq(arr2, arr3);
+
+//     return arr[arr2.indexOf(uniq)]
+// }
+
+// console.log(findUniqStr([ 'Tom Marvolo Riddle', 'I am Lord Voldemort', 'Harry Potter' ]))
+// console.log(findUniqStr([ 'abc', 'acb', 'bac', 'foo', 'bca', 'cab', 'cba' ]))
+// console.log(findUniqStr([ 'Aa', 'aaa', 'aaaaa', 'BbBb', 'Aaaa', 'AaAaAa', 'a' ]))
+
+
+// function getUniqueChars(arr) {  //// returns an array of unique chars present in each string in the array in alphabetical order
+//     let newArr = [];
+//     let arrSet = new Set();
+//     arr.forEach(a => newArr.push(Array.from(a.toLowerCase()).sort().join('').trim()));
+//     Array.from(newArr.join('')).forEach(a => arrSet.add(a))
+//     return Array.from(arrSet)
+    
+// }
