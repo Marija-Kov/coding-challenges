@@ -220,6 +220,7 @@
 // }
 
 
+
 // console.log(findUniq2([22,22,22,24,25,2,2]))
 
 
@@ -236,20 +237,14 @@
 //         [...newArr[i]].forEach(e => uniqueChars.add(e));
 //         arr2.push([...uniqueChars].join(''))
 //     }  
-//     let set1 = new Set();
-//     let len2 = arr2.length;
-//     for (let i = 0; i < len2; ++i){
-//         set1.add(arr2[i])
-//     }
-//     let arr3 = [...set1];  // arr3 is arr2 minus the duplicates
-//     let uniq = getUniq(arr2, arr3);
+//     let uniq = findUniq(arr2);
 
 //     return arr[arr2.indexOf(uniq)]
 // }
 
 // console.log(findUniqStr([ 'Tom Marvolo Riddle', 'I am Lord Voldemort', 'Harry Potter' ]))
 // console.log(findUniqStr([ 'abc', 'acb', 'bac', 'foo', 'bca', 'cab', 'cba' ]))
-// console.log(findUniqStr([ 'Aa', 'aaa', 'aaaaa', 'BbBb', 'Aaaa', 'AaAaAa', 'a' ]))
+// console.log(findUniqStr([ 'aaa', 'BbBb', 'aaaaa', 'Aa', 'Aaaa', 'AaAaAa', 'a' ]))
 
 
 // function getUniqueChars(arr) {  //// returns an array of unique chars present in each string in the array in alphabetical order
@@ -260,3 +255,95 @@
 //     return Array.from(arrSet)
     
 // }
+
+// 9. function disemvowel(str){
+//     return str.replaceAll(/a|e|i|o|u/gi, '')
+
+// }
+
+// console.log(disemvowel("This website is for losers LOL!"))
+
+// 10. Longest common subsequence 
+// Takes in two strings (length >= 1 chars)  
+// returns a string of chars found (consecutively or non-consecutively) in both strings (intersection), but non-consecutively
+
+// function LCS(x, y) {
+//  let arrX = [...x];
+//  let arrY = [...y];
+//  let arr = YinX(arrX, arrY);
+//  let arrAlt = XinY(arrX, arrY);
+//  // Checking for arrX[i] in arrY(XinY) and arrY[i] in arrX (YinX) returns 2 different arrays and the longer one will make the final result.
+//   if (arr.length > arrAlt.length){
+//     return arr.join('')
+//   }else{
+//     return arrAlt.join('')
+//   }
+// }
+
+// function YinX(arrX, arrY){ 
+//    let arr = [];
+//    for(let i=0; i<arrY.length; ++i){
+//       if (arrX.includes(arrY[i])){ 
+//           arr.push(arrY[i]);
+//           arrX = arrX.slice(arrX.indexOf(arrY[i])+1, arrX.length) // Since we want to return a sequence, we can't be checking the whole arrY for every arrX[i], but only the section of arrY starting right after the arrY index where the last arrX[i] being checked for was found.
+//       }
+//   };
+//   return arr
+// }
+
+// function XinY(arrX, arrY){
+//    let arr = []; 
+//       for(let i=0; i<arrX.length; ++i){
+//       if (arrY.includes(arrX[i])){
+//           arr.push(arrX[i]);
+//           arrY = arrY.slice(arrY.indexOf(arrX[i])+1, arrY.length)
+//       }
+//   }
+//   return arr
+// }
+
+// console.log(LCS("abcdef", "abc"))
+// console.log(LCS("9132535365", "123456789" ))
+// console.log(LCS("nettles","settle" ))
+// console.log(LCS("divides","available" ))
+// console.log(LCS("a", "b"))
+
+
+
+// * 11.a) return an array of all possible substrings of a string:
+// only strings of 2 chars and over 
+
+// For each char, we will iterate through the Array.from(str) where the current char will be the starting point of iteration as well as first arg of slice method.
+
+// function subStr(str){
+//  let arr = []; 
+//  for (let y = 0; y < [...str].length; ++y) {  
+//    for(let i = y; i < [...str].length-1; ++i){
+//       arr.push(str.slice(y, i+2))  
+//     }
+//   }
+//   return arr
+// }
+
+// console.log(subStr('1234567'))
+
+// * 11.b) Return all possible subsequences of a string that are not substrings (i.e. that do not consist of consecutive chars only)
+
+// Towards the solution - the function below does not return a complete result
+
+// function subsequences1(str){
+// let arr = [];
+// let len = [...str].length;
+// for(let x = len; x > len/2; --x){
+//   for(let i = 0; i < x-2; ++i){
+//      for(let y = i+1; y<x-1; ++y){
+//         for(let z = y+1; z<x; ++z){
+//             arr.push(str.slice(i,y).concat(str.slice(z, x)))
+//         }
+//      }
+//    }
+// }
+// return arr
+// }
+
+// console.log(subsequences1("123456"))
