@@ -347,3 +347,24 @@
 // }
 
 // console.log(subsequences1("123456"))
+
+
+// * Divide 'n' Conquer attempt
+
+function divnc(str, val){
+ // iterate through the first half of the arr
+ //if the val is not there, search in the first half of the second half..
+ // etc
+ console.log('called')
+if ([...(str.slice(0,[...str].length/2+1))].includes(val)){
+    return 'found it'
+} else {
+    divnc(str.slice([...str].length/2+1, [...str].length), val)
+}
+
+}
+
+console.log(divnc('1110', '0'))
+
+
+
