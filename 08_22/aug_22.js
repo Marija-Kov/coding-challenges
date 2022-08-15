@@ -349,22 +349,37 @@
 // console.log(subsequences1("123456"))
 
 
-// * Divide 'n' Conquer attempt
+// * Divide 'n' Conquer attempts 
 
-function divnc(str, val){
+//function divnc(str, val){
  // iterate through the first half of the arr
  //if the val is not there, search in the first half of the second half..
  // etc
- console.log('called')
-if ([...(str.slice(0,[...str].length/2+1))].includes(val)){
-    return 'found it'
-} else {
-    divnc(str.slice([...str].length/2+1, [...str].length), val)
-}
+//  console.log('searching');
+// let arr = [...str];
+// let len = arr.length;
+// let mid = Math.floor(len/2);
+ 
+// if ([...(str.slice(0, mid))].includes(val)){
+//     return `found it at position ${str.indexOf(val)} of ${str}`  // You might want this to be the index of the original string, not the slice! Btw, in this case, this implementation of divide and conquer is useless and inefficient 'cause: str.indexOf(val).
+//  } else {
+//      return divnc(str.slice(mid, len), val)
+//  }
+// }
 
-}
+// console.log(divnc('11111111111111111111cvefgefgec1cnufgh0ngigehic', '0'))
 
-console.log(divnc('1110', '0'))
+// // divide and conquer reduces the number of multiplications in exponentiation
+// function expo(base, exponent) {
+//  let x = exponent%2;  // if === 0, it splits down perfectly, if > 0, extra multiplication happens
+//  let split = base**Math.floor(exponent/2);
+//   if (x){
+//     return (split**2)*base*x  
+//   } else {
+//     return split**2
+//   }
+  
+// }
 
-
-
+// console.log(expo(2, 17));
+// console.log(expo(2, 8))
