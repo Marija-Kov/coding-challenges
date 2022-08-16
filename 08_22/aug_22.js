@@ -383,3 +383,29 @@
 
 // console.log(expo(2, 17));
 // console.log(expo(2, 8))
+
+
+
+// 12. Instant runoff voting
+// takes in an array of arrays containing letters a-e each representing presidential candidates
+// the arrays represent votes of one candidate in descending order of preference
+// the candidate that gets over 50% votes wins
+// if the winning candidate gets 50% votes or less, the candidate with least votes is removed and the votes are counted again
+  // if there are 2 candidates tied for the least votes, they are both out and the votes are counted again
+
+
+function runoff(arrs){
+ let candidates = ['a', 'b', 'c', 'd', 'e'];
+ let votes = {'a': 0, 'b':0, 'c':0, 'd':0, 'e':0};
+ let winner = [];
+ arrs.forEach(arr=> {
+     winner.push(arr[0])
+ })
+ candidates.forEach(candidate=> {
+     for(let i = 0; i < winner.length; ++i){
+         if (winner[i] === candidate){
+             // use candidate reference to access votes property that goes by candidate's name and increment the value by one..
+         }
+     }
+ })
+}
