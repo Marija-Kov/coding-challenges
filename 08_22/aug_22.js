@@ -387,25 +387,117 @@
 
 
 // 12. Instant runoff voting
-// takes in an array of arrays containing letters a-e each representing presidential candidates
-// the arrays represent votes of one candidate in descending order of preference
+// takes in an array of arrays containing letters a-e each representing candidates
+// the arrays represent votes of one voter in descending order of preference
 // the candidate that gets over 50% votes wins
 // if the winning candidate gets 50% votes or less, the candidate with least votes is removed and the votes are counted again
   // if there are 2 candidates tied for the least votes, they are both out and the votes are counted again
 
+ let arrs = [
+   ["d", "a", "c", "b", "e"],
+   ["b", "d", "e", "c", "a"],
+   ["b", "c", "d", "e", "a"],
+   ["c", "d", "e", "a", "b"],
+   ["c", "e", "b", "a", "d"]];
 
-function runoff(arrs){
- let candidates = ['a', 'b', 'c', 'd', 'e'];
+// More clarification:
+
+   // first-choice vote count would be:  (topVote array)
+// "a": 0 ; "b": 2; "c": 2; "d": 1; "e": 0 ;
+
+   // "a" and "e" have 0 first-choice votes and none of their votes are distributed to other candidates
+//    [
+//    ["d", , "c", "b", ],
+//    ["b", "d", , "c", ],
+//    ["b", "c", "d", , ],
+//    ["c", "d", , , "b"],
+//    ["c", , "b", , "d"]]
+
+  // "d" is the next with the least first-choice votes, so it is removed next 
+//    [, , "c", "b", ],
+//    ["b", , , "c", ],
+//    ["b", "c", , , ],
+//    ["c", , , , "b"],
+//    ["c", , "b", , ]
+  // "d" had one first-choice vote that is distributed to the next candidate on the ballot - "c"
+  // so now the vote count is "b": 2; "c": 2 + 1(distributed from "d") = 3 and since 3 > 2 and 3/5 > 50%  we have a winner : "c"
+
+function runoff(voters){
  let votes = {'a': 0, 'b':0, 'c':0, 'd':0, 'e':0};
- let winner = [];
- arrs.forEach(arr=> {
-     winner.push(arr[0])
+ let candidates = Object.keys(votes);
+ let topVote = [];
+ voters.forEach(voter => {
+     topVote.push(voter[0])
  })
- candidates.forEach(candidate=> {
-     for(let i = 0; i < winner.length; ++i){
-         if (winner[i] === candidate){
-             // use candidate reference to access votes property that goes by candidate's name and increment the value by one..
+
+     for(let i = 0; i < topVote.length; ++i){ // loop through topVote to count number of first-choice votes for each candidate
+             ++votes[topVote[i]]+1;  
+      }
+let max = votes[candidates[0]];
+for (let i = 1; i < candidates.length; ++i){ // loop to get max value
+ if (votes[candidates[i]] > max){
+     max = votes[candidates[i]]
+     if (max/candidates.length > 1/2){ // check if max is a winner amount
+      return `we have a winner ! ${candidates[i]}`
+    } else {
+        // filter out undefined values
+        for (let y = 0; y < arrs.length; ++y){ // loop through array of ballots
+              //  return arrs[y].filter(e => e != undefined)
+                 
+        }
+        //return arrs
+    }
+     
+ }
+
+ 
+ 
+}
+
+let newArr = removeMin(arrs, votes);
+// after this, the alphabetical candidates in the votes object are evaluated -- look for the max number and if it's greater than 50% of the total number of voters, it's a winner
+// else, we look for the min again and repeat the process of distribution, removal
+  
+  console.log(arrs)
+  console.log(votes)  
+  console.log(topVote)
+  console.log(newArr)
+
+
+
+}
+
+function removeMin(arrs, obj){
+    let min = getMin(obj);
+    let candidates = Object.keys(obj);
+     for (let i = 0; i < candidates.length; ++i){ // loop through the list of candidates in alphabetical order
+         if (obj[candidates[i]] === min){
+             for (let y = 0; y < arrs.length; ++y){ // loop through array of ballots
+                 for (let j = 0; j < arrs[y].length; ++j){ // and votes within each ballot
+                    if(obj[arrs[y][j]] === min && obj[arrs[y][j+1]]){ // every instance of candidate(s) with no first-choice votes that is also not the last-choice...
+                       ++obj[arrs[y][j+1]]; // distributes its vote to the choice that comes after it in the ballot
+                        delete arrs[y][j] //... and it is removed
+                    } 
+                 }
+
+             }
          }
      }
- })
+   return arrs
 }
+
+
+function getMin(obj){
+    let arr = Object.keys(obj);
+    let min = obj[arr[0]];
+    let len = arr.length;
+    for (let i = 1; i < len; ++i){ // loop once to get min value
+        if (obj[arr[i]] < min){
+            min = obj[arr[i]]
+        }
+    }
+    return min // once you get min votes candidate, you have to remove them from every ballot
+}
+
+console.log(runoff(arrs))
+
