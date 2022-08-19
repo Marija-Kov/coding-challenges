@@ -431,11 +431,17 @@ let ballots = [
   // so now the vote count is "b": 2; "c": 2 + 1(distributed from "d") = 3 and since 3 > 2 and 3/5 > 50%  we have a winner : "c"
 
 function runoff(voters){
-   let voteStats = toObj(voters);
-   let max = getMax(voteStats);
+   let arrays = voters;
+   let allVotes = arrays[0].length;
+  return count(arrays, allVotes)
+}
+
+function count(arrays, num){
+   let voteStats = toObj(arrays);
+   let max = getMax(voteStats, num);
   if (max === undefined){
-   let newResults = removeMin(voters, voteStats); 
-   return runoff(newResults)  // R E T U R N
+   let newResults = removeMin(arrays, voteStats); 
+   return count(newResults)  // R E T U R N
    } else {
      return max
   } 
@@ -448,13 +454,13 @@ function toObj(arrs){  // this function will present vote stats in a form of obj
         obj[e] = 0
     })
     for (let i = 0; i < len; ++i){
-        ++obj[arrs[i][0]]
+        ++obj[arrs[i][0]];
     }
     //console.log(obj)
     return obj
 }
 
-function getMax(obj){
+function getMax(obj, num){
   let options = Object.keys(obj);
   let max = obj[options[0]];
   let len = options.length;
@@ -462,7 +468,7 @@ function getMax(obj){
     let curr = options[i];
     if (obj[curr] > max){
      max = obj[curr]}
-     if (max/5 > 0.5){ // check if max is a winner amount
+     if (max/num > 0.5){ // check if max is a winner amount
       return `we have a winner! ${options.filter(e => obj[e] === max)}`
     } else {
         return undefined          
@@ -474,13 +480,14 @@ function removeMin(arrs, obj){ // has to take in modified object with every call
     let len = arrs.length;
     let options = Object.keys(obj);
     let min = getMinValue(obj);
-     options.forEach(option => { // loop through the list of candidates in alphabetical order
+    let newArrs = [];
+     options.forEach(option => { // loop through the current list of running candidates
          if (obj[option] === min){
-             for (let y = 0; y < len; ++y){ // loop through array of arrays
+             for (let y = 0; y < len; ++y){ // loop through the array of arrays...
                  let arr = arrs[y];
-                 for (let j = 0; j < arr.length; ++j){ // and every array itself 
-                    if(obj[arr[j]] === obj[option]){ // every instance of candidate(s) with the least votes
-                        if(j === 0 ){ // if it was a first choice
+                 for (let j = 0; j < arr.length; ++j){ // ...and every array itself 
+                    if(obj[arr[j]] === obj[option]){ // check every instance of candidate(s) with the least votes
+                        if(j === 0 ){ // if it was a first choice...
                         ++obj[arr[j+1]]; //..it distributes its vote to the choice that comes after it in the array  
                        }  
                     } 
@@ -491,20 +498,18 @@ function removeMin(arrs, obj){ // has to take in modified object with every call
          }
          
      });
-   let newArrs = [];
-   arrs.forEach(arr => {
-       newArrs.push(arr.filter(e => obj[e] != min))
-   })
+   for(let i = 0; i < len; ++i){
+      newArrs.push(arrs[i].filter(e => obj[e] !== min)) 
+   }
    return newArrs
 }
-
 
 
 function getMinValue(obj){
     let arr = Object.keys(obj);
     let len = arr.length;
     let min = obj[arr[0]];
-    for (let i = 1; i < len; ++i){ // loop once to get min value
+    for (let i = 1; i < len; ++i){ 
         let curr = arr[i];
         if (obj[curr] < min){
             min = obj[curr]
@@ -516,3 +521,10 @@ function getMinValue(obj){
 console.log(runoff(ballots))
 console.log(runoff(ballots1))
 
+// exceeds max call stack (again)
+
+// some tests show returning an array of two instead one result
+
+// some tests show incorrect results
+
+// the solution is not handling complete ties
