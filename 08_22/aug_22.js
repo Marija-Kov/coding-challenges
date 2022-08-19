@@ -450,7 +450,7 @@ function toObj(arrs){  // this function will present vote stats in a form of obj
     for (let i = 0; i < len; ++i){
         ++obj[arrs[i][0]]
     }
-    console.log(obj)
+    //console.log(obj)
     return obj
 }
 
@@ -471,18 +471,18 @@ function getMax(obj){
     }
   
 function removeMin(arrs, obj){ // has to take in modified object with every call or it will always have the same min value
+    let len = arrs.length;
     let options = Object.keys(obj);
     let min = getMinValue(obj);
      options.forEach(option => { // loop through the list of candidates in alphabetical order
          if (obj[option] === min){
-             for (let y = 0; y < arrs.length; ++y){ // loop through array of arrays
+             for (let y = 0; y < len; ++y){ // loop through array of arrays
                  let arr = arrs[y];
                  for (let j = 0; j < arr.length; ++j){ // and every array itself 
                     if(obj[arr[j]] === obj[option]){ // every instance of candidate(s) with the least votes
                         if(j === 0 ){ // if it was a first choice
                         ++obj[arr[j+1]]; //..it distributes its vote to the choice that comes after it in the array  
                        }  
-                       delete arr[j]
                     } 
                  }
     
@@ -493,7 +493,7 @@ function removeMin(arrs, obj){ // has to take in modified object with every call
      });
    let newArrs = [];
    arrs.forEach(arr => {
-       newArrs.push(arr.filter(e => e != undefined))
+       newArrs.push(arr.filter(e => obj[e] != min))
    })
    return newArrs
 }
@@ -513,7 +513,6 @@ function getMinValue(obj){
   } 
 }
 
-
 console.log(runoff(ballots))
 console.log(runoff(ballots1))
-console.log(runoff(ballots2))
+
