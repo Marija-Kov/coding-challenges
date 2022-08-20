@@ -401,11 +401,19 @@
    ["d", "b", "a", "e", "c"]]; // e
 
 let ballots = [
-    ["d", "e", "a", "c", "b"],
-   ["d", "b", "a", "c", "e"],
-   ["e", "a", "d", "b", "c"],
+   ["a", "d", "b", "e", "c"],
+   ["e", "a", "c", "b", "d"],
+   ["d", "a", "c", "b", "e"],
    ["a", "d", "c", "b", "e"],
-   ["d", "b", "a", "e", "c"] // d
+   ["e", "c", "b", "a", "d"] 
+]
+
+let ballots2 =[
+   ["a", "c", "b", "e", "d"],
+   ["c", "a", "e", "b", "d"],
+   ["e", "c", "b", "d", "a"],
+   ["a", "e", "c", "d", "b"],
+   ["d", "c", "e", "a", "b"]  //a
 ]
 
 // More clarification:
@@ -441,24 +449,24 @@ function count(arrays, num){
    let max = getMax(voteStats, num);
   if (max === undefined){
    let newResults = removeMin(arrays, voteStats); 
-   return count(newResults)  // R E T U R N
+   return count(newResults, num)  // R E T U R N
    } else {
      return max
   } 
 }
 
-function toObj(arrs){  // this function will present vote stats in a form of object with key(candidate)-value(votes) pairs
-    let len = arrs.length;
-    let obj = {};
+function toObj(arrs){  
+  let len = arrs.length; 
+  let obj = {};
     arrs[0].forEach(e => {
-        obj[e] = 0
-    })
+        obj[e] = 0 
+    });
     for (let i = 0; i < len; ++i){
         ++obj[arrs[i][0]];
     }
-    //console.log(obj)
     return obj
-}
+} 
+
 
 function getMax(obj, num){
   let options = Object.keys(obj);
@@ -467,43 +475,43 @@ function getMax(obj, num){
   for (let i = 1; i < len; ++i){ // loop to get max value
     let curr = options[i];
     if (obj[curr] > max){
-     max = obj[curr]}
-     if (max/num > 0.5){ // check if max is a winner amount
-      return `we have a winner! ${options.filter(e => obj[e] === max)}`
+     max = obj[curr]
+    }
+  }  
+  if (max/num > 0.5){ // check if max is a winner amount
+      return `${options.filter(e => obj[e] === max)}`
     } else {
         return undefined          
-        }
-      }     
-    }
+  }
+}
   
-function removeMin(arrs, obj){ // has to take in modified object with every call or it will always have the same min value
-    let len = arrs.length;
+function removeMin(arrs, obj){ 
     let options = Object.keys(obj);
-    let min = getMinValue(obj);
+    let len = options.length;
+    let min = getMinValue(obj)
     let newArrs = [];
      options.forEach(option => { // loop through the current list of running candidates
          if (obj[option] === min){
-             for (let y = 0; y < len; ++y){ // loop through the array of arrays...
-                 let arr = arrs[y];
-                 for (let j = 0; j < arr.length; ++j){ // ...and every array itself 
-                    if(obj[arr[j]] === obj[option]){ // check every instance of candidate(s) with the least votes
-                        if(j === 0 ){ // if it was a first choice...
-                        ++obj[arr[j+1]]; //..it distributes its vote to the choice that comes after it in the array  
-                       }  
-                    } 
+             for (let y = 0; y < arrs.length; ++y){ // loop through the array of arrays...
+               for (let z = 0; z < arrs[y].length; ++z) { // and yeah, through the nested arrays, too
+                  if(arrs[y][z] === option){ 
+                     delete arrs[y][z]
+                   }  
                  }
-    
-             }
-             
-         }
-         
-     });
+               } 
+             }   
+            }); 
+            for (let y = 0; y < arrs.length; ++y){ // loop through the array of arrays...
+                if(arrs[y][0] == undefined){ 
+                    ++obj[arrs[y][1]];
+                  }  
+              }                                         
+            
    for(let i = 0; i < len; ++i){
-      newArrs.push(arrs[i].filter(e => obj[e] !== min)) 
-   }
+      newArrs.push(arrs[i].filter(e => obj[e] !== undefined)) 
+   } 
    return newArrs
 }
-
 
 function getMinValue(obj){
     let arr = Object.keys(obj);
@@ -513,13 +521,13 @@ function getMinValue(obj){
         let curr = arr[i];
         if (obj[curr] < min){
             min = obj[curr]
-    }
-    return min
+    } 
   } 
+  return min
 }
 
 console.log(runoff(ballots))
-console.log(runoff(ballots1))
+
 
 // exceeds max call stack (again)
 
