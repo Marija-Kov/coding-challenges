@@ -401,12 +401,12 @@
    ["d", "b", "a", "e", "c"]]; // e
 
 let ballots = [
-   ["a", "d", "b", "e", "c"],
+   ["d", "a", "e", "b", "c"],
+   ["b", "e", "d", "c", "a"],
    ["e", "a", "c", "b", "d"],
-   ["d", "a", "c", "b", "e"],
-   ["a", "d", "c", "b", "e"],
-   ["e", "c", "b", "a", "d"] 
-]
+   ["e", "d", "a", "b", "c"],
+   ["d", "b", "a", "e", "c"]];
+
 
 let ballots2 =[
    ["a", "c", "b", "e", "d"],
@@ -447,12 +447,11 @@ function runoff(voters){
 function count(arrays, num){
    let voteStats = toObj(arrays);
    let max = getMax(voteStats, num);
-  if (max === undefined){
+  if (max === null){
    let newResults = removeMin(arrays, voteStats); 
    return count(newResults, num)  // R E T U R N
-   } else {
+   } 
      return max
-  } 
 }
 
 function toObj(arrs){  
@@ -479,36 +478,40 @@ function getMax(obj, num){
     }
   }  
   if (max/num > 0.5){ // check if max is a winner amount
-      return `${options.filter(e => obj[e] === max)}`
-    } else {
-        return undefined          
-  }
+      let maxVal = options.filter(e => obj[e] === max);
+       if (maxVal.length > 1){
+         return undefined
+        }
+       return maxVal.toString()
+        } else if(max/num <= 0.5) {
+        return null         
+   } else if (obj[options[0]] === obj[options[1]] === obj[options[2]] === obj[options[3]] === obj[options[4]]){ // Apparently, this took care of stack overflow by handling total ties (most of them)
+     return 'undefined'
+   }
 }
   
 function removeMin(arrs, obj){ 
-    let options = Object.keys(obj);
-    let len = options.length;
+    let options = arrs[0];
+  //  let len = options.length;
     let min = getMinValue(obj)
     let newArrs = [];
-     options.forEach(option => { // loop through the current list of running candidates
-         if (obj[option] === min){
-             for (let y = 0; y < arrs.length; ++y){ // loop through the array of arrays...
-               for (let z = 0; z < arrs[y].length; ++z) { // and yeah, through the nested arrays, too
-                  if(arrs[y][z] === option){ 
-                     delete arrs[y][z]
-                   }  
+     options.forEach(option => {
+         if(obj[option] === min){
+             for (let y = 0; y < arrs.length; ++y){ 
+                let index = arrs[y].indexOf(option);
+                     arrs[y][index] = undefined
                  }
                } 
-             }   
-            }); 
-            for (let y = 0; y < arrs.length; ++y){ // loop through the array of arrays...
+            // }   
+           }); 
+            for (let y = 0; y < arrs.length; ++y){
                 if(arrs[y][0] == undefined){ 
                     ++obj[arrs[y][1]];
                   }  
               }                                         
             
-   for(let i = 0; i < len; ++i){
-      newArrs.push(arrs[i].filter(e => obj[e] !== undefined)) 
+   for(let i = 0; i < arrs.length; ++i){
+      newArrs.push(arrs[i].filter(e => e != undefined)) 
    } 
    return newArrs
 }
@@ -534,5 +537,3 @@ console.log(runoff(ballots))
 // some tests show returning an array of two instead one result
 
 // some tests show incorrect results
-
-// the solution is not handling complete ties
