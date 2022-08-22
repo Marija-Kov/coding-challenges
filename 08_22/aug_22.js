@@ -386,150 +386,125 @@
 
 
 
-// 12. Instant runoff voting
+// 12. Instant runoff voting   
 // takes in an array of arrays containing letters a-e each representing candidates
 // the arrays represent votes of one voter in descending order of preference
 // the candidate that gets over 50% votes wins
 // if the winning candidate gets 50% votes or less, the candidate with least votes is removed and the votes are counted again
   // if there are 2 candidates tied for the least votes, they are both out and the votes are counted again
 
- let ballots1 = [
-   ["d", "a", "e", "b", "c"],
-   ["b", "e", "d", "c", "a"],
-   ["e", "a", "c", "b", "d"],
-   ["e", "d", "a", "b", "c"],
-   ["d", "b", "a", "e", "c"]]; // e
+//  let ballots1 = [
+//    ["RM", "DL", "AD", "JL"],
+//    ["RM", "AD", "JL", "DL"],
+//    ["DL", "AD", "JL", "RM"],
+//    ["JL", "AD", "DL", "RM"],
+//    ["AD", "JL", "RM", "DL"],
+//    ["AD", "JL", "RM", "DL"]]; // undefined
 
-let ballots = [
-   ["d", "a", "e", "b", "c"],
-   ["b", "e", "d", "c", "a"],
-   ["e", "a", "c", "b", "d"],
-   ["e", "d", "a", "b", "c"],
-   ["d", "b", "a", "e", "c"]];
-
-
-let ballots2 =[
-   ["a", "c", "b", "e", "d"],
-   ["c", "a", "e", "b", "d"],
-   ["e", "c", "b", "d", "a"],
-   ["a", "e", "c", "d", "b"],
-   ["d", "c", "e", "a", "b"]  //a
-]
-
-// More clarification:
-
-   // first-choice vote count would be:  (topVote array)
-// "a": 0 ; "b": 2; "c": 2; "d": 1; "e": 0 ;
-
-   // "a" and "e" have 0 first-choice votes and none of their votes are distributed to other candidates
-//    [
-//    ["d", , "c", "b", ],
-//    ["b", "d", , "c", ],
-//    ["b", "c", "d", , ],
-//    ["c", "d", , , "b"],
-//    ["c", , "b", , "d"]]
-
-  // "d" is the next with the least first-choice votes, so it is removed next 
-//    [, , "c", "b", ],
-//    ["b", , , "c", ],
-//    ["b", "c", , , ],
-//    ["c", , , , "b"],
-//    ["c", , "b", , ]
-  // "d" had one first-choice vote that is distributed to the next candidate on the ballot - "c"
-  // so now the vote count is "b": 2; "c": 2 + 1(distributed from "d") = 3 and since 3 > 2 and 3/5 > 50%  we have a winner : "c"
-
-function runoff(voters){
-   let arrays = voters;
-   let allVotes = arrays[0].length;
-  return count(arrays, allVotes)
-}
-
-function count(arrays, num){
-   let voteStats = toObj(arrays);
-   let max = getMax(voteStats, num);
-  if (max === null){
-   let newResults = removeMin(arrays, voteStats); 
-   return count(newResults, num)  // R E T U R N
-   } 
-     return max
-}
-
-function toObj(arrs){  
-  let len = arrs.length; 
-  let obj = {};
-    arrs[0].forEach(e => {
-        obj[e] = 0 
-    });
-    for (let i = 0; i < len; ++i){
-        ++obj[arrs[i][0]];
-    }
-    return obj
-} 
-
-
-function getMax(obj, num){
-  let options = Object.keys(obj);
-  let max = obj[options[0]];
-  let len = options.length;
-  for (let i = 1; i < len; ++i){ // loop to get max value
-    let curr = options[i];
-    if (obj[curr] > max){
-     max = obj[curr]
-    }
-  }  
-  if (max/num > 0.5){ // check if max is a winner amount
-      let maxVal = options.filter(e => obj[e] === max);
-       if (maxVal.length > 1){
-         return undefined
-        }
-       return maxVal.toString()
-        } else if(max/num <= 0.5) {
-        return null         
-   } else if (obj[options[0]] === obj[options[1]] === obj[options[2]] === obj[options[3]] === obj[options[4]]){ // Apparently, this took care of stack overflow by handling total ties (most of them)
-     return 'undefined'
-   }
-}
+//   // Why should it return undefined and not AD??
   
-function removeMin(arrs, obj){ 
-    let options = arrs[0];
-  //  let len = options.length;
-    let min = getMinValue(obj)
-    let newArrs = [];
-     options.forEach(option => {
-         if(obj[option] === min){
-             for (let y = 0; y < arrs.length; ++y){ 
-                let index = arrs[y].indexOf(option);
-                     arrs[y][index] = undefined
-                 }
-               } 
-            // }   
-           }); 
-            for (let y = 0; y < arrs.length; ++y){
-                if(arrs[y][0] == undefined){ 
-                    ++obj[arrs[y][1]];
-                  }  
-              }                                         
-            
-   for(let i = 0; i < arrs.length; ++i){
-      newArrs.push(arrs[i].filter(e => e != undefined)) 
-   } 
-   return newArrs
-}
 
-function getMinValue(obj){
-    let arr = Object.keys(obj);
-    let len = arr.length;
-    let min = obj[arr[0]];
-    for (let i = 1; i < len; ++i){ 
-        let curr = arr[i];
-        if (obj[curr] < min){
-            min = obj[curr]
-    } 
-  } 
-  return min
-}
+// let ballots = [
+//    ["d", "a", "e", "b", "c"],
+//    ["b", "e", "d", "c", "a"],
+//    ["e", "a", "c", "b", "d"],
+//    ["e", "d", "a", "b", "c"],
+//    ["d", "b", "a", "e", "c"]];
 
-console.log(runoff(ballots))
+
+// let ballots2 =[
+//    ["a", "c", "b", "e", "d"],
+//    ["c", "a", "e", "b", "d"],
+//    ["e", "c", "b", "d", "a"],
+//    ["a", "e", "c", "d", "b"],
+//    ["d", "c", "e", "a", "b"]  //a
+// ]
+
+// function runoff(voters){
+//    let arrays = voters;
+//    let allVotes = arrays[0].length;
+//   return count(arrays, allVotes)
+// }
+
+// function count(arrays, num){
+//    let voteStats = toObj(arrays);
+//    let max = getMax(voteStats, num);
+//   if (max === null){
+//    let newResults = removeMin(arrays, voteStats); 
+//    return count(newResults, num)  // R E T U R N
+//    } 
+//      return max
+// }
+
+// function toObj(arrs){  
+//   let len = arrs.length; 
+//   let obj = {};
+//     arrs[0].forEach(e => {
+//         obj[e] = 0 
+//     });
+//     for (let i = 0; i < len; ++i){
+//         ++obj[arrs[i][0]];
+//     }
+//     return obj
+// } 
+
+
+// function getMax(obj, num){
+//   let options = Object.keys(obj);
+//   let max = obj[options[0]];
+//   let len = options.length;
+//   for (let i = 1; i < len; ++i){ // loop to get max value
+//     let curr = options[i];
+//     if (obj[curr] > max){
+//      max = obj[curr]
+//     }
+//   }  
+//   if (max/num > 0.5){ // check if max is a winner amount
+//       let maxVal = options.filter(e => obj[e] === max);
+//        if (maxVal.length > 1){
+//          return undefined
+//         }
+//        return maxVal.toString()
+//         } else if(max/num <= 0.5) {
+//         return null         
+//    } else if (options.every(e => obj[options[e]] === obj[options[0]])){
+//      //obj[options[0]] === obj[options[1]] === obj[options[2]] === obj[options[3]] === obj[options[4]]){ // Apparently, this took care of stack overflow by handling total ties (most of them)
+//      return 'undefined'
+//    }
+// }
+  
+// function removeMin(arrs, obj){ 
+//     let options = arrs[0];
+//     let min = getMinValue(obj)
+//     let newArrs = [];
+//     options.forEach(option => {
+//       if(obj[option] === min){
+//         for (let y = 0; y < arrs.length; ++y){ 
+//           let index = arrs[y].indexOf(option);
+//               arrs[y][index] = undefined
+//             }
+//          } 
+//     });                                        
+//    for(let i = 0; i < arrs.length; ++i){
+//       newArrs.push(arrs[i].filter(e => e != undefined)) 
+//    } 
+//    return newArrs
+// }
+
+// function getMinValue(obj){
+//     let arr = Object.keys(obj);
+//     let len = arr.length;
+//     let min = obj[arr[0]];
+//     for (let i = 1; i < len; ++i){ 
+//         let curr = arr[i];
+//         if (obj[curr] < min){
+//             min = obj[curr]
+//     } 
+//   } 
+//   return min
+// }
+
+// console.log(runoff(ballots1))
 
 
 // exceeds max call stack (again)
@@ -537,3 +512,25 @@ console.log(runoff(ballots))
 // some tests show returning an array of two instead one result
 
 // some tests show incorrect results
+
+//13. Persistent bugger
+// split number into single digits and multiply them
+// evaluate the result: if it's a single digit, return it
+// if not, do it
+//i.e while the product is less than 10
+//split number into single digits and multiply
+
+function persistence(num){
+  let curr = num;
+  while (curr > 9){
+    let result = 1;
+    let nums = [...curr.toString()];
+    for(let i = 0; i<nums.length; ++i){
+      result = result*Number(nums[i]);
+    }
+    curr = result
+  }
+  return curr
+}
+
+console.log(persistence(999))
