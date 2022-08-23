@@ -515,22 +515,60 @@
 
 //13. Persistent bugger
 // split number into single digits and multiply them
-// evaluate the result: if it's a single digit, return it
-// if not, do it
-//i.e while the product is less than 10
-//split number into single digits and multiply
+// create an incrementable variable
+// evaluate the result: if it's a single digit, return 0
+// if not, increment by 1 and repeat the cycle
 
-function persistence(num){
-  let curr = num;
-  while (curr > 9){
-    let result = 1;
-    let nums = [...curr.toString()];
-    for(let i = 0; i<nums.length; ++i){
-      result = result*Number(nums[i]);
-    }
-    curr = result
-  }
-  return curr
-}
+// function persistence(num){
+//   let per = 0;
+//   let curr = num;
+//   while (curr > 9){
+//     let result = 1;
+//     let nums = [...curr.toString()];
+//     for(let i = 0; i<nums.length; ++i){
+//       result = result*Number(nums[i]);
+//     }
+//     curr = result
+//     ++per;
+//   }
+//   console.log(curr)
+//   return per
+// }
 
-console.log(persistence(999))
+// console.log(persistence(5993371))
+
+
+//14. Unique in order
+
+//a) takes in a string or array and returns it with only unique values in original order
+
+// function uniqueInOrder(iterable) {
+//   return [...new Set([...iterable])]
+// }
+
+//b) takes in a string/array and returns a single char from each sequence of same chars in the original order
+
+// newArray.push(arr[0])
+//let curr = arr[0]
+// for loop 
+//if arr[i] != curr, newArray.push(arr[i]), curr = arr[i]
+
+// function uniqueInOrder(iterable) {
+//   let arr = [...iterable];
+//   if(arr.length === 0){
+//     return []
+//   }
+//   let newArr = [arr[0]];
+//   let curr = arr[0];
+//   for (let i = 1; i < arr.length; ++i){
+//     if (arr[i] != curr){
+//       newArr.push(arr[i]);
+//       curr = arr[i]
+//     }
+//   }
+//   if(typeof iterable === 'string'){
+//     return newArr.join()
+//   }
+//   return newArr
+// }
+
