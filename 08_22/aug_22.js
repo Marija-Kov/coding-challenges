@@ -572,3 +572,61 @@
 //   return newArr
 // }
 
+//*** */ 'member array.filter((element, index) => element === array[index]   ..?
+
+//15. Stop repeating yourself
+// take in an array of numbers and a number (n)
+// return a new array that will contain n instances of each array element (number) at maximum
+// the order of the elements in the input array has to be preserved
+
+// function deleteNth(arr, n) {
+//   let vals = arr;
+//   let unique = [...new Set(vals)];
+//   unique.forEach(uniq => {
+//     let counter = 0;
+//     let last;
+//     for (let i = 0; i < arr.length; ++i){
+//       if(arr[i] === uniq){
+//         last = i;
+//         ++counter;
+//       }
+//       if (counter === n){
+//         for (let y = last+1; y < arr.length; ++y){
+//           if (arr[y] === uniq){
+//             delete arr[y]
+//           }
+//         }
+//       }
+//     }
+//   })
+  
+//   return vals.filter(e => e != undefined)
+// }
+// for every unique value in the array (uniq) 
+//   create/start a counter at 0
+//   loop through the array
+//   increment ++counter each time an array element (e) === uniq
+//   while counter is less than N
+//   do nothing
+// once counter hits N, create a reference to the last indexOf uniq in the array (last)
+// loop through the rest of the array starting at arr[last+1]
+// if any e === uniq, delete it / assign undefined to it
+
+// once this is done for every uniq, take the modified array and filter out undefined 
+
+// Commenting someone else's solution as a personal note:
+// function deleteNth(arr,x) {
+//   let cache = {}; // will store key(arr[i])-value(number of times it is found in the arr) pairs 
+//   return arr.filter(n => { // will return an array of elements where each element (n)...
+//     cache[n] = (cache[n] || 0) + 1; //... will map into the corresponding key in cache whose value(*) will be incremented by one (whether it's already been defined or not)
+//     return cache[n] <= x; // ..and finally, only elements whose corresponding key in cache has a value less or equal to x will be returned
+//   }); 
+// }
+// (*) at the point cache[n] is created, it's value is empty (falsy) by default. 
+// By using (cache[n] || 0) we make sure that the value of cache[n] is a (falsy) number at the time it's created so it can be incremented.
+// The syntax (a || b) in translates into: take A as the value unless A is falsy, in which case you'll take B (which can be truthy or falsy itself).
+// The order of operands matters. If we wrote (0 || cache[n]) we'd get an empty string in return.
+
+
+// console.log(deleteNth([11, 19, 2, 19, 2, 32, 11, 12, 46, 32, 19, 12, 12, 32, 5, 32, 32, 46, 19, 5], 2));
+
