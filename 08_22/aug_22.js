@@ -630,3 +630,45 @@
 
 // console.log(deleteNth([11, 19, 2, 19, 2, 32, 11, 12, 46, 32, 19, 12, 12, 32, 5, 32, 32, 46, 19, 5], 2));
 
+// 16. Build a tower
+// build nFloors strings with nFloors*2-1 empty spaces
+// convert to array and 
+
+// function towerBuilder(nFloors) {
+//   let tower = [];
+//   let n = nFloors*2-1; // length of each floor/level according to the expected result
+//   let floor = ' ';
+//   while (n > 0){  
+//   floor = floor + ' '
+//   --n;
+//   }
+//   for(let i=0; i < nFloors; ++i){ 
+//   let arr = [...floor];
+//   let empties = arr.splice(nFloors+i+1, nFloors-i, multiplyChar('*', i)); 
+//   tower.push([...empties, arr.splice(nFloors+i+1, nFloors), ...empties].join(''))
+//   }
+//   return tower
+// }
+
+// function multiplyChar(char, n){  // this function will return correct number of blocks on each floor according to the expected result
+//   let multi = char;
+//   for(let i = 0; i<n; ++i){
+//   multi = multi.concat(char, char)
+//   }
+//   return multi
+// }
+
+// console.log(towerBuilder(9))
+
+// Oh, hai, String.repeat() !  PickAStringAnd.repeat(thisManyTimes)
+
+// function buildMuhTower(manyFloors){
+//   const tower = [];
+//   for(let i = 0; i < manyFloors; ++i){
+//     tower.push(" ".repeat(manyFloors-1-i) + "*".repeat(i*2+1) + " ".repeat(manyFloors-1-i))
+//   }
+//   return tower
+// }
+
+// console.log(buildMuhTower(9))
+
