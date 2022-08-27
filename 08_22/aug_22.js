@@ -660,7 +660,7 @@
 
 // console.log(towerBuilder(9))
 
-// Oh, hai, String.repeat() !  PickAStringAnd.repeat(thisManyTimes)
+// (*) Oh, hai, String.repeat() !  PickAStringAnd.repeat(thisManyTimes) !
 
 // function buildMuhTower(manyFloors){
 //   const tower = [];
@@ -672,3 +672,46 @@
 
 // console.log(buildMuhTower(9))
 
+//17. x and o
+// takes in a string of random chars
+// counts x and o occurrences
+// returns true if x and o counts are equal, else false
+// if no x or o are found in the string, also returns true
+// is case insensitive
+
+// function XO(str) {
+//    let arr = [...str];
+//    if(!arr.includes('x', 'o', 'X', 'O')){
+//      return true
+//    }
+//    let Xs, Os;
+//     let len = arr.length;
+//     for (let i=0; i<len; ++i){
+//      if (arr[i].toLowerCase() === 'x'){
+//        Xs = (Xs || 0) + 1;
+//      } else if(arr[i].toLowerCase() === 'o'){
+//        Os = (Os || 0) + 1;
+//      }
+//     }
+//   if(Xs === Os){
+//     return true
+//   } else {
+//     return false
+//   }
+// }
+
+// 18. Build tower with defined block size
+// function takes 2 args: a number of floors (integer) and a size of block (array of 2 integers, each > 0)
+
+//--block size, ex: [2,1] === '**'
+// one floor height corresponds to the second integer in the arg
+
+function towerBuilder(nFloors, blockSz) {
+ let tower = [];
+ for(let i = 0; i < nFloors * blockSz[1]; ++i){
+   tower.push("_".repeat(nFloors-1-i) + "*".repeat(i*2+blockSz[0]) + "_".repeat(nFloors-1-i))
+  }
+ return tower
+}
+
+console.log(towerBuilder(3, [2,3]))
