@@ -706,12 +706,18 @@
 //--block size, ex: [2,1] === '**'
 // one floor height corresponds to the second integer in the arg
 
-function towerBuilder(nFloors, blockSz) {
- let tower = [];
- for(let i = 0; i < nFloors * blockSz[1]; ++i){
-   tower.push("_".repeat(nFloors-1-i) + "*".repeat(i*2+blockSz[0]) + "_".repeat(nFloors-1-i))
-  }
- return tower
-}
+// function towerBuilder(nFloors, blockSz) {
+//  let floor = []; 
+//  let tower = [];
+//  let s = 1; // denotes the increasing floor width/number of blocks per floor
+//  for(let i = 1; i <= nFloors; ++i){
+//   for(let j=0; j<blockSz[1]; ++j){
+//     floor.push(" ".repeat(blockSz[0]*(nFloors-i)) + "*".repeat(blockSz[0] * s) + " ".repeat(blockSz[0]*(nFloors-i)))
+//   }
+//   s+=2; // the next floor is always 2 block widths wider than the previous
+//    tower = [...floor];
+//   }
+//  return tower
+// }
 
-console.log(towerBuilder(3, [2,3]))
+// console.log(towerBuilder(4, [3,2]))
