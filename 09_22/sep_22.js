@@ -61,3 +61,15 @@
 // console.log(maxProduct([2,4,8,1,6], 2))
 // console.log(maxProduct([-2,-4,-7,-1,-5], 2))
 
+// 21. Calculate max profit - input: array of stock prices in chronological order
+// you have to buy before you sell!
+
+// Find minimum price and buy on that day
+// Look for maximum price from one spot after the min price
+// subtract max from min
+function maxProfit(prices) {
+ return Math.abs(Math.min(...prices) - Math.max(...prices.slice(prices.indexOf(Math.min(...prices)))))
+}
+
+console.log(maxProfit([11,7,10,6,10,8,9,11]))
+
