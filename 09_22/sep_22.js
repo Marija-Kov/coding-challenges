@@ -25,4 +25,39 @@
 // console.log(isPangram("The quick brown fox jumps over the lazy dog."))
 // console.log(isPangram("This is not a pangram."))
 
+//20. Calculate max product of n numbers from the array of unordered numbers
+
+//a) Brute force approach: multiply every possible combination of n numbers and then compare them all until you find the max 
+//b) Find n largest numbers in the array and multiply them
+// *If n is an even number and if every arr number is a negative integer,
+//..the algorithm should be looking for the max absolute value
+
+// function maxProduct(arr, n){
+//     let input = arr;
+//     let val;
+//     let product;
+//     if(input.every(e => e < 0) && n%2 === 0){
+//       val = Math.min(...input);
+//       product = val;
+//     for(let i = 1; i < n; ++i){
+//      input[input.indexOf(val)] = input[input.length-1];
+//      input.pop();
+//      val = Math.min(...input);
+//      product *= val;
+//     }
+// }else{
+//      val = Math.max(...input);
+//      product = val;
+//    for(let i = 1; i < n; ++i){
+//      input[input.indexOf(val)] = input[input.length-1];
+//      input.pop();
+//      val = Math.max(...input);
+//      product *= val;
+//   }
+//  }
+//  return product
+// }
+
+// console.log(maxProduct([2,4,8,1,6], 2))
+// console.log(maxProduct([-2,-4,-7,-1,-5], 2))
 
