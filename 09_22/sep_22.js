@@ -32,8 +32,7 @@
 // *If n is an even number and if every arr number is a negative integer,
 //..the algorithm should be looking for the max absolute value
 
-// function maxProduct(arr, n){
-//     let input = arr;
+// function maxProduct(input, n){
 //     let val;
 //     let product;
 //     if(input.every(e => e < 0) && n%2 === 0){
@@ -64,12 +63,43 @@
 // 21. Calculate max profit - input: array of stock prices in chronological order
 // you have to buy before you sell!
 
-// Find minimum price and buy on that day
-// Look for maximum price from one spot after the min price
-// subtract max from min
-function maxProfit(prices) {
- return Math.abs(Math.min(...prices) - Math.max(...prices.slice(prices.indexOf(Math.min(...prices)))))
-}
+//1) Find minimum price 
+//2) Look for maximum price from one spot after the min price
+//3) subtract max from min
+//4) store it in a variable named profit
+//
+// repeat: 1), 2), 3)
+//5) if the new value is greater than current profit, profit=greater value
 
-console.log(maxProfit([11,7,10,6,10,8,9,11]))
+// function maxProfit(prices) {
+//      let min;
+//      let profit = 0;
+//      let indexMin;
+// for (let j = 0; j < prices.length; ++j){
+//     min = Math.min(...prices);
+//     indexMin = prices.indexOf(min);
+//     let p = Math.max(...prices.slice(indexMin)) - min;
+//     if(profit < p) {
+//         profit = p
+//     }
+//     prices.splice(indexMin, indexMin+1); 
+//    }
+//    return profit
+// }
 
+// console.log(maxProfit([11,7,10,70,100,8,9,2,3]))
+
+// 22. Reverse array
+
+// function reverseArr(arr){
+//     const len = arr.length;
+//     let temp;
+// for (let i=0; i<Math.floor(len/2); ++i){
+//   temp = arr[i];
+//   arr[i] = arr[len-1-i];
+//   arr[len-1-i] = temp;
+// }
+// return arr
+// }
+
+// console.log(reverseArr([1,2,3,4,5,6,7,8,9]))
