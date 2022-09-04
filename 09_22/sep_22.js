@@ -114,15 +114,25 @@
 //*'b' can include squared values of every 'a' element but not have the right length
 //* 'b' can include squared values of every 'a' element but not have an instance of a squared value for every instance of the root value in 'a'
 
-function comp(array1, array2){
-    if (array1 || array2 === null){
-            return false
-    } else if (array1.length !== array2.length){
-        return false
-    } else if (!array1.every(e=> array2.includes(e**2))){
-        return false
-    }
-    return true
-}
+// function comp(array1, array2){
+//   if (array1 == null || array2 == null){
+//       return false
+//    } else if (array1.every(e=> array2.includes(e**2) && count(e, array1) === count(e**2, array2))){
+//       return true
+//    } else {
+//       return false
+//    }
+// }
+
+// function count(num, arr){
+//  let c = 0;
+//  let len = arr.length;
+//  for(let i = 0; i < len; ++i){
+//   if (arr[i]===num){
+//       ++c
+//   }
+//  }
+//  return c
+// }
 
 
