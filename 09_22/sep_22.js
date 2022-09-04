@@ -103,3 +103,26 @@
 // }
 
 // console.log(reverseArr([1,2,3,4,5,6,7,8,9]))
+
+// 23. "Same"
+// the function takes in arrays 'a' and 'b' to be compared
+// if every element of the array 'a' maps into its squared value in the array 'b',
+//..and the arrays are the same length, the function returns true
+// in any other case it returns false
+// if one of the arrays is null, returns false
+// one of the arrays may be empty or contain empty objects
+//*'b' can include squared values of every 'a' element but not have the right length
+//* 'b' can include squared values of every 'a' element but not have an instance of a squared value for every instance of the root value in 'a'
+
+function comp(array1, array2){
+    if (array1 || array2 === null){
+            return false
+    } else if (array1.length !== array2.length){
+        return false
+    } else if (!array1.every(e=> array2.includes(e**2))){
+        return false
+    }
+    return true
+}
+
+
