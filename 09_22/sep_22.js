@@ -135,4 +135,84 @@
 //  return c
 // }
 
+// 24. Merge two sorted arrays 
+// Both input arrays may contain only numbers sorted in ascending order
+// They may or may not be the same length
+// Any array may be any length, including 0
+
+// Solution 1:
+// function mergeTwo(arr1, arr2){
+//     return[...arr1, ...arr2].sort()
+// }
+
+// Solution 2:
+// function mergeTwo(arr1, arr2){
+//     let len;
+//     let long; 
+//     let short; // The sorting will happen to the length of the shorter array. The rest of the long array can just be iterated through and pushed into the array of sorted numbers.
+//      if(arr1.length > arr2.length){
+//        short = arr2;
+//        len = arr2.length;
+//        long = arr1; 
+//       } else {
+//          short = arr1;
+//          len = arr1.length;
+//          long = arr2;
+//       }
+//      if (len === 0) return long;
+//      if (len === 1){
+//       for(let i = 0; i < long.length; ++i){
+//         if (short[0] < long[i]){
+//             long.splice(i, 0, short[0])
+//             return long
+//         } 
+//       }
+//      } 
+// // If both arrays are longer than 1 element..
+// let merged = arr1[0]<arr2[0] ? [arr1[0], arr2[0]] : [arr2[0], arr1[0]]; // initialize array merged with first members of each input array making sure they're in ascending order
+
+// for (let i=1; i<len; ++i){                                                                  
+//    let a = arr1[i]; 
+//    let b = arr2[i];
+//    let last = merged[merged.length-1];
+//    if(a<b){
+//      if(a>last){
+//         merged.push(a,b)
+//       }else{
+//         merged.pop(); 
+//         merged.push(a, last, b)
+//       }
+//     }else{
+//        if(b>last){
+//            merged.push(b,a)
+//        }else{
+//         merged.pop(); 
+//         merged.push(b,last,a)
+//       }
+//    }
+// }
+// for (let i=len; i<long.length; ++i){
+//        merged.push(long[i])
+//    }
+// return merged
+// // return [...merged, ...long.slice(len)]
+// }
+
+// Solution 3:
+// function mergeTwo(arr1, arr2) {
+// let arr = [...arr1, ...arr2].filter(e=> e); // filter if an array has empty spots. Might be faster if input arrays are filtered before merging them into one.
+// let sorted=[];
+// let m;
+// for (let i=0; i<arr.length; ++i){
+//  m = Math.min(...arr);
+//  sorted.push(m)
+//  arr[arr.indexOf(m)] = arr[arr.length -1];
+// }
+// return sorted
+// }
+
+// console.log(`1.  ${mergeTwo([2,2,4,5,5,7,9], [0,1,3,6,8,8,9,20])}`)
+// console.log(`2.  ${mergeTwo([1, ,2], [0, ,7])}`)
+// console.log(`3.  ${mergeTwo([2], [0,1,4,7])}`)
+// console.log(`4.  ${mergeTwo([], [0,1,3,6,8,8,9,20])}`)
 
