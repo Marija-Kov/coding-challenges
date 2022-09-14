@@ -216,3 +216,45 @@
 // console.log(`3.  ${mergeTwo([2], [0,1,4,7])}`)
 // console.log(`4.  ${mergeTwo([], [0,1,3,6,8,8,9,20])}`)
 
+// 25. Is the string an isogram? - Ignore case. The strings may contain empty spaces.
+
+// function isIsogram(str){
+//  if(str=="") return true;
+//   const inp = [...str.toLowerCase()].filter(e=> e !== " ").sort();
+//   for(let i=0; i<inp.length; ++i){
+//     if (inp[i] === inp[i+1]){
+//       return false
+//     } 
+//   }
+//   return true
+// }
+
+// console.log(`1. ${isIsogram("  isogram")}`)
+// console.log(`2. ${isIsogram("aba")}`)
+// console.log(`3. ${isIsogram("moOse")}`)
+// console.log(`4. ${isIsogram("isIsogram")}`)
+// console.log(`5. ${isIsogram("")}`)
+
+//26. Sort an array of numbers in an ascending order so that even numbers keep their original positions.
+
+
+// function sortArray(array) {
+//   const arr = [...array];
+//   let len = arr.length;
+//  for(let i = 0; i<len; ++i){
+//    if(arr[i]%2 !== 0){
+//    for(let y = i+1; y<len; ++y){
+//     if(arr[y]%2 !== 0 && arr[y]<arr[i]){
+//       let temp = arr[i];
+//       arr[i] = arr[y];
+//       arr[y] = temp;
+//     }
+//    }
+//   }
+//  }
+//  return arr
+// }
+
+// console.log(`1. ${sortArray([5, 3, 2, 8, 1, 4])}`) //[1, 3, 2, 8, 5, 4]
+// console.log(`2. ${sortArray([5, 3, 1, 8, 0])}`)  //[1, 3, 5, 8, 0]  
+// console.log(`3. ${sortArray([])}`) // []
