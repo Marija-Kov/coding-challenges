@@ -258,3 +258,39 @@
 // console.log(`1. ${sortArray([5, 3, 2, 8, 1, 4])}`) //[1, 3, 2, 8, 5, 4]
 // console.log(`2. ${sortArray([5, 3, 1, 8, 0])}`)  //[1, 3, 5, 8, 0]  
 // console.log(`3. ${sortArray([])}`) // []
+
+// 27. Find max sum subsequence of an array of integers
+// if all integers are negative, return 0
+// if all integers are positive, return sum of all integers
+// empty array is a valid input 
+// the length of the subsequence is not fixed, may be from 0 to input.length
+
+
+// 1) O(n^2) 
+
+// function maxSequence(arr){
+//   if(arr.every(e => e<0) || arr.length===0){   // slow - runs a function every() for every array element
+//     return 0
+//   }
+//   if(arr.every(e=>e>=0)){
+//     return sumArr(arr)
+//   }
+//   let tempSubArr;
+//   let tempSum=Number.NEGATIVE_INFINITY;
+//   let len = arr.length;
+//   for(let i=0; i<len; ++i){
+//     for(let y=i; y<len; ++y){
+//       tempSubArr=arr.slice(i, y+1);
+//      if(sumArr(tempSubArr) > tempSum){
+//       tempSum = sumArr(tempSubArr)
+//      } 
+//     }
+//   }
+//   return tempSum
+// }
+
+// function sumArr(arr){
+//   return arr.reduce((prev,curr) => prev + curr, 0)
+// }
+
+// console.log(maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
