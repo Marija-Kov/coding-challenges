@@ -200,7 +200,7 @@
 
 // Solution 3:
 // function mergeTwo(arr1, arr2) {
-// let arr = [...arr1, ...arr2].filter(e=> e); // filter if an array has empty spots. Might be faster if input arrays are filtered before merging them into one.
+// let arr = [...arr1, ...arr2].filter(e=> e); // filter if an array has empty replacedItems. Might be faster if input arrays are filtered before merging them into one.
 // let sorted=[];
 // let m;
 // for (let i=0; i<arr.length; ++i){
@@ -294,3 +294,42 @@
 // }
 
 // console.log(maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+
+
+// 27. Consider a side of a die as a 3 x 3 grid.
+// Write a function that will return an array of arrays of numbers that represent each side of the die as a colour-by-number pattern.
+// ex: side 1 has a mark on area 5 left to right, so side 1 : '5', then side 2: "19", side 3: "159" etc.
+//       []
+//      [5]
+//     [1,9]
+//    [1,5,9]
+//   [1,3,7,9]
+//  [1,3,5,7,9]
+// [1,3,4,6,7,9]
+
+function diePattern(){
+    const areas = 9;  
+    const sides = new Array(6);
+    let mid = Math.ceil(areas/2); // 5
+    let m = mid.toString();
+    sides[0] = m; // side one has one dot in the center;
+    for (let i=1; i< 6; ++i){
+        let prev = sides[i-1];
+        if([...prev].includes(m)){
+            if(prev === mid.toString()){
+             sides[i] = prev.replace(m, '1'+ areas.toString())
+            }else{
+             let y = prev.indexOf(mid);
+             sides[i] = prev.replace(m, ((mid + Number([...prev][y-1]))/2).toString() + ((mid + Number([...prev][y+1]))/2).toString())
+            }
+
+        }else{
+            let len = [...prev].length;
+            sides[i] = prev.slice(0, len/2) + mid + prev.slice(len/2, len)
+        }
+    
+    }
+    return sides.map(side => side.split('').map(num => Number(num)))
+}
+
+console.log(diePattern())
