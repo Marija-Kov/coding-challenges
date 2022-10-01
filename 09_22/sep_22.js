@@ -307,29 +307,68 @@
 //  [1,3,5,7,9]
 // [1,3,4,6,7,9]
 
-function diePattern(){
-    const areas = 9;  
-    const sides = new Array(6);
-    let mid = Math.ceil(areas/2); // 5
-    let m = mid.toString();
-    sides[0] = m; // side one has one dot in the center;
-    for (let i=1; i< 6; ++i){
-        let prev = sides[i-1];
-        if([...prev].includes(m)){
-            if(prev === mid.toString()){
-             sides[i] = prev.replace(m, '1'+ areas.toString())
-            }else{
-             let y = prev.indexOf(mid);
-             sides[i] = prev.replace(m, ((mid + Number([...prev][y-1]))/2).toString() + ((mid + Number([...prev][y+1]))/2).toString())
-            }
+// function diePattern(){
+//     const areas = 9;  
+//     const sides = new Array(6);
+//     let mid = Math.ceil(areas/2); // 5
+//     let m = mid.toString();
+//     sides[0] = m; // side one has one dot in the center;
+//     for (let i=1; i< 6; ++i){
+//         let prev = sides[i-1];
+//         if([...prev].includes(m)){
+//             if(prev === mid.toString()){
+//              sides[i] = prev.replace(m, '1'+ areas.toString())
+//             }else{
+//              let y = prev.indexOf(mid);
+//              sides[i] = prev.replace(m, ((mid + Number([...prev][y-1]))/2).toString() + ((mid + Number([...prev][y+1]))/2).toString())
+//             }
 
-        }else{
-            let len = [...prev].length;
-            sides[i] = prev.slice(0, len/2) + mid + prev.slice(len/2, len)
-        }
+//         }else{
+//             let len = [...prev].length;
+//             sides[i] = prev.slice(0, len/2) + mid + prev.slice(len/2, len)
+//         }
     
-    }
-    return sides.map(side => side.split('').map(num => Number(num)))
-}
+//     }
+//     return sides.map(side => side.split('').map(num => Number(num)))
+// }
 
-console.log(diePattern())
+// console.log(diePattern())
+
+// 28. Simplified directions
+// given an array of directions (strings), which might be any combination of "north", "west","south", "east"
+// and knowing that "north" and "south" as well as "west" and "east" cancel each other out
+// return an array of simplified directions, 
+// i.e. the one that excludes pairs of adjacent directions that cancel each other out
+
+// More details:
+// - all-caps strings only?
+// - only 4 directions?
+// - only alphabetical strings?
+// - should work for empty arrays? 
+
+// const dirsObj = {"NORTH":"SOUTH", "SOUTH":"NORTH", "EAST":"WEST", "WEST":"EAST"}; 
+// function dirReduc(arr){
+//     let newDirs=[];
+//     let i=0;
+//     while (i<arr.length){
+//      if(arr[i] !== dirsObj[arr[i+1]]){
+//         newDirs.push(arr[i]) 
+//         ++i;
+//       }else{
+//        i=i+2;
+//       }
+//     }
+//     return newDirs.join('').includes("NORTHSOUTH") ?
+//            dirReduc(newDirs) :
+//            newDirs.join('').includes("SOUTHNORTH") ?
+//            dirReduc(newDirs) :
+//            newDirs.join('').includes("WESTEAST") ?
+//            dirReduc(newDirs) :
+//            newDirs.join('').includes("EASTWEST") ?
+//            dirReduc(newDirs) : newDirs
+// }
+
+// console.log(dirReduc(["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST", "WEST"]));
+// console.log(dirReduc(["NORTH","SOUTH","WEST","EAST","NORTH","SOUTH","NORTH","EAST","WEST","EAST","SOUTH","NORTH","EAST","WEST"])); 
+// console.log(dirReduc(["NORTH", "WEST", "SOUTH", "EAST"]));
+// console.log(dirReduc(["NORTH","NORTH","NORTH","SOUTH","SOUTH","SOUTH"]))
