@@ -62,3 +62,174 @@
 
 // console.log(high('aa b'))
 //console.log(high('what time are we climbing up the volcano'))
+
+// 32. Find the largest block of connected black cells on a 10x10 grid;
+// Blocks may be horizontal, vertical or any combination of horizontally and vertically oriented sub-blocks.
+// Input: comma-separated string of black cell identifiers; any length, including 0; unordered in any way;
+//       -first digit is column, second is row;
+//        Invalid format: two or more identical cell identifiers, single-digit, non-numerical - should be treated as 00.
+// Output: Largest number of connected blocks
+
+// Solution:
+// First we need to split the string into an array of identifiers;
+// Then we need to look at the sets of identifiers that make blocks to determine how they relate to each other;
+// It can be observed that one or the other of these statements is true for such sets:
+// 1) Digits at position 0 are the same and digits at position 1 are consequential positive integers;
+// 2) Digits at position 1 are the same and digits at position 0 are consequential positive integers.
+// * Using this insight we could identify only vertical or only horizontal blocks with quite a bit of calculation.
+// Then we would have to figure out if and how any horizontal can be combined with any vertical blocks, which would be quite complicated.
+// We could be looking for a little more complex rule of the block, in case it's doable as the shapes of blocks can vary wildly.
+// Another approach:
+// 1) Get all vertical blocks
+// 2) Get all horizontal blocks
+// 3) Get the largest block (horizontal or vertical) and make it the largest(max)
+// 4) Check if there is any valid contact - overlap - with any opposite-oriented blocks
+// 5) If yes, add the number of the opposite-oriented blocks and subtract by 1 (because they overlap/share one cell) to the max and make that new max
+// BUT FIRST, how to identify the blocks? How to check if a horizontal/vertical sequence of cells is a block?
+
+//Another approach:
+//What if we could represent the grid as a pattern of 0s and 1s where 0 is empty and 1 is a black cell?
+// How can we derive this pattern out of the given input identifiers? We can see them as coordinates of the black cells in a 10x10 grid.
+// Let the grid be an array of 10 arrays of 10 elements where each subarray represents a row.
+// Meaning grid[i] would be a row and grid[i][y] would be a single cell in a row, which is a schema for each of the identifiers that we get in our input string.
+// So which digit is [i] and which one is [y]? When we look at the example grid in challenge instructions (https://www.codewars.com/kata/5a306685e1ce0e3fa500010b/train/javascript)
+// We see that what we see as grid[0] is in the bottom row and grid[9] at the top. 
+// That isn't a reason for concern because the upside-down grid shows the blocks with the same number of cells and that's what we're interested in ultimately.
+// So, to start with drawing the pattern based on the input, first we need to make sure that all the identifiers are valid.
+// We will filter out any identifiers that are described as invalid in the instructions // runs filter for every arr element 
+// ..And remove all the duplicates
+// We can also convert all the valid identifiers to numbers and maybe name that array 'ids'
+// BUILDING THE PATTERN:
+// 1) Create an array 'grid' of 10 arrays of 10 0s
+// 2) iterate through the ids array
+//  2.1) let row = Math.floor(id/10);
+//  2.2) let col = id % 10;
+//  2.3) grid[row][col] = 1;
+// The pattern is done.
+// ⟡ ⦝ √ ⬭ ⦔ ≡ ≢ 
+// What do we get out of this pattern, tho? Are we just back to the start?
+// Using this pattern we can get the largest number of consecutive 1s in a row/subarray.
+// What do we do with that? 
+// Can we maybe make the addition of adjacent black cells by checking for values in the same index of two arrays at the same time?
+// Btw, adjacent black cells would be ex: grid[0][1] and grid[1][1] or grid[0][1] and grid[0][2];
+// That is to say, x and y are adjacent if x = grid[i][j], y = grid[i+1][j] or
+//                                         x = grid[i][j], y = grid[i][j+1] . 
+// The fact that one cell can have 4 adjacent cells may sound complicated.
+// But since we're iterating through our pattern top to bottom/left to right, we will only be checking the cells ahead of the current cell.
+// THe thing is, we don't want to be only able to calculate the sum of adjacent black cells to the right and below the current black cell..
+// And compare only that sum to the maxSum that we have memoized.
+// We want our algorithm to be able to identify more complex blocks of cells that spread in the variety of directions.
+// What we can do is mark every black cell(1) that we take into account. We can do it in our pattern by changing 1 to 2 for example.
+// So each time we run into a 2 instead of 1, we add the sum to maxSum, instead of comparing it with maxSum -
+// But this will only return correct result if we assigned something to maxSum in our previous iteration i.e. 
+//..if we were sure that we're going towards larger blocks with every iteration.
+// We have to consider that the blocks of random sizes may be scattered all over the grid!
+
+// Let's try some implementation:
+// √ Can write pattern
+// √ Can count all black cells
+// √ Can count max cells in a row
+// √ Can count max adjacent cells in a row 
+// √ Can count max adjacent cells in a column 
+
+
+// WHAT IF we could get every black cell to show the number of cells connected to it in the current row + the previous rows 
+// so we can conveniently grab the size of a block when we need it?
+// Given the example of a block, we can take into account that starting value of every cell is 1 and that the size is 8
+// .. we can come up with a rule of addition that would end up giving 8s at the bottom row.
+// Example:
+//           step 1)        step 2)        step 3)        step 4)        step 5)       step 6)        step 7)      step 8) 
+//          [0,0,0,1,0]    [0,0,0,1,0]    [0,0,0,1,0]    [0,0,0,1,0]    [0,0,0,1,0]   [0,0,0,1,0]   [0,0,0,1,0]   [0,0,0,1,0]     
+//          [0,0,1,1,0]    [0,0,1,3,0]    [0,0,3,3,0]    [0,0,3,3,0]    [0,0,3,3,0]   [0,0,3,3,0]   [0,0,3,3,0]   [0,0,3,3,0]   
+//          [1,1,1,0,0]    [1,1,1,0,0]    [1,1,1,0,0]    [1,2,1,0,0]    [1,2,6,0,0]   [6,6,6,0,0]   [6,6,6,0,0]   [6,6,6,0,0]   
+//          [0,0,1,1,0]    [0,0,1,1,0]    [0,0,1,1,0]    [0,0,1,1,0]    [0,0,1,1,0]   [0,0,7,1,0]   [0,0,7,8,0]   [0,0,8,8,0]   
+// 
+// If for every black tile: grid[i][j] = grid[i][j-1] + grid[i][j] + grid[i-1][j];
+// ..and also all the adjacent cells in the current row take the max value in that section of the block
+// ..we can see that the number we get at he bottom section of a block is exactly the nnumber of cells in the block
+// Since, besides the current value, we're looking at the values above and behind, the iterations should start from index 1 in both directions;
+//* We still need to come up with a function that would, upon reaching the end of the adjacent cell section in one row/array, 
+// take the last/highest calculated value, go back and assign it to every adjacent black cell of that block section.
+
+
+
+function solution(input) {
+  if (input === ''){
+    return 0
+  }
+  const grid =[[0,0,0,0,0,0,0,0,0,0],
+               [0,0,0,0,0,0,0,0,0,0],
+               [0,0,0,0,0,0,0,0,0,0],
+               [0,0,0,0,0,0,0,0,0,0],
+               [0,0,0,0,0,0,0,0,0,0],
+               [0,0,0,0,0,0,0,0,0,0],
+               [0,0,0,0,0,0,0,0,0,0],
+               [0,0,0,0,0,0,0,0,0,0],
+               [0,0,0,0,0,0,0,0,0,0],
+               [0,0,0,0,0,0,0,0,0,0]];
+   const inp = [...new Set(input.split(','))];
+   const len = inp.length;
+   //let maxSum = 0;
+   //let sum = 0;
+   for (let i=0; i<len; ++i){
+     let row = Math.floor(Number(inp[i])/10);
+     let col = Number(inp[i])%10;
+     grid[row][col] = 1;
+   }
+const cellSums = () => {
+  const allSums = [];
+  for (let i=1; i<10; ++i){
+    for (let j=1; j<10; ++j){
+      if (grid[i][j]===1){
+       grid[i][j] = grid[i][j-1] + grid[i][j] + grid[i-1][j]; 
+       allSums.push(grid[i][j]);
+      }
+    }
+  }
+  return allSums
+}
+// const maxAdjRow = () => {
+//   let maxSum = 0;
+//   let sum = 0;
+//  for (let i=0; i<10; ++i){
+//      for (let j=0; j<10; ++j){
+//        if (grid[i][j] === 1){
+//          ++sum;
+//          grid[i][j] = sum; 
+//        }
+//      if(grid[i][j+1] === 0){
+//       if(sum > maxSum){
+//        maxSum = sum;
+//       } 
+//       sum = 0;
+//      }
+//     }
+//    }
+//    return maxSum
+//   }
+// const maxAdjCol = () => {
+//   let maxSum = 0;
+//   let sum = 0;
+//  for(let j=0; j<10; ++j){
+//    for(let i=0; i<10; ++i){
+//      if(grid[i][j] === 1){
+//        ++sum;
+//        grid[i][j] = sum; 
+//        if(!grid[i+1] || grid[i+1][j] === 0){
+//          if(sum > maxSum){
+//            maxSum = sum;
+//           } 
+//           sum = 0;
+//         }
+//       }
+//     }
+//   }
+//  return maxSum
+// }  
+//console.log(`cols: ${maxAdjCol()}, rows: ${maxAdjRow()}`)
+return cellSums()  
+}
+
+console.log(solution('18,00,95,40,36,26,57,48,54,65,76,87,97,47,00')) // 3 , max 2
+console.log(solution('18,00,95,40,36,26,57,48,54,65,76,87,97,47,00,46'))// 6 , max 5
+console.log(solution('31,32,33')) // 3 , max 3
