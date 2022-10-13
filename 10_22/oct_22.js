@@ -244,7 +244,7 @@ return cellSums()
 
 
 
-// A special treat Roundtrip tickets deal
+// 33. A special treat ⟡ Roundtrip tickets deal
 // You want your mom to visit you at town A, but she's never been in A and is afraid of flying alone all the way from town Z.
 // She asks you to come to Z first so you two can travel back to A together and then she returns to Z on her own.
 // So you know that you need to book two roundtrip tickets from opposite directions and also consider that
@@ -263,6 +263,33 @@ return cellSums()
 // Output: minimum total ticket prices and numbers of flights taken.
 
 
-          
+
+
+// 34. Return a missing letter in the array
+// Input: an array (length >=2) of single-letter strings sorted in alphabetical order. Letters are always in upper OR lower case.
+// Output: a single-letter string;
+
+//Solution:
+ // write down the alphabet as an array
+ // get the length of the input
+ // get the alphabetic index of the first letter in the input
+ // compare each letter from the input with each letter from the alphabet
+ // starting with the index of the first letter in the alphabet
+ // pay attention to the case of the input when returning the result
+
+function missingLetter(arr){
+ const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
+ let start = alphabet.indexOf(arr[0].toLowerCase());
+ let len = arr.length;
+ for (let i=start, y=0; i<start+len, y<len; ++i, ++y){
+   let letter = arr[y].toLowerCase();
+   if (alphabet[i]!==letter){
+     return arr[y] === letter ? alphabet[i] : alphabet[i].toUpperCase()
+   }
+ }
+}
+
+console.log(missingLetter(['a','b','c','d','f']))
+console.log(missingLetter(['O','Q','R','S']))
 
 
