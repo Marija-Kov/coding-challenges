@@ -148,15 +148,12 @@
 // ..and also all the adjacent cells in the current row take the max value in that section of the block
 // ..we can see that the number we get at he bottom section of a block is exactly the nnumber of cells in the block
 // Since, besides the current value, we're looking at the values above and behind, the iterations should start from index 1 in both directions;
-//* We still need to come up with a function that would, upon reaching the end of the adjacent cell section in one row/array, 
+//* We still need to come up with a solution that would, upon reaching the end of the adjacent cell section in one row/array, 
 // take the last/highest calculated value, go back and assign it to every adjacent black cell of that block section.
 
-
+// ⟡ Solution returns the expected output, but very, very slow. Pls optimize.
 
 function solution(input) {
-  if (input === ''){
-    return 0
-  }
   const grid =[[0,0,0,0,0,0,0,0,0,0],
                [0,0,0,0,0,0,0,0,0,0],
                [0,0,0,0,0,0,0,0,0,0],
@@ -167,10 +164,9 @@ function solution(input) {
                [0,0,0,0,0,0,0,0,0,0],
                [0,0,0,0,0,0,0,0,0,0],
                [0,0,0,0,0,0,0,0,0,0]];
-   const inp = [...new Set(input.split(','))];
+   const inp = [...new Set((input.split(',')).filter(e => e.length===2 && Number(e) >= 0))];
+   if (inp==false) return 0;
    const len = inp.length;
-   //let maxSum = 0;
-   //let sum = 0;
    for (let i=0; i<len; ++i){
      let row = Math.floor(Number(inp[i])/10);
      let col = Number(inp[i])%10;
@@ -182,11 +178,18 @@ const cellSums = () => {
     for (let j=1; j<10; ++j){
       if (grid[i][j]===1){
        grid[i][j] = grid[i][j-1] + grid[i][j] + grid[i-1][j]; 
-       allSums.push(grid[i][j]);
+        if (grid[i][j+1]===0){
+          allSums.push(grid[i][j]);
+          while (grid[i][j-1]!== 0){
+            grid[i][j-1] = grid[i][j]
+            --j;
+          }
+        }
+       
       }
     }
   }
-  return allSums
+  return Math.max(...allSums)
 }
 // const maxAdjRow = () => {
 //   let maxSum = 0;
@@ -230,6 +233,36 @@ const cellSums = () => {
 return cellSums()  
 }
 
-console.log(solution('18,00,95,40,36,26,57,48,54,65,76,87,97,47,00')) // 3 , max 2
-console.log(solution('18,00,95,40,36,26,57,48,54,65,76,87,97,47,00,46'))// 6 , max 5
-console.log(solution('31,32,33')) // 3 , max 3
+// console.log(solution('18,00,95,40,36,26,57,48,54,65,76,87,97,47,00')) // 3 , max 2
+// console.log(solution('18,00,95,40,36,26,57,48,54,65,76,87,97,47,00,46'))// 6 , max 5
+// console.log(solution('31,32,33')) // 3 , max 3
+// console.log(solution('1,a1,-10,100'))
+
+
+
+
+
+
+
+// A special treat Roundtrip tickets deal
+// You want your mom to visit you at town A, but she's never been in A and is afraid of flying alone all the way from town Z.
+// She asks you to come to Z first so you two can travel back to A together and then she returns to Z on her own.
+// So you know that you need to book two roundtrip tickets from opposite directions and also consider that
+// both of you need to be in the same plane on your flight from Z to A.
+// You also want to get the most affordable ticket prices.
+// The air travel company can give you the info about the prices for departures on certain days,
+// but in order to look for the best price they need to check all the flight date combinations manually
+// which is extremely time-consuming, because you're looking into a month's worth database of flights.
+// Can you come up with an algorithm that will find the minimum total price for a pair of roundtrip tickets ?
+// There is one direct flight from A to Z and one from Z to A each day.
+// There are 30 days in the month.
+// Each flight has a number and a direction and the ticket price.
+// You know that you want to spend 7 days in Z which is also the amount of time your mom wants to spend in A.
+
+// Input: array of flights/objects with number(random 4 digit number), price(random number 100-500) and direction(string 'A-Z' or 'Z-A') properties;
+// Output: minimum total ticket prices and numbers of flights taken.
+
+
+          
+
+
