@@ -185,7 +185,6 @@ const cellSums = () => {
             --j;
           }
         }
-       
       }
     }
   }
@@ -277,19 +276,107 @@ return cellSums()
  // starting with the index of the first letter in the alphabet
  // pay attention to the case of the input when returning the result
 
-function missingLetter(arr){
- const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
- let start = alphabet.indexOf(arr[0].toLowerCase());
- let len = arr.length;
- for (let i=start, y=0; i<start+len, y<len; ++i, ++y){
-   let letter = arr[y].toLowerCase();
-   if (alphabet[i]!==letter){
-     return arr[y] === letter ? alphabet[i] : alphabet[i].toUpperCase()
-   }
- }
+// function missingLetter(arr){
+//  const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
+//  let start = alphabet.indexOf(arr[0].toLowerCase());
+//  let len = arr.length;
+//  for (let i=start, y=0; i<start+len, y<len; ++i, ++y){
+//    let letter = arr[y].toLowerCase();
+//    if (alphabet[i]!==letter){
+//      return arr[y] === letter ? alphabet[i] : alphabet[i].toUpperCase()
+//    }
+//  }
+// }
+
+// console.log(missingLetter(['a','b','c','d','f']))
+// console.log(missingLetter(['O','Q','R','S']))
+
+// 35. 3D to 1D array index
+// Find the index of a 3D array item ( p[i,j,k] ) in its 1D mapping ( a[y] ).
+// Input: i, j, k (as 3D indexes) n, m, l (as array lengths) all positive integers; 0 <= i < n,  0 <= j < m, 0 <= k < l; 
+// Output: y, positive integer
+
+// Solution: To get the flattened array item index, we need to 
+// know that the flat array length would be n * m * l (n sets of m sets of l).
+// We can then say that the range 0,0,0 - i,j,k contains at least i * m * l items 
+// to that we add j * l (j sets of l) and the number of items in the last set of l: k
+// So the index we're looking for is: y = i * m * l + j * l + k , or:
+// y = l * (i * m + j) + k 
+
+
+function flatArrIndex(i,j,k,n,m,l){
+  if(i>=n || j>=m || k>=l){
+    throw Error (`You've entered a coordinate that's beyond the scope of the array.`)
+  }
+  return l * (j + i * m) + k;
 }
 
-console.log(missingLetter(['a','b','c','d','f']))
-console.log(missingLetter(['O','Q','R','S']))
+// console.log(flatArrIndex(2,3,4,3,4,5))
+
+// 36. reverse 35: 
+// given the flat array index y and the length of each of 3 dimensions n, m, l
+// calculate the coordinates / 3D array index of the same item
+// Input: y, n, m, l; all positive integers where: y < n * m * l;
+// Output: array of 3 positive integers;
+
+// Solution: 
+// Since we know that:  0 <= y <= n*m*l, and:
+// 0 <= i < n, 0 <= j < m, 0 <= k < l and also:
+// An element with index k is an element of an el. w/ index j is an element of an el. w/ index i and
+// y has i * m * l ; So to get the integer i, we'll say: i = Math.floor(y/(m*l));
+// To get the integer j, we'll take the remaining portion: y - i * m * l and see how many l-s it contains, so:
+// j = Math.floor((y-m*l*i)/l) . Lastly, we get k by subtracting i * m * l and j * l from y.
 
 
+// function threeDIndex(y,n,m,l){
+//   if (y >= n*m*l){
+//     throw Error (`Array index argument is out of range`)
+//   }
+//  const i = Math.floor(y/(m*l)); 
+//  const j = Math.floor((y-m*l*i)/l); 
+//  const k = y - i * m * l - j * l;
+//  const coordinates = [i,j,k];
+//  return coordinates
+
+// }
+
+// console.log(threeDIndex(45,3,4,5))
+
+// 37. Count smileys - return a number of valid smileys in an array
+// Input: Array of strings
+// Output: number
+
+// Solution: Given the limited list of valid strings, we can store them in an array: 
+// validSmileys = [':)', ';)', ':~)', ';~)', ':-)', ';-)', ':D', ';D', ':-D', ';-D', ':~D', ';-D']
+// We can iterate through the input array and ask for each element if validSmileys includes it - that would fire includes() function input.length-1 times
+
+
+function countSmileys(arr){
+  const validSmileys = [
+    ":)",
+    ";)",
+    ":~)",
+    ";~)",
+    ":-)",
+    ";-)",
+    ":D",
+    ";D",
+    ":-D",
+    ";-D",
+    ":~D",
+    ";~D",
+  ];
+  let len = arr.length;
+  let count = 0;
+  for (let i = 0; i<len; ++i){
+    if (validSmileys.includes(arr[i])){
+      ++count;
+    }
+  }
+  return count
+}
+
+console.log(countSmileys([':D',':~)',';~D',':)']));
+console.log(countSmileys([":)", ":(", ":D", ":O", ":;", ":~)", ":D", ";~D"]));
+console.log(countSmileys([";]", ":[", ";*", ":$", ";-D"]));
+console.log(countSmileys([]));
