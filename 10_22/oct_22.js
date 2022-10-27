@@ -351,32 +351,125 @@ function flatArrIndex(i,j,k,n,m,l){
 // We can iterate through the input array and ask for each element if validSmileys includes it - that would fire includes() function input.length-1 times
 
 
-function countSmileys(arr){
-  const validSmileys = [
-    ":)",
-    ";)",
-    ":~)",
-    ";~)",
-    ":-)",
-    ";-)",
-    ":D",
-    ";D",
-    ":-D",
-    ";-D",
-    ":~D",
-    ";~D",
-  ];
-  let len = arr.length;
-  let count = 0;
-  for (let i = 0; i<len; ++i){
-    if (validSmileys.includes(arr[i])){
-      ++count;
-    }
-  }
-  return count
+// function countSmileys(arr){
+//   const validSmileys = [
+//     ":)",
+//     ";)",
+//     ":~)",
+//     ";~)",
+//     ":-)",
+//     ";-)",
+//     ":D",
+//     ";D",
+//     ":-D",
+//     ";-D",
+//     ":~D",
+//     ";~D",
+//   ];
+//   let len = arr.length;
+//   let count = 0;
+//   for (let i = 0; i<len; ++i){
+//     if (validSmileys.includes(arr[i])){
+//       ++count;
+//     }
+//   }
+//   return count
+// }
+
+// console.log(countSmileys([':D',':~)',';~D',':)']));
+// console.log(countSmileys([":)", ":(", ":D", ":O", ":;", ":~)", ":D", ";~D"]));
+// console.log(countSmileys([";]", ":[", ";*", ":$", ";-D"]));
+// console.log(countSmileys([]));
+
+// 38. Is the number prime ?
+// Input: integer
+// Output: boolean
+
+// Solution: A number is prime if it's greater than 1 and only divisible by itself and 1;
+// 2 is the only even prime number
+// If a number > 2 is an even number, it's not prime
+// A multi-digit number ending with 3 is prime only if the digit 3 is preceeded by another number n where: n%3 > 0
+// if a number ends in 5, it's not prime
+
+
+// The most trivial, naive solution is better than no solution.
+
+// function isPrime(num){
+// if(num<2){
+//   return false
+// } else {
+//   let prime = true;
+//     let m = Math.sqrt(num);
+//     for (let i = 2; i <= m; ++i ){
+//       if (num % i === 0){
+//       prime = false;
+//       break;
+//       } 
+//      } 
+//     return prime 
+//   }    
+// }
+
+// console.log(`1. ${isPrime(3)}`);
+// console.log(`2. ${isPrime(2)}`)
+// console.log(`3. ${isPrime(67280421310721)}`);
+
+// 39. Odd/even one out
+// Input: an array of integers, positive and negative; length >= 3; no invalid inputs;
+// Output: an integer included in the input array
+
+// Solution: Since there is only one outlier, so if any pair of integers in the input array is odd, the output should be even - and vice versa.
+// That means we only need to check 3 numbers in the array to know whether the output will be odd or even
+// After we determine whether output is odd or even (and if the outlier doesn't happen to be one of the 3 numbers we just checked),
+// we search the rest of the array to find the outlier.
+
+// function findOutlier(arr){
+//   const len = arr.length;
+//   let even = 0;
+//   for(let i=0; i<3;++i){
+//     if(arr[i]%2 ===0){
+//       ++even;
+//     }
+//   }
+//   if(even>=2){
+//     for (let i = 0; i<len; ++i){
+//       if(arr[i]%2 !== 0){
+//         return arr[i]
+//       }
+//     }
+//   } else {
+//     for (let i = 0; i < len; ++i) {
+//       if (arr[i] % 2 === 0) {
+//         return arr[i];
+//       }
+//     }
+//   }
+// }
+
+// 40. Is this number too good for you?
+// Check if the number is narcissistic.
+// Input: Any integer > 0; no invalid inputs;
+// Output: boolean
+
+// Solution: A narcissistic number is a number N with a number of digits d where the sum of each digit to the power of d returns N;
+// The input can be converted to string and we can loop string.length times to get each of the digits, convert them back to numbers 
+// and raise each to the power of string.length. Then we calculate the sum of them and compare it with the input number.
+
+function narcissistic(num){
+ let sum = 0;
+ let str = num.toString();
+ let len = str.length;
+ for (let i=0; i<len; ++i){
+  let digit = Number(str.charAt(i));
+  sum+=Math.pow(digit, len);
+  console.log(sum)
+ }
+ if (sum === num) return true;
+ return false
 }
 
-console.log(countSmileys([':D',':~)',';~D',':)']));
-console.log(countSmileys([":)", ":(", ":D", ":O", ":;", ":~)", ":D", ";~D"]));
-console.log(countSmileys([";]", ":[", ";*", ":$", ";-D"]));
-console.log(countSmileys([]));
+console.log(`1. ${narcissistic(153)}`)
+console.log(`2. ${narcissistic(22)}`);
+console.log(`3. ${narcissistic(45)}`);
+
+
