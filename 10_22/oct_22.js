@@ -455,21 +455,50 @@ function flatArrIndex(i,j,k,n,m,l){
 // The input can be converted to string and we can loop string.length times to get each of the digits, convert them back to numbers 
 // and raise each to the power of string.length. Then we calculate the sum of them and compare it with the input number.
 
-function narcissistic(num){
- let sum = 0;
- let str = num.toString();
- let len = str.length;
- for (let i=0; i<len; ++i){
-  let digit = Number(str.charAt(i));
-  sum+=Math.pow(digit, len);
-  console.log(sum)
- }
- if (sum === num) return true;
- return false
+// function narcissistic(num){
+//  let sum = 0;
+//  let str = num.toString();
+//  let len = str.length;
+//  for (let i=0; i<len; ++i){
+//   let digit = Number(str.charAt(i));
+//   sum+=Math.pow(digit, len);
+//  }
+//  if (sum === num) return true;
+//  return false
+// }
+
+// console.log(`1. ${narcissistic(153)}`)
+// console.log(`2. ${narcissistic(22)}`);
+// console.log(`3. ${narcissistic(45)}`);
+
+// 41. Sum pow digits
+// Return an array of numbers indexed 0-i inclusive whose sum of all digits raised to the power of i+1 equals themselves
+// Input: two integers, no invalid input
+// Output: an array of integers within the range of input values inclusive
+
+// Solution: This is a lot like narcissistic number solution..
+// Any single-digit number is automatically included in the output
+
+function sumDigPow(a, b){
+  const arr = [];
+  for (let i=a; i<=b; ++i){
+   if(i<10){
+    arr.push(i);
+   }else{
+    let str = i.toString();
+    let len = str.length;
+    let sum = 0;
+    for(let j=0; j<len; ++j){
+      let digit = Number(str.charAt(j))
+     sum+=digit**(j+1);
+    }
+    if(sum === i){
+      arr.push(i)
+    }
+   }
+   
+  }
+  return arr
 }
 
-console.log(`1. ${narcissistic(153)}`)
-console.log(`2. ${narcissistic(22)}`);
-console.log(`3. ${narcissistic(45)}`);
-
-
+console.log(sumDigPow(10, 150))
