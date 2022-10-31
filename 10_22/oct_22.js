@@ -479,26 +479,63 @@ function flatArrIndex(i,j,k,n,m,l){
 // Solution: This is a lot like narcissistic number solution..
 // Any single-digit number is automatically included in the output
 
-function sumDigPow(a, b){
-  const arr = [];
-  for (let i=a; i<=b; ++i){
-   if(i<10){
-    arr.push(i);
-   }else{
-    let str = i.toString();
-    let len = str.length;
-    let sum = 0;
-    for(let j=0; j<len; ++j){
-      let digit = Number(str.charAt(j))
-     sum+=digit**(j+1);
-    }
-    if(sum === i){
-      arr.push(i)
-    }
-   }
+// function sumDigPow(a, b){
+//   const arr = [];
+//   for (let i=a; i<=b; ++i){
+//    if(i<10){
+//     arr.push(i);
+//    }else{
+//     let str = i.toString();
+//     let len = str.length;
+//     let sum = 0;
+//     for(let j=0; j<len; ++j){
+//       let digit = Number(str.charAt(j))
+//      sum+=digit**(j+1);
+//     }
+//     if(sum === i){
+//       arr.push(i)
+//     }
+//    }
    
-  }
-  return arr
-}
+//   }
+//   return arr
+// }
 
-console.log(sumDigPow(10, 150))
+// console.log(sumDigPow(10, 150))
+
+// 42. Given an array of numbers and a target value number, return the indexes of any pair of array numbers whose sum === target value number;
+// Make sure time complexity of the algorithm is O(n)
+// Input: array of integers, may or may not be unique; no invalid inputs;
+// Output: array of two integers - input elements' indexes.
+
+// Solution: 
+// In order to access the array values, we need to look by their indexes and in order to 
+// check if any pair of values adds up to the target value, we need to do it twice.
+// To cut down on time complexity, we'll need to sacrifice some space to a data structure 
+// that would allow us to store the input values and their indexes so that we can 
+// access them more easily for the purpose of the challenge. Since we need to check for the values that add up to the target and we
+// need their indexes only if that turns out to be true, it would be convenient to be able
+// to access the value's index by the value itself. We can do this with an object storing 'arr[i]' : i key-value pairs for every value that we check.
+// How many values/indexes do we need to store/check? Since we need two values to add up to the target value, that makes it at least 2.
+// And it's easy to assume that we don't need to store or even check all the value:index pairs. 
+// In this situation it's helpful to think of each value as the value that, subtracted from the target value, either gives or does not give another value from the same array.
+// So for every arr[i] we can store its "complementary" value: target - arr[i] with i as one key-value pair.
+// That way we made a connection between the value's index and its complementary value that's potentially included in the array.
+// Knowing that not every value has the complementary value within the input array we can first ask whether obj[arr[i]] exists 
+// (since we're storing indexes as values, we have to consider that 0 is a valid index despite being a falsy value).
+// And since we're actually asking whether the current value's complementary's (previously stored as: obj[target-arr[j]], where 0 <= j < i) index has already been stored in the object
+// we can not only know whether it's true, but also automatically gain access to the complementary value's index that we need to return.
+
+// function sumTarget(nums, target){
+//     const len = nums.length;
+//     const obj = {};
+//   for (let i=0; i<len; ++i){
+//     if (obj[nums[i]] >= 0) { 
+//     return [obj[nums[i]], i]
+//     } 
+//       obj[target-nums[i]] = i; 
+//    }
+//   return null
+//   }
+
+// console.log(sumTarget([5, 2, 4], 6));
