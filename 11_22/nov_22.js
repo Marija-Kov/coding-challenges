@@ -10,52 +10,52 @@
 // split the code by double empty space, this will return an array of Morse words
 // each string can be split into a subarray of "letters" inside a word
 
-const table = {
-  ".-": "A",
-  "-...": "B",
-  "-.-.": "C",
-  "-..": "D",
-  ".": "E",
-  "..-.": "F",
-  "--.": "G",
-  "....": "H",
-  "..": "I",
-  ".---": "J",
-  "-.-": "K",
-  ".-..": "L", 
-  "--": "M",
-  "-.": "N",
-  "---": "O",
-  ".--.": "P",
-  "--.-": "Q",
-  ".-.": "R",
-  "...": "S",
-  "-": "T",
-  "..-": "U",
-  "...-": "V",
-  ".--": "W",
-  "-..-": "X",
-  "-.--": "Y",
-  "--..": "Z",
-  ".----": "1",
-  "..---": "2",
-  "...--": "3",
-  "....-": "4",
-  ".....": "5",
-  "-....": "6",
-  "--...": "7",
-  "---..": "8",
-  "----.": "9",
-  "-----": "0",
-  ".-.-.-": ".",
-  "--..--": ",",
-  "..--..": "?",
-  "---...": ":",
-  ".-...": "&",
-  "...---...": "SOS",
-  "-.-.--": "!",
-  "": " "  // added this for the convenience of solving this challenge
-};
+// const table = {
+//   ".-": "A",
+//   "-...": "B",
+//   "-.-.": "C",
+//   "-..": "D",
+//   ".": "E",
+//   "..-.": "F",
+//   "--.": "G",
+//   "....": "H",
+//   "..": "I",
+//   ".---": "J",
+//   "-.-": "K",
+//   ".-..": "L", 
+//   "--": "M",
+//   "-.": "N",
+//   "---": "O",
+//   ".--.": "P",
+//   "--.-": "Q",
+//   ".-.": "R",
+//   "...": "S",
+//   "-": "T",
+//   "..-": "U",
+//   "...-": "V",
+//   ".--": "W",
+//   "-..-": "X",
+//   "-.--": "Y",
+//   "--..": "Z",
+//   ".----": "1",
+//   "..---": "2",
+//   "...--": "3",
+//   "....-": "4",
+//   ".....": "5",
+//   "-....": "6",
+//   "--...": "7",
+//   "---..": "8",
+//   "----.": "9",
+//   "-----": "0",
+//   ".-.-.-": ".",
+//   "--..--": ",",
+//   "..--..": "?",
+//   "---...": ":",
+//   ".-...": "&",
+//   "...---...": "SOS",
+//   "-.-.--": "!",
+//   "": " "  // added this for the convenience of solving this challenge
+// };
 
 // function decodeMorse(code){
 // const words = code.trim().split("  ");
@@ -92,33 +92,49 @@ const table = {
   // chances are that most words will appear only once and storing key:1 pairs for each of them might be unnecessary
 
 function topThreeWords(text) {
-  if(text == false) return [];
-  const arr = text.toLowerCase().match(new RegExp(/\w+\'\w+|'[a-z]+'|\w'|\w+[a-z']|['a-z]\w+|[a-z]/gi));
+if(text == false) return [];
+  const arr = text.toLowerCase().match(new RegExp(/\w+\'\w+|'[a-z]+'|\w+[a-z']|['a-z]\w+|[a-z]/gi));
+  if(!arr) return [];
   const len = arr.length;
-  const stats = {};
-  let top3 = [];
+  if (len === 1) return arr;
+  const obj = {};
+  const sorted = [];
   for(let i=0; i<len; ++i){
-   if(stats[arr[i]]){
-     ++stats[arr[i]];
-     if (stats[arr[i]] > stats[top3[0]] || top3[0] == null){
-      top3.unshift(arr[i]);
-     }
-     if(top3.length > 3){
-      top3.pop()
-     }    
-   }else{
-    stats[arr[i]] = 1;
-    top3.push(arr[i]);
-    if (top3.length > 3) {
-      top3.pop();
-    } 
-   }  
+   obj[arr[i]] = obj[arr[i]] + 1 || 1;
+  }
+ let words = Object.entries(obj);
+ let wLength = words.length;
+ while (sorted.length <= 3 && sorted.length < wLength) {
+  let max = findMax(words)
+   sorted.push(max[0]);
+   words = shortenArr(words, max);  
  }
-  return top3
+return sorted
 }
 
-console.log(topThreeWords(`In a village of of a lance
-in the a lean hack, and a for.`))
+function findMax(arr){
+  if(arr.length === 1) return arr[0]
+  let max = arr[0][1];
+  let maxWord = arr[0];
+  const len = arr.length;
+  for(let i=1; i<len; ++i){
+    if(arr[i][1] > max){
+      max = arr[i][1];
+      maxWord = arr[i];
+    }
+  }
+  return maxWord
+}
 
+function shortenArr(arr, maxWord){
+  let len = arr.length;
+  let index = arr.indexOf(maxWord);
+  arr[index] = arr[len - 1];
+  arr.pop();
+  return arr
+}
 
+console.log(topThreeWords("a a c b b"));
+
+console.log(topThreeWords("  //wont won't won't "));
 
