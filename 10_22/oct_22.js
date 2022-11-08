@@ -2,14 +2,14 @@
 // Input: string; may be any length (including zero), all valid;
 // Output: string; all input string characters but last 4 replaced with a hashtag
 
-// function maskify(cc) {
-//   let arr = [...cc];
-//   let len = arr.length-4;
-//   for (let i=0; i<len; ++i){
-//       arr[i] = '#'
-//   }
-//   return arr.join('')
-// }
+function maskify(cc) {
+  let arr = [...cc];
+  let len = arr.length-4;
+  for (let i=0; i<len; ++i){
+      arr[i] = '#'
+  }
+  return arr.join('')
+}
 
 // console.log(maskify('4556364607935616'));
 
@@ -20,16 +20,16 @@
           // length: 2 if input length is even. 1 if input length is odd;
 
 
-// function getMiddle(str){
-//   const len = str.length;
-//   let mid;
-//   if (len % 2 === 0){
-//    mid = str.slice(len/2-1, len/2+1)   
-//   }else{
-//    mid = str.slice(Math.floor(len/2), len/2+1)
-//   }
-//   return mid
-// }
+function getMiddle(str){
+  const len = str.length;
+  let mid;
+  if (len % 2 === 0){
+   mid = str.slice(len/2-1, len/2+1)   
+  }else{
+   mid = str.slice(Math.floor(len/2), len/2+1)
+  }
+  return mid
+}
 
 // console.log(getMiddle('test'));
 // console.log(getMiddle('testyes'));
@@ -41,24 +41,24 @@
 
 // const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-// function high(str){
-//     const words = str.split(' ')
-//     let max = [''];
-//     let maxSum = 0;
-//     const len = words.length;
-//     for (let i=0; i<len; ++i){
-//         let word = words[i];
-//         let sum = [...word]
-//                     .map(e => alphabet.indexOf(e)+1)
-//                     .reduce((a,b) => a+b, 0)
-//         if(sum>maxSum){
-//             max[0] = word;
-//             maxSum = sum;
-//             console.log(max, maxSum)
-//         } 
-//     }
-//    return max[0]
-// }
+function high(str){
+    const words = str.split(' ')
+    let max = [''];
+    let maxSum = 0;
+    const len = words.length;
+    for (let i=0; i<len; ++i){
+        let word = words[i];
+        let sum = [...word]
+                    .map(e => alphabet.indexOf(e)+1)
+                    .reduce((a,b) => a+b, 0)
+        if(sum>maxSum){
+            max[0] = word;
+            maxSum = sum;
+            console.log(max, maxSum)
+        } 
+    }
+   return max[0]
+}
 
 // console.log(high('aa b'))
 //console.log(high('what time are we climbing up the volcano'))
@@ -276,17 +276,17 @@ return cellSums()
  // starting with the index of the first letter in the alphabet
  // pay attention to the case of the input when returning the result
 
-// function missingLetter(arr){
-//  const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
-//  let start = alphabet.indexOf(arr[0].toLowerCase());
-//  let len = arr.length;
-//  for (let i=start, y=0; i<start+len, y<len; ++i, ++y){
-//    let letter = arr[y].toLowerCase();
-//    if (alphabet[i]!==letter){
-//      return arr[y] === letter ? alphabet[i] : alphabet[i].toUpperCase()
-//    }
-//  }
-// }
+function missingLetter(arr){
+ const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
+ let start = alphabet.indexOf(arr[0].toLowerCase());
+ let len = arr.length;
+ for (let i=start, y=0; i<start+len, y<len; ++i, ++y){
+   let letter = arr[y].toLowerCase();
+   if (alphabet[i]!==letter){
+     return arr[y] === letter ? alphabet[i] : alphabet[i].toUpperCase()
+   }
+ }
+}
 
 // console.log(missingLetter(['a','b','c','d','f']))
 // console.log(missingLetter(['O','Q','R','S']))
@@ -328,17 +328,17 @@ function flatArrIndex(i,j,k,n,m,l){
 // j = Math.floor((y-m*l*i)/l) . Lastly, we get k by subtracting i * m * l and j * l from y.
 
 
-// function threeDIndex(y,n,m,l){
-//   if (y >= n*m*l){
-//     throw Error (`Array index argument is out of range`)
-//   }
-//  const i = Math.floor(y/(m*l)); 
-//  const j = Math.floor((y-m*l*i)/l); 
-//  const k = y - i * m * l - j * l;
-//  const coordinates = [i,j,k];
-//  return coordinates
+function threeDIndex(y,n,m,l){
+  if (y >= n*m*l){
+    throw Error (`Array index argument is out of range`)
+  }
+ const i = Math.floor(y/(m*l)); 
+ const j = Math.floor((y-m*l*i)/l); 
+ const k = y - i * m * l - j * l;
+ const coordinates = [i,j,k];
+ return coordinates
 
-// }
+}
 
 // console.log(threeDIndex(45,3,4,5))
 
@@ -351,30 +351,30 @@ function flatArrIndex(i,j,k,n,m,l){
 // We can iterate through the input array and ask for each element if validSmileys includes it - that would fire includes() function input.length-1 times
 
 
-// function countSmileys(arr){
-//   const validSmileys = [
-//     ":)",
-//     ";)",
-//     ":~)",
-//     ";~)",
-//     ":-)",
-//     ";-)",
-//     ":D",
-//     ";D",
-//     ":-D",
-//     ";-D",
-//     ":~D",
-//     ";~D",
-//   ];
-//   let len = arr.length;
-//   let count = 0;
-//   for (let i = 0; i<len; ++i){
-//     if (validSmileys.includes(arr[i])){
-//       ++count;
-//     }
-//   }
-//   return count
-// }
+function countSmileys(arr){
+  const validSmileys = [
+    ":)",
+    ";)",
+    ":~)",
+    ";~)",
+    ":-)",
+    ";-)",
+    ":D",
+    ";D",
+    ":-D",
+    ";-D",
+    ":~D",
+    ";~D",
+  ];
+  let len = arr.length;
+  let count = 0;
+  for (let i = 0; i<len; ++i){
+    if (validSmileys.includes(arr[i])){
+      ++count;
+    }
+  }
+  return count
+}
 
 // console.log(countSmileys([':D',':~)',';~D',':)']));
 // console.log(countSmileys([":)", ":(", ":D", ":O", ":;", ":~)", ":D", ";~D"]));
@@ -394,21 +394,21 @@ function flatArrIndex(i,j,k,n,m,l){
 
 // The most trivial, naive solution is better than no solution.
 
-// function isPrime(num){
-// if(num<2){
-//   return false
-// } else {
-//   let prime = true;
-//     let m = Math.sqrt(num);
-//     for (let i = 2; i <= m; ++i ){
-//       if (num % i === 0){
-//       prime = false;
-//       break;
-//       } 
-//      } 
-//     return prime 
-//   }    
-// }
+function isPrime(num){
+if(num<2){
+  return false
+} else {
+  let prime = true;
+    let m = Math.sqrt(num);
+    for (let i = 2; i <= m; ++i ){
+      if (num % i === 0){
+      prime = false;
+      break;
+      } 
+     } 
+    return prime 
+  }    
+}
 
 // console.log(`1. ${isPrime(3)}`);
 // console.log(`2. ${isPrime(2)}`)
@@ -423,28 +423,28 @@ function flatArrIndex(i,j,k,n,m,l){
 // After we determine whether output is odd or even (and if the outlier doesn't happen to be one of the 3 numbers we just checked),
 // we search the rest of the array to find the outlier.
 
-// function findOutlier(arr){
-//   const len = arr.length;
-//   let even = 0;
-//   for(let i=0; i<3;++i){
-//     if(arr[i]%2 ===0){
-//       ++even;
-//     }
-//   }
-//   if(even>=2){
-//     for (let i = 0; i<len; ++i){
-//       if(arr[i]%2 !== 0){
-//         return arr[i]
-//       }
-//     }
-//   } else {
-//     for (let i = 0; i < len; ++i) {
-//       if (arr[i] % 2 === 0) {
-//         return arr[i];
-//       }
-//     }
-//   }
-// }
+function findOutlier(arr){
+  const len = arr.length;
+  let even = 0;
+  for(let i=0; i<3;++i){
+    if(arr[i]%2 ===0){
+      ++even;
+    }
+  }
+  if(even>=2){
+    for (let i = 0; i<len; ++i){
+      if(arr[i]%2 !== 0){
+        return arr[i]
+      }
+    }
+  } else {
+    for (let i = 0; i < len; ++i) {
+      if (arr[i] % 2 === 0) {
+        return arr[i];
+      }
+    }
+  }
+}
 
 // 40. Is this number too good for you?
 // Check if the number is narcissistic.
@@ -455,17 +455,17 @@ function flatArrIndex(i,j,k,n,m,l){
 // The input can be converted to string and we can loop string.length times to get each of the digits, convert them back to numbers 
 // and raise each to the power of string.length. Then we calculate the sum of them and compare it with the input number.
 
-// function narcissistic(num){
-//  let sum = 0;
-//  let str = num.toString();
-//  let len = str.length;
-//  for (let i=0; i<len; ++i){
-//   let digit = Number(str.charAt(i));
-//   sum+=Math.pow(digit, len);
-//  }
-//  if (sum === num) return true;
-//  return false
-// }
+function narcissistic(num){
+ let sum = 0;
+ let str = num.toString();
+ let len = str.length;
+ for (let i=0; i<len; ++i){
+  let digit = Number(str.charAt(i));
+  sum+=Math.pow(digit, len);
+ }
+ if (sum === num) return true;
+ return false
+}
 
 // console.log(`1. ${narcissistic(153)}`)
 // console.log(`2. ${narcissistic(22)}`);
@@ -479,27 +479,27 @@ function flatArrIndex(i,j,k,n,m,l){
 // Solution: This is a lot like narcissistic number solution..
 // Any single-digit number is automatically included in the output
 
-// function sumDigPow(a, b){
-//   const arr = [];
-//   for (let i=a; i<=b; ++i){
-//    if(i<10){
-//     arr.push(i);
-//    }else{
-//     let str = i.toString();
-//     let len = str.length;
-//     let sum = 0;
-//     for(let j=0; j<len; ++j){
-//       let digit = Number(str.charAt(j))
-//      sum+=digit**(j+1);
-//     }
-//     if(sum === i){
-//       arr.push(i)
-//     }
-//    }
+function sumDigPow(a, b){
+  const arr = [];
+  for (let i=a; i<=b; ++i){
+   if(i<10){
+    arr.push(i);
+   }else{
+    let str = i.toString();
+    let len = str.length;
+    let sum = 0;
+    for(let j=0; j<len; ++j){
+      let digit = Number(str.charAt(j))
+     sum+=digit**(j+1);
+    }
+    if(sum === i){
+      arr.push(i)
+    }
+   }
    
-//   }
-//   return arr
-// }
+  }
+  return arr
+}
 
 // console.log(sumDigPow(10, 150))
 
@@ -526,16 +526,16 @@ function flatArrIndex(i,j,k,n,m,l){
 // And since we're actually asking whether the current value's complementary's (previously stored as: obj[target-arr[j]], where 0 <= j < i) index has already been stored in the object
 // we can not only know whether it's true, but also automatically gain access to the complementary value's index that we need to return.
 
-// function sumTarget(nums, target){
-//     const len = nums.length;
-//     const obj = {};
-//   for (let i=0; i<len; ++i){
-//     if (obj[nums[i]] >= 0) { 
-//     return [obj[nums[i]], i]
-//     } 
-//       obj[target-nums[i]] = i; 
-//    }
-//   return null
-//   }
+function sumTarget(nums, target){
+    const len = nums.length;
+    const obj = {};
+  for (let i=0; i<len; ++i){
+    if (obj[nums[i]] >= 0) { 
+    return [obj[nums[i]], i]
+    } 
+      obj[target-nums[i]] = i; 
+   }
+  return null
+  }
 
 // console.log(sumTarget([5, 2, 4], 6));
