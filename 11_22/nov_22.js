@@ -193,6 +193,7 @@ function validateBattlefield(field){
 //  }
 
  function hasExactShips(arr) {
+  // less code than hasExactShips1, but takes up more space for no speed improvement
    let ships = {};
    for (let i = 0; i < 100; ++i) {
      if (arr[i] && !arr[i - 1] && !arr[i - 10]) {
@@ -314,31 +315,88 @@ function validateBattlefield(field){
     return true
     
  }
+
+// console.log(
+//   validateBattlefield([
+//     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+//     [1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+
+//     [1, 0, 1, 0, 1, 1, 1, 0, 1, 0],
+
+//     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+//     [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+
+//     [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+
+//     [0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+
+//     [0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+
+//     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+//   ]) // false
+// );
+
+
+// 46. Find ranges of consecutive numbers (current == previous+1) 
+// Input: array of integers sorted in ascending order
+// Output: ranges of consecutive numbers, any type
+
+function getConsecutiveDigits(arr){
+  const len = arr.length;
+  const obj ={};
+function getRange(start) {
+  let range = [arr[start]];
+  let j = 1;
+    while (arr[start] + j === arr[start + j]) {
+      range.push(arr[start + j]);
+      ++j;
+      }
+      if (range.length >= 3) {
+        obj[`range${arr[start]}-${arr[start+j-1]}`] = range;
+      }
+      let newStart = start+j;
+    if(newStart<len){
+      return getRange(newStart)
+    }
+
+ return obj
+}
+return getRange(0)
+}
+//console.log(getConsecutiveDigits([-10, -9, -8, -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20]))
+
+// 46.1 : Return an array where ranges of consecutive numbers are replaced with their representation, ex: 1,2,3,4 --> "1-4"
+
+function arrRange(arr) {
+  const len = arr.length;
+  const newArr = [...arr];
+  function getRange(start) {
+    let range = [arr[start]];
+    let j = 1;
+    while (arr[start] + j === arr[start + j]) {
+      range.push(arr[start + j]);
+      ++j;
+    }
+    if (range.length >= 3) {
+      newArr.splice(newArr.indexOf(arr[start]), j, `${arr[start]}-${arr[start+j-1]}`)
+      console.log(newArr)
+    }
+    let newStart = start + j;
+    if (newStart < len) {
+      return getRange(newStart);
+    }
+
+    return newArr.join(",");
+  }
+  return getRange(0);
+}
+
 console.log(
-  validateBattlefield([
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-
-    [1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-
-    [1, 0, 1, 0, 1, 1, 1, 0, 1, 0],
-
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-
-    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-
-    [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
-
-    [0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
-
-    [0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
-
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-
-    [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+  arrRange([
+    -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20
   ])
 );
-
-
-
-
-// if ( flatIndex1 && flatIndex2 && ( |flatIndex1 - flatIndex2| === 11 )) the field is false
