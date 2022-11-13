@@ -395,8 +395,33 @@ function arrRange(arr) {
   return getRange(0);
 }
 
-console.log(
-  arrRange([
-    -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20
-  ])
-);
+// console.log(
+//   arrRange([
+//     -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20
+//   ])
+// );
+
+// 47. valid parentheses
+// Check if every opening is paired with a closing parens in the string
+// Input: string of parentheses only (or an empty string), length 0-100 inclusive, no invalid input;
+// Output: boolean
+
+//Solution: 
+// Keep extracting and removing '()' substring out of the input string (or its clone, depending on the needs of the program)
+// as long as the peripheral parentheses enclose the rest; 
+//if there are no chars left in the string at the end of the loop, return true
+
+function validParentheses(p) {
+  let parens = p;
+  while (
+     parens.length > 1 && // this prevents the infinite loop
+     parens.charAt(0) !== ")" && parens.charAt(parens.length - 1) !== "("
+   ) {
+     parens = parens.split("()").join("");
+   }
+   return Boolean(!parens)
+}
+
+// console.log(validParentheses("(())(())"));
+// console.log(validParentheses("(())((()()())"));
+// console.log(validParentheses("))))(((("));
