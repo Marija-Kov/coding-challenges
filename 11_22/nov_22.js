@@ -425,3 +425,72 @@ function validParentheses(p) {
 // console.log(validParentheses("(())(())"));
 // console.log(validParentheses("(())((()()())"));
 // console.log(validParentheses("))))(((("));
+
+// Max-sum subarray refactored
+// Input: unsorted array of integers (arr) (positive and negative); array.length >= 0
+// Output: an integer that equals the sum of consecutive input array array elements
+// if input array consists of only negative integers, return 0
+
+// function maxSequence(arr){
+//   let len = arr.length;
+// 	let currMax = arr[0];
+//   let globalMax = currMax;
+  
+//   for (let i = 1; i < len; ++i) {
+//     currMax = Math.max(arr[i], currMax + arr[i]);
+
+//     if (currMax > globalMax) {
+//       globalMax = currMax;
+//     }
+//   }
+
+//   return globalMax;
+// }
+
+function maxSequence(arr){
+  let len = arr.length;
+  let maxVals = [];
+  let currMax = -Infinity;
+  let sequence;
+  let sum;
+  for(let i=0; i<len; ++i){
+    sequence = arr.slice(i, len);
+    sum = sequence.reduce((a,b)=>a+b,0);
+    if(sum > currMax){
+      currMax = sum
+    }
+  }
+  console.log(currMax)
+  maxVals.push(currMax);
+  for(let i=0; i<len; ++i){
+    sequence = arr.slice(0, len-i);
+    sum = sequence.reduce((a,b)=>a+b,0);
+    if(sum > currMax){
+      currMax = sum
+    }
+  }
+  console.log(len)
+  console.log(currMax);
+  const mid = Math.floor(len/2);
+    for (let i = 0; i < mid; ++i) {
+      sequence = arr.slice(i, len - i);
+      sum = sequence.reduce((a, b) => a + b, 0);
+      if (sum > currMax) {
+        currMax = sum;
+      }
+    }
+
+    return currMax
+}
+
+//console.log(maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
+
+console.log(
+  maxSequence([
+    -38, 30, 24, -4, -6, 20, 46, 50, 20, -43, -37, 4, 33, -3, 46, -41, 1, -1,
+    -26, -28, -47, -4, 4, -47, 36, -9, 49, -44, 3, -45, -48, 0, -28, 12, 13, 49,
+    -12, 6, -36, 9, -4, -30, -22, -22, 20, 19, 46, 49, 10, 13, -38, 4, 49, 24,
+    -31, -21, -23, 2, -12, -25, -33, -15, 23, 44, -47, -23, 1, -41, -7,
+  ]) // 196
+);
+
