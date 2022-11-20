@@ -269,15 +269,14 @@
 // 1) O(n^2) 
 
 // function maxSequence(arr){
-//   if(arr.every(e => e<0) || arr.length===0){   // slow - runs a function every() for every array element
-//     return 0
+//   let len = arr.length;
+//   if(arr.every(e => e<0) || arr.lengtlen
 //   }
 //   if(arr.every(e=>e>=0)){
 //     return sumArr(arr)
 //   }
 //   let tempSubArr;
 //   let tempSum=Number.NEGATIVE_INFINITY;
-//   let len = arr.length;
 //   for(let i=0; i<len; ++i){
 //     for(let y=i; y<len; ++y){
 //       tempSubArr=arr.slice(i, y+1);
@@ -292,6 +291,24 @@
 // function sumArr(arr){
 //   return arr.reduce((prev,curr) => prev + curr, 0)
 // }
+
+//2. O(n)
+
+function maxSequence(arr) {
+  let len = arr.length;
+  let currMax = arr[0];
+  let globalMax = currMax;
+
+  for (let i = 1; i < len; ++i) {
+    currMax = Math.max(arr[i], currMax + arr[i]);
+
+    if (currMax > globalMax) {
+      globalMax = currMax;
+    }
+  }
+
+  return globalMax;
+}
 
 // console.log(maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
 
