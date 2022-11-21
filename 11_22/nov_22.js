@@ -473,3 +473,29 @@ function alphanumeric(string){
 // console.log(alphanumeric("PassW0rd"));
 // console.log(alphanumeric("Hello world_"));
 
+// 50. How many nodes?
+// Starting from one node consider a tree of nodes that each get one more branch every time unit
+// after initial 4 time units have passed time units
+// How many nodes will there be in n units of time?
+// Input: integer, number of time units
+// Output: integer, number of resulting n0des
+
+function count(n){
+  if(n==false) return null;
+  let x = 1; // number of nodes at 0-2s
+  let y = 2; // number of nodes at 3s
+  let z = 3; // number of nodes at 4s
+  if(n <= y) return 1;
+  if(n === z) return 2;
+  if (n === x+z) return 3;
+  let total;
+  for(let i = 4; i<n; ++i){
+    total = x + z;
+    x = y;
+    y = z;
+    z = total
+  } 
+  return total;
+}
+
+//console.log(count(20)) 
