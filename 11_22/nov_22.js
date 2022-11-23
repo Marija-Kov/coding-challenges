@@ -499,3 +499,21 @@ function count(n){
 }
 
 //console.log(count(20)) 
+
+// 51. Human readable time
+// Input: integer, no invalid input;
+// Output: string in format: 99:59:59 ; the values in the example represent 
+// max values for hours, minutes and seconds respectively;
+// Single-digit values should be padded with 0;
+
+function humanReadable(seconds) {
+  let HH = Math.floor(seconds/3600);
+  HH = HH < 10 ? `0${HH}` : HH;
+  let MM = Math.floor(seconds%3600/60);
+  MM = MM < 10 ? `0${MM}` : MM;
+  let SS = seconds-HH*3600-MM*60;
+  SS = SS < 10 ? `0${SS}` : SS;
+  return`${HH}:${MM}:${SS}`
+}
+
+//console.log(humanReadable(899))
