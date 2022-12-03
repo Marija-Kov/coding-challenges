@@ -24,4 +24,21 @@ for(let i=0; i<count; ++i){
   return modified
 }
 
-console.log(moveZeros([false, 1, 0, 1, 2, 0, 1, 3, "a"]));
+//console.log(moveZeros([false, 1, 0, 1, 2, 0, 1, 3, "a"]));
+
+// 53. Reverse an array with 30 bytes to spare
+
+reverse=a=>a.map(a.pop,[...a]);
+
+//console.log(reverse([1,3,2,77,101,6,7,18,9,0,11,22,33,19,55]))
+
+
+// printFoo=()=> console.log(foo)
+// foo = 'foo' // initialization (assignment)
+// printFoo()
+// var foo; // declaration
+
+
+
+
+
