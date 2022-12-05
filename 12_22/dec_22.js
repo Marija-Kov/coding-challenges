@@ -39,6 +39,25 @@ reverse=a=>a.map(a.pop,[...a]);
 // var foo; // declaration
 
 
+// 54. Check if 2 rectangles are intersecting
+// Input: 2D array of 2 arrays of 4 integers each, representing bottom left and top right corner coordinates;
+// Output: boolean;
 
+// Solution: determine conditions of intersection using input values only
+// [[0,1,2,3],[0,1,2,3]]
+function areIntersecting(rectangles) {
+  let a = rectangles[0];
+  let b = rectangles[1];
+  if (
+    (a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1]) ||
+    (b[0] < a[2] && b[2] > a[0] && b[1] < a[3] && b[3] > a[1])
+  )return true;
+     return false
+}
 
-
+console.log(
+  areIntersecting([
+    [1, 1, 2, 3],
+    [1, 2, 4, 4],
+  ])
+);
