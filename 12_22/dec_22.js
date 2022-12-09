@@ -195,19 +195,37 @@ function dblLinear(n){
     for(let i=0; i<n; ++i){
        let nextA = arr[a]*2+1;
        let nextB = arr[b]*3+1; 
-       if(nextA <= nextB){
-        arr.push(nextA);
-        ++a;
-        nextA===nextB && ++b;
-       }else{
-        arr.push(nextB);
-        ++b
-       }
+       let min = Math.min(nextA, nextB);
+       arr.push(min);
+       min===nextA && ++a;
+       min===nextB && ++b;
     }
+    console.log(arr)
     return arr[n]
 }
 
 // console.log(`with Set: ${dblLinear1(200)}`);
 // console.log(`array only: ${dblLinear2(200)}`);
 // console.log(`Object keys: ${twiceLinear2(200)}`);
-// console.log(`lesser of the two first: ${dblLinear(200)}`)
+//console.log(`lesser of the two first: ${dblLinear(20)}`)
+
+// 57.a) Thrice linear
+
+function thriceLinear(n){
+        let arr = [1];
+        let a = 0, b = 0, c = 0;
+        for (let i = 0; i < n; ++i) {
+          let nextA = arr[a] * 2 + 1;
+          let nextB = arr[b] * 3 + 1;
+          let nextC = arr[c] * 4 + 1;
+          let min = Math.min(nextA, nextB, nextC);
+          arr.push(min);
+          min === nextA && ++a;
+          min === nextB && ++b;
+          min === nextC && ++c;
+        }
+        console.log(arr);
+        return arr[n];
+}
+
+//console.log(thriceLinear(80))
