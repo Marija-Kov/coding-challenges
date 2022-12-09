@@ -130,3 +130,84 @@ if(len>1){
 
 //console.log(formatDuration(32534580))
 //console.log(formatDuration(86400));
+
+// 57. Twice linear
+// Consider a sequence that consists of n positive integers and for every n there's 2*n+1 and 3*n+1 within the same sequence
+// n[0] is 1 and the sequence is in ascending order
+
+function dblLinear1(n){
+  let set = new Set();
+  set.add(1);
+  let arr = [...set];
+ for(let i=0; i<n; ++i){
+    set.add(arr[i] * 2 + 1);
+    set.add(arr[i] * 3 + 1);
+    arr = [...set].sort((a,b)=>a-b);
+  }
+  return arr[n];
+};
+
+function dblLinear2(n){
+  let arr = [1];
+  let val;
+ for(let i=0; i<n; ++i){
+    val = arr[i] * 2 + 1;
+    if(!arr.includes(val)){
+        arr.push(val);
+    }
+    val = arr[i] * 3 +1;
+     if (!arr.includes(val)) {
+       arr.push(val);
+     } 
+    arr.sort((a,b)=>a-b); 
+  }
+  return arr[n];
+};
+
+
+twiceLinear2 = (number) => {
+  let series = { 1: 1 };
+  let keys = Object.keys(series);
+  let index = 0;
+
+  while (index < number) {
+    series[keys[index] * 2 + 1] = 1;
+    series[keys[index] * 3 + 1] = 1;
+    index++;
+    keys = Object.keys(series);
+  }
+
+  return Number(keys[number]);
+};
+
+  // Since the sequence needs to be sorted in ascending order 
+   // and simple push(arr[i]*2+1, arr[i]*3+1) won't return such sequence
+  // (and sort()-ing after every push() is time-consuming),
+  // there needs to be a way to check if a[i+x]<a[i] (where x>=1) and postpone
+  // the pushing of a[i] in favour of a[i+x] as many times as necessary.
+  // This can be accomplished by introducing 2 different variables (a, b), each to denote
+  // an index of a value that may or may not be pushed into the array at the current time
+  // depending on how it compares to another value. 
+
+function dblLinear(n){
+    let arr=[1];
+    let a=0, b=0;
+    for(let i=0; i<n; ++i){
+       let nextA = arr[a]*2+1;
+       let nextB = arr[b]*3+1; 
+       if(nextA <= nextB){
+        arr.push(nextA);
+        ++a;
+        nextA===nextB && ++b;
+       }else{
+        arr.push(nextB);
+        ++b
+       }
+    }
+    return arr[n]
+}
+
+// console.log(`with Set: ${dblLinear1(200)}`);
+// console.log(`array only: ${dblLinear2(200)}`);
+// console.log(`Object keys: ${twiceLinear2(200)}`);
+// console.log(`lesser of the two first: ${dblLinear(200)}`)
