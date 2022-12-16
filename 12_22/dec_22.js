@@ -248,3 +248,18 @@ function divisors(n){
 }
 
 //console.log(divisors(12))
+
+// 59. Tribonacci sequence
+// Input: signature -- array of first three numbers in the sequence, n -- integer, the number of values in the returned array
+// Output: array of length n
+
+function tribonacci(sign, n) {
+  let arr = [...sign];
+  while(arr.length < n){
+    let len = arr.length;
+    arr.push(arr[len-1]+arr[len-2]+arr[len-3])
+  }
+  return arr
+}
+
+//console.log(tribonacci([1,1,1], 10))
