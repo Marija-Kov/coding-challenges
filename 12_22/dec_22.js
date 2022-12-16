@@ -229,3 +229,22 @@ function thriceLinear(n){
 }
 
 //console.log(thriceLinear(80))
+
+
+// 58. Find the divisors
+// Input: integer n
+// Output: array of integers where input n%arr[i]===0
+
+//Solution:
+//Brute force: check the remainder of n%x where 1 < x < n
+// if remainder is 0, arr.push(x)
+
+function divisors(n){
+ let arr = [];
+ for (let i=2; i<n; ++i){
+  if (n%i===0) arr.push(i)
+ }
+ return arr
+}
+
+//console.log(divisors(12))
