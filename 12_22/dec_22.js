@@ -263,3 +263,45 @@ function tribonacci(sign, n) {
 }
 
 //console.log(tribonacci([1,1,1], 10))
+
+// 60. Multiples of 3 or 5
+// Input: integer, n
+// Output: integer, sum of all numbers divisible by 3 or 5 and less than n
+// Should handle invalid input?
+
+// Solution: 
+// Brute force O(n): check every number from 3-n and push into a new array
+// check for presence of the number that passed the divisibility test in the array first
+
+function sumMultiples(num){
+  if(num<3) return 0;
+  let sum = 0;
+  for (let i=3; i<num; ++i){
+    if(i%3===0 || i%5===0){
+      sum+=i
+    }
+  }
+  return sum
+}
+
+// Reduced time complexity O(1):
+// Range 0-n(excluded) contains floor((n-1)/x) multiples of x, floor((n-1)/y) multiples of y and floor((n-1)/xy) multiples of xy
+// So the number of multiples of x || y is: floor((n-1)/x) + floor((n-1)/y) - floor((n-1)/xy), or: floor( (n-1)(1/x + 1/y - 1/xy) )
+// 
+
+function sumMultiples2(n){
+  function numMultiples(x){
+    return Math.floor((n-1)/x)
+  }
+const m3 = numMultiples(3);
+const m5 = numMultiples(5);
+const m15 = numMultiples(15);
+console.log(Math.floor((n-1)*7/15)) // 4
+function helper(x, m) {
+  return x*(m*m+m)/2  // sum of multiples(m) of x
+}
+ return helper(3,m3)+ helper(5,m5) - helper(15,m15);
+}
+
+// console.log(sumMultiples(10))
+// console.log(sumMultiples2(10))
