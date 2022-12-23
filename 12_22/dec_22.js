@@ -305,3 +305,29 @@ function helper(x, m) {
 
 // console.log(sumMultiples(10))
 // console.log(sumMultiples2(10))
+
+//61. Complementary DNA strand
+// Input: string containing uppercase letters only: A, G, T, C; no invalid input;
+// Output: -----||----- , A replaced by T, G by C and vice versa
+
+//Solution: 
+// create a "cache" of all letter pairs;
+// create an empty string str;
+// for each letter in the input string, concatenate cache.letter to str
+function DNAStrand(dna){
+ let pair = {
+  "A":"T", "T":"A", "C":"G", "G":"C"
+ };
+ let str = "";
+ const len = dna.length;
+ for (let i=0; i<len; ++i){
+  str+=pair[dna.charAt(i)];
+ }
+ return str
+}
+
+//console.log(DNAStrand("ACGT"))
+
+
+
+
