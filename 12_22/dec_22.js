@@ -328,6 +328,29 @@ function DNAStrand(dna){
 
 //console.log(DNAStrand("ACGT"))
 
+// 62. Sort the string
+// Input: string, a sentence where each word will contain a number(1-9); may be empty; no invalid input;
+// Output: string, rearranged so the words and spaces are preserved, but the order of the words is changed
+// so the numbers within the words are in the ascending order within the string; if input is an empty string, return an empty string
 
+// Solution:
+// Split the sentence into array of words (wordsArr)
+// create a newArray with length === wordsArr.length
+// iterate through wordsArr and extract the number out of each word
+// use the number to put the word in the correct spot in the newArray
+// join the array elements/words
 
+function order(words){
+if(!words) return "";
+ const wordsArr = words.split(" ")
+ const len = wordsArr.length;
+ let orderArr = new Array(len);
+ const rx = new RegExp(/\d/);
+for (let i=0; i<len; ++i){
+  let num = wordsArr[i].match(rx);
+  orderArr[num-1] = num.input;
+}
+return orderArr.join(' ')
+}
 
+//console.log(order("is2 Thi1s T4est 3a"));
