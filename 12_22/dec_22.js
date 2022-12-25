@@ -354,3 +354,34 @@ return orderArr.join(' ')
 }
 
 //console.log(order("is2 Thi1s T4est 3a"));
+
+
+// 63. concatenate one or more letters to the end of a given input string to create a string that reads the same forward as backward.
+// Input: string, length >=1, letters only, upper and lower case; no invalid input;
+// Output: string;
+
+// Solution:
+// create an array from input string
+// start the counter i from 1
+// while (arr !== arr.reverse())
+// arr+=[...arr.slice(0,len), ...arr.slice(0,i).reverse()
+
+
+const complete = (str) => {
+  let base = str.split("");
+  let arr = [...base, str.charAt(0)];
+  let i = 2;
+  while (arr.join("") !== [...arr].reverse().join("")) {
+    arr = [...base, ...arr.slice(0, i).reverse()];
+    ++i;
+  }
+  return arr.join("");
+}; 
+
+//console.log(complete("aaBB"))
+
+
+
+
+
+
