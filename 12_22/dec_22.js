@@ -380,6 +380,65 @@ const complete = (str) => {
 
 //console.log(complete("aaBB"))
 
+// 64. create a function that takes a list of non-negative integers and strings and returns a new list with the strings filtered out.
+// Input: an array of strings and other types of values
+// Output: an array of non-strings
+
+// Solution: 
+//- array.filter(leave all non-strings)
+// step by step: 
+// 1. create an empty array
+// 2. iterate through input
+// 3. check for array elements that are not strings
+// 4. push them into new array
+// 5. return new array when there's no more elements left
+
+
+
+// function filter_list(l) {
+//  return l.filter(e=> typeof e !== 'string')
+// }
+
+function filter_list(l) {
+  const len = l.length;
+  let noStr = [];
+ for(let i=0; i<len; ++i){
+   let e = l[i];
+  if(typeof e !== 'string'){
+    noStr.push(e)
+  }
+ }
+ return noStr
+}
+
+//console.log(filter_list([1, 2, "aasf", "1", "123", 123]));
+
+// 65. Count the number of divisors of a positive integer n.
+// Input: positive integer
+// Output: positive integer
+
+// Solution: 
+// Brute force:
+// 0. set counter to 2 
+// 1. check remainder of n/x where 1<=x<=n/2 -- n/2 is the largest divisor of n after itself
+// 2. if no remainder, increment the counter (previously initialized to 2)
+// 3. return the counter value
+
+
+function getDivisorsCnt(n) {
+  let count = 2; // counting in 1 and n right away
+  let maxDiv = n/2;
+  for (let i = 2; i<=maxDiv; ++i){
+    if (n%i == false) ++count;
+  }
+  return count
+}
+
+
+//console.log(getDivisorsCnt(20))
+
+
+
 
 
 
