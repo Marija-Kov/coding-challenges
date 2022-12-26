@@ -438,9 +438,50 @@ function getDivisorsCnt(n) {
 //console.log(getDivisorsCnt(20))
 
 
+// 66. Given two congruent circles a and b of radius r, return the area of their intersection rounded down to the nearest integer.
+
+
+//Input: 2 arrays of 2 integers each (coordinates of each circle), one integer (r); no invalid input;
+//Output: integer, area of the intersection
+
+// Solution:
+// I - intersection area, S - sector area, T - area of the triangle inside S
+// I =  2 * (S - T)
+// d - distance between centers
+// d = sqrt((x1-x2)^2 + (y1-y2)^2)
+// r = small radius 
+// if d > 2*r return 0 (no intersection)
+
+// calculating T 
+// p - 1/2 distance between two intersection points
+// p = sqrt(r^2 - (d/2)^2)
+// T  = p * d / 2    
+
+// calculating S
+// a - angle opposite 2p
+// a = 2 * acos(d/2/r) // radians
+// S = r^2 * a / 2 
+
+// calculating I
+// I = 2 * (S - T)
 
 
 
+function intersectionArea(c1, c2, r){
+  const d = Math.sqrt((c1[0] - c2[0]) ** 2 + (c1[1] - c2[1]) ** 2);
+  if (d > 2 * r) return 0;
+  const p = Math.sqrt(r ** 2 - (d / 2) ** 2); 
+  const T = (p * d) / 2; 
+  const a = 2 * Math.acos(d / 2 / r); 
+  const S = (r ** 2 * a) / 2;
 
+  // console.log(`d = ${d}`)
+  // console.log(`p = ${p}`)
+  // console.log(`T = ${T}`)
+  // console.log(`a = ${a}`)
+  // console.log(`S = ${S}`)
 
+  return Math.floor(2 * (S - T));
+}
+//console.log(intersectionArea([1,2],[5,1], 3))
 
