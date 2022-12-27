@@ -483,5 +483,44 @@ function intersectionArea(c1, c2, r){
 
   return Math.floor(2 * (S - T));
 }
-//console.log(intersectionArea([1,2],[5,1], 3))
+//console.log(`should be: ${intersectionArea([1,2],[5,1], 3)}`)
+//console.log(`test: ${intersectionArea([-53, -92], [24, 86], 53)}`);
+
+// 66.b -- 131 chars when bundled
+let circleIntersection=(a, b, r)=>{
+   m = Math, s = m.sqrt, d = (a[0]-b[0])**2 + (a[1]-b[1])**2;
+  return m.floor(r * r * 2 * m.acos(s(d) / 2 / r) - s(d * (r * r - d / 4)));
+}
+
+//console.log(circleIntersection([1, 2], [5, 1], 3));
+
+// 67. Reverse the stream of data
+
+// Input: array of n*8 zeros and/or ones representing n bytes; n is a positive integer
+// Output: array with bytes/segments of 8 elements in reversed order
+
+// Solution :
+// 1. get the number of bytes (input.length/8)
+// 2. create a newArray
+// 3. for i = bytes; i>0; ++i slice the input array from index 8*(i-1) to 8*i starting from the end
+// 4. push the sliced byte to the newArray
+
+function dataReverse(data) {
+  const bytes = data.length/8;
+  let newArr = [];
+  for (let i=bytes; i>0; --i){
+    let byte = data.slice(8*(i-1), 8*i)
+    newArr.push(...byte)
+  }
+  return newArr
+}
+
+// console.log(
+//   dataReverse([
+//     1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+//     1, 1, 1, 1, 1, 1, 1,
+//   ])
+// );
+
+
 
