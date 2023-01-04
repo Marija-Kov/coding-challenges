@@ -6,22 +6,16 @@
 
 
 function digitalRoot(n) {
-  let strArr = n.toString().split('');
-  let firstSum = 0;
-  for (let i=0; i<strArr.length; ++i){
-   firstSum+=Number(strArr[i])
+  let arr = n.toString().split(''); 
+  let len = arr.length;
+  let sum = 0;
+  while(--len+1){ 
+   sum+=Number(arr[len]) 
   }
-   function sumDigit(sum){
-    let strArr = sum.toString().split("");
-    let nextSum = 0;
-      for (let i = 0; i < strArr.length; ++i) {
-        nextSum += Number(strArr[i]);
-      }
-      if (nextSum.toString().split("").length > 2) return sumDigit(nextSum)
-     return nextSum
-   }
-   
-   return sumDigit(firstSum)
+  if(sum>=10) return digitalRoot(sum)
+  return sum
 }
 
-console.log(digitalRoot(128));
+console.log(digitalRoot(345));
+
+// https://mathworld.wolfram.com/DigitalRoot.html
