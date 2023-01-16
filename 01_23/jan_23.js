@@ -5,16 +5,16 @@
 // Example: 128 --> 1+2+8 == 11 --> 1+1 == 2
 
 
-function digitalRoot(n) {
-  let arr = n.toString().split(''); 
-  let len = arr.length;
-  let sum = 0;
-  while(--len+1){ 
-   sum+=Number(arr[len]) 
-  }
-  if(sum>=10) return digitalRoot(sum)
-  return sum
-}
+// function digitalRoot(n) {
+//   let arr = n.toString().split(''); 
+//   let len = arr.length;
+//   let sum = 0;
+//   while(--len+1){ 
+//    sum+=Number(arr[len]) 
+//   }
+//   if(sum>=10) return digitalRoot(sum)
+//   return sum
+// }
 
 //console.log(digitalRoot(345));
 
@@ -67,5 +67,147 @@ function duplicateEncode(str){
 
 
 
-console.log(duplicateEncode('keecheerrrf 2r4 5%'))
+//console.log(duplicateEncode('keecheerrrf 2r4 5%'))
 
+// WORK IN PROGRESS // 70. Snail sort 
+// https://www.codewars.com/kata/521c2db8ddc89b9b7a0000c1/train/javascript
+
+// Input: two-dimensional array s, size n x n where each element is s[i][j]
+// Output: one-dimensional array a, length n^2
+
+// Solution:
+// It can be observed that:
+//
+// 1) the last input element pushed in the output array is 
+//   s[Math.ceil((n-1)/2)][Math.floor((n-1)/2)];
+//   So the iteration is completed when i === Math.ceil((n-1)/2) and j === Math.floor((n-1)/2)
+
+// 2) During the iteration both indexes will switch between incrementing and decrementing
+// 3) Only one index can be incremented/decremented at a time
+// 4) The iteration starts with the incr of [j] followed by the incr of [i] 
+// followed by decr of [j] then [i] and so on.. 
+// 5) [j] then [i] incr until [n-x] where x=0 is incr by 1 after [i] finish incr
+// 6) [j] then [i] decr until [y] where y=0 is incr by 1 after each [j] and [i] finish decr
+// 7) at the point a.length === n^2 the process breaks and a is returned; this can happen
+//    at the end of any loop
+// 8) if a.length is < n^2 after both [i] and [j] have gone through incr and decr cycle,
+//  the function is called recursively
+
+function helix(arr){
+    if (arr===[[]]) return [];
+    if (arr[0].length===1) return arr[0]; 
+     
+    // const lastI = Math.ceil((n - 1) / 2);
+    // const lastJ = Math.floor((n - 1) / 2);
+    // const last = arr[lastI][lastJ];
+    
+    //let flat = [];
+    // for (let i=0; i<n; ++i){
+    //     flat = [...flat, ...arr[i]]
+    // }
+    let n = arr.length;
+    let len = n**2; // final length of the output array
+    let snail = arr[0];
+    let i=1; let j=n-1; 
+    let x=0;
+    while(snail.length < len){
+        while(i < n+x){
+            snail.push(arr[i][j]); ++i
+        }
+        --j; 
+        --i;
+        while(j > x){
+            snail.push(arr[i][j]); --j;
+        }
+        
+        while(i > x){
+            snail.push(arr[i][j]); --i;
+        }
+        ++j;
+        ++x;
+        while(j < n-x){
+            snail.push(arr[i][j]); ++j
+        }
+        
+    }
+
+    
+    return snail
+}
+
+
+//console.log(helix([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]))
+
+
+
+// 71. Reorder an array so that, ex: [1,2,3,4,5,6] becomes [1,6,2,5,3,4]; [1,2,3,4,5] --> [1,5,2,4,3]
+
+// Input: array, no invalid input;
+// Output: array reordered;
+
+// Solution: 
+// This works for both odd and even length arrays:
+
+function reorder(arr){
+    let len = arr.length;
+    let newArr;
+      newArr = [...arr]
+      for(let i=1; i<len-1; i+=2){
+        newArr.splice(i,0,newArr[len-1]);
+        newArr.pop()
+      }
+   return newArr 
+}
+
+function reorderEven(arr){
+    let len = arr.length;
+    if (len%2!==0){
+        return 'array length not even'
+    }else {
+    let newArr =[];
+    for (let i=0; i<len/2; ++i){
+        newArr.push(arr[i], arr[len-i-1])
+    }
+     return newArr
+    }
+}
+
+// Since we can see that in this type of reordering, in case arr.length is even
+// the two elements in the middle of the input arr i.e
+// at the end of the output arr stay in the same order, we can loop less times and just add them at the end
+// which makes the program run consistently faster
+
+function reorderEven2(arr) {
+  let len = arr.length;
+  if (len % 2 !== 0) {
+    return "array length not even";
+  } else {
+    let mid = len/2-1;
+    let newArr = [];
+    for (let i = 0; i < mid; ++i) {
+      newArr.push(arr[i], arr[len - i - 1]);
+    }
+    newArr.push(arr[mid], arr[mid+1])
+    return newArr;
+  }
+}
+
+// In case of arr.length being odd, we can do the similar thing: loop mid times and push the mid element at the end
+
+function reorderOdd(arr){
+    let len = arr.length;
+    if(len % 2 === 0){
+        return "array not odd"
+    } else {
+        let mid = Math.floor(len/2);
+        let newArr = [];
+        for (let i = 0; i < mid; ++i) {
+          newArr.push(arr[i], arr[len - i - 1]);
+        }
+        newArr.push(arr[mid])
+        return newArr
+    }
+}
+
+//console.log(reorderOdd([1,2,3,4,5,6,7,8,9]))
+//console.log(reorderOdd([1, 2, 3, 4, 5, 6, 7, 8]));
