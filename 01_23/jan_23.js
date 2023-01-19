@@ -270,3 +270,63 @@ function reverseWords2(str){
 }
 
 //console.log(reverseWords2('ab cd'))
+
+// 73. Count the number of characters that occur more than once
+
+// Input: string containing numeric and alphabetic (both cases) characters; no invalid input
+// Output: integer
+// Example: 'Invincible334' --> 3 (3 times i/I, n twice, 3 twice)
+
+// Solution:
+
+// create an object to store the key:val pairs of chars and their counts
+// loop through the input str and +1 a char every time it occurs 
+// get object entries
+// loop through the entries to count the number of vals >= 2
+
+function duplicateCount(str) {
+ let len = str.length;   
+ let obj = {};
+ let count = 0;
+ while(--len+1){
+    let char = str.charAt(len).toLowerCase();
+    obj[char] = obj[char]+1 || 1
+ }
+ let vals = Object.values(obj)
+ len = vals.length;
+ while(--len+1){
+    if (vals[len] > 1) ++count
+ }
+ return count
+}
+
+// Solution 2:
+// Since we only care if a character appears once or more than once and not about which character it is
+// nor how many times exactly it appears in the string, we can:
+// 1) initialize an array that will store unique characters of the string
+// 2) loop through the chars, check if a char is present in the array
+// 3) if yes. increment count by one and replace char with `+char`
+// 4) if `+char` is present, do nothing (this prevents counting one repeated char multiple times)
+// 5) if the char nor `+char` are present, push the char into the array
+// 6) return count
+
+function duplicateCount2(str){
+    let vals = [];
+    let count = 0;
+    let len = str.length;
+    while (--len+1){
+        let char = str.charAt(len).toLowerCase();
+       if(vals.includes(char)){
+        ++count;
+        vals[vals.indexOf(char)] = `+${char}`
+       }else if(vals.includes(`+${char}`)){
+        null
+       } else {
+        vals.push(char)
+       }
+    }
+   return count
+}
+
+// console.log(duplicateCount2('Invincible334'))
+// console.log(duplicateCount2("aaaaaaaaaaaaab"));
