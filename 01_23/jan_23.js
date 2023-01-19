@@ -211,3 +211,62 @@ function reorderOdd(arr){
 
 //console.log(reorderOdd([1,2,3,4,5,6,7,8,9]))
 //console.log(reorderOdd([1, 2, 3, 4, 5, 6, 7, 8]));
+
+
+// 72. Reverse the order of letters in words
+// a word is a string of contiguous non-empty characters
+
+// Input: a string consisting of contiguous non-empty characters and a number of empty chars
+// Output: a string consisting of contiguous non-empty characters in reverse order relative to the input and a number of empty chars
+
+// Solution: 
+// 1) split the string by a single empty space
+//  - this will return strings of non empty characters as well as empty characters if any length of adjacent empty chars 
+//    happens to exceed 1
+// 2) loop through the array and reverse each string by splitting it into an array first
+//   - this will reverse the order of chars leaving the strings consisting of empty chars in essentially unaltered condition
+//   - join the array by a single empty space and put it in the place of the existing string (a[i])
+// 3) after looping is over, join the array by a single empty char
+
+
+function reverseWords(str){
+ let arr = str.split(' ');
+ let len = arr.length;
+ for (let i = 0; i<len; ++i){
+  arr[i]=arr[i].split('').reverse().join('') 
+ }
+ return arr.join(' ')
+}
+
+// The above solution runs 3 functions per array element i.e. goes over every string in the array 3 times (at least). Eek!
+
+// Solution 2:
+// 1) initiate a variable word as an empty string
+//  - it will temporarily store word (non-empty char) substrings
+// 2) initiate a variable reversed as an empty string
+// 3) looping through the input string characters from backwards, concatenate every non-empty char 
+// with the word variable 
+// 4) every time you reach an empty char, do " " + word + reverse concatenation and 
+// make sure to assign '' to word in case there are multiple contiguous empty chars to consider
+// 5) since the while loop ends at the time the last word is reversed but before it's concatenated,
+// make sure it's concatenated with reversed before it's returned
+
+
+function reverseWords2(str){
+    let len = str.length;
+    let word = '';
+    let reversed = '';
+    while(--len+1){   
+        let char = str.charAt(len);
+        if(char !== " "){
+            word+=char;
+        } 
+        if (char === " "){
+            reversed = " " + word + reversed;
+            word = ''
+        }
+    }
+    return word + reversed
+}
+
+//console.log(reverseWords2('ab cd'))
