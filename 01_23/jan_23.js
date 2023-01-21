@@ -330,3 +330,55 @@ function duplicateCount2(str){
 
 // console.log(duplicateCount2('Invincible334'))
 // console.log(duplicateCount2("aaaaaaaaaaaaab"));
+
+
+// 74. https://www.codewars.com/kata/59302a6af1c4f0a8fe0000a6/train/javascript
+
+function sum(...args){
+  if(args[0].length===0) return 0
+  let len = args.length;
+  // get the total length of array-parameters
+  let arr = [...args];
+  let sum = 0;
+  let callB = null;
+  // check if the last arg is a callback
+  if (typeof args[len - 1] == "function") {
+    callB = args[len - 1];
+    len -= 1;
+    arr.pop();
+  }
+  if(!callB){
+    let a = [];
+    for(let i=0; i<len; ++i){
+      a = [...a, ...args[i]]
+    }
+    sum = a.reduce((x,y)=>x+y)
+  } else {
+    // get the length of the largest array-parameter
+    function getLargestArray() {
+      let L = args[0].length;
+      for (let i = 0; i < len; ++i) {
+        if (args[i].length > L) L = args[i].length;
+      }
+      return L;
+    }
+    let largestArr = getLargestArray();
+    // dynamically pass correct number of arrays to the callback
+    function getArrays(num) {
+      let a = [];
+      for (let i = 0; i < len; ++i) {
+        a.push(arr[i][num] || 0);
+      }
+      return a;
+    }
+    for (let j = 0; j < largestArr; ++j) {
+      sum += callB(...getArrays(j));
+    }
+  }
+  return sum;
+}
+
+//console.log(sum([3, 3, 3],[4, 5], (a, b) => a * b))
+//console.log(sum([1,2], [3]))
+//console.log(sum([]))
+
