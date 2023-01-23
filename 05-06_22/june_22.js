@@ -265,42 +265,6 @@
 
 
 
-//function that converts roman to arabic and vice versa
-// should only take integers from 1 to 3999 included otherwise throw an error
-//should only accept strings with valid chars in valid patterns for roman, otherwise throw an error
-
-//1990 = 1000 + 900 + 90 = M + CM + XC  
-// -- split a number to thousands, hundreds, tens, single-digits, convert them to corresponding strings, then concatenate
-// I II III IV  V  VI VII VIII IX  X  XI XII XIII XIV  XV  XVI XVII XVIII XIX  XX  XXI 
-
-    const rules = {
-      M: 1000,
-      CM: 900,
-      D: 500,
-      CD: 400,
-      C: 100,
-      XC: 90,
-      L: 50,
-      XL: 40,
-      XXX: 30,
-      XX: 20,
-      X: 10,
-      IX: 9,
-      V: 5,
-      IV: 4,
-      I: 1,
-    };
-
-
-    // const romans = Object.keys(rules) // array of keys from rules object
-    // console.log(romans[5])
-
-    // for (let i = 0; i < romans.length; ++i){  
-    //  console.log(rules[romans[i]]) // object[key]
-    // }
-
-
-
 
 
 
