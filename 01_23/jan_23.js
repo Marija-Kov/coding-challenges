@@ -382,3 +382,44 @@ function sum(...args){
 //console.log(sum([1,2], [3]))
 //console.log(sum([]))
 
+
+// 75. Convert Roman to Integer
+
+function romanToInt(inp){
+  const rom = {
+    M: 1000,
+    D: 500,
+    C: 100,
+    L: 50,
+    X: 10,
+    V: 5,
+    I: 1,
+  };
+  let chars = [...inp];
+  let len = chars.length;
+  for(let i=0; i<len; ++i){
+      let curr = chars[i];
+      let next = chars[i+1];
+    if (
+      (curr === "I" && next === "V") ||
+      (curr === "I" && next === "X") ||
+      (curr === "X" && next === "L") ||
+      (curr === "X" && next === "C") ||
+      (curr === "C" && next === "D") ||
+      (curr === "C" && next === "M")
+    ) {
+      chars[i] = -rom[curr];
+    } else {
+      chars[i] = rom[curr];
+    }   
+    
+  }
+  return chars.reduce((a,b)=>a+b)
+}
+
+// console.log(romanToInt("MCM")) 
+// console.log(romanToInt("XXIV")) 
+// console.log(romanToInt("CXL")) 
+// console.log(romanToInt("XC"))
+// console.log(romanToInt("MCDIX")) 
+
