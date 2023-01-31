@@ -423,3 +423,24 @@ function romanToInt(inp){
 // console.log(romanToInt("XC"))
 // console.log(romanToInt("MCDIX")) 
 
+
+// 76. https://www.codewars.com/kata/61123a6f2446320021db987d/train/javascript
+
+
+function prevMultOfThree(n) {
+  if (n % 3) return n;
+  let str = n.toString()
+  let len = str.length;
+  while(--len){
+    let s = str.slice(0,len)
+    let num = Number(s);
+    if(num%3===0){
+      return num
+    } 
+  }
+  return null
+}
+
+// console.log(prevMultOfThree(25))
+// console.log(prevMultOfThree(1244));
+
