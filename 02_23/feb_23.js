@@ -81,4 +81,29 @@ function rankings(arr) {
 // interesting solution (the way positions of numbers were obtained without using extra space): https://www.codewars.com/kata/reviews/58e19f807bf60324f30002ca/groups/63c96e55424ee40001084a26
 
 // console.log(rankings([10, 20, 40, 50, 30]));
-// console.log(rankings([22, 33, 18, 9, 110, 4, 1, 88, 6, 50]));
+// console.log(rankings([22, 33, 18, 9, 110, 4, 1, 88, 6, 50]));// console.log(rankings([22, 33, 18, 9, 110, 4, 1, 88, 6, 50]));
+// Input: num: positive integer > 0, no invalid input
+// Output: positive integer, sum of all integers in the range 1-num inclusive
+
+// Solution:
+// a) Using for loop to add numbers to sum - O(n) time complexity:
+
+// function summation(num){
+//     let sum = 1;
+//     for(let i=2;i<=num;++i){
+//         sum+=i;
+//     }
+//     return sum
+// }
+
+
+// Play around and find a rule that can get correct sum for any num..
+// num * num/2 + num/2
+
+// b) Using math - O(1) complexity:
+
+function summation(num){
+    return num/2*(num + 1)
+}
+
+//console.log(summation(2))
