@@ -106,4 +106,69 @@ function summation(num){
     return num/2*(num + 1)
 }
 
-//console.log(summation(2))
+//console.log(summation(2))//console.log(summation(2))
+// Input: 1. points - array of 26 positive integers, each representing the number of points for letters A-Z in alphabetical order;
+//        2. words - array of strings, uppercase; no invalid input, empty array, non-string values nor empty strings; may be actual words as well as strings of random alphabetical characters
+// Output: shortest string worth the most points; if two strings are worth the same number of points, return the shorter one;
+//          if there are two strings that carry max points and the same number of chars, return the one with the lower index number in the array;
+
+// Solution:
+// Before anything else, map every letter and the corresponding number of points into key-value pairs
+
+// Pick a word to memoize first with its calculated value, then go to the next word and check if it's worth more points;
+// if yes, replace the currently stored word with it (word being an array that stores [sumOfPoints, length, index] of the word)
+// if no, check the remaining words
+// if it's worth the same as the currently stored word, check its length
+  // if it's longer than the currently stored word, check the remaining words
+  // if it's shorter than the currently stored word of equal worth, replace the currently stored word with it
+
+ let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+ let points = [
+    1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 10, 1, 2, 1, 1, 3, 8, 1, 1, 1, 1, 4, 10, 10,
+    10, 10,
+  ];
+
+function getBestWord(points, words){
+ let len = points.length;
+ let letterPts = {};
+ for(let i=0; i<len; ++i){
+  letterPts[alphabet.charAt(i)] = points[i]
+ }
+ let theBest = sumPts(words[0], 0);
+ for(let i=1; i<words.length; ++i){
+    let wordVal = sumPts(words[i], i);
+    if (wordVal[0] > theBest[0]){
+        theBest = wordVal
+    } else if (wordVal[0] === theBest[0]){
+        if (wordVal[1] < theBest[1]){
+          theBest = wordVal;
+        }
+    }
+ }
+ return theBest[2];
+
+ function sumPts(word, index){
+    let len = word.length;
+    let sum = 0;
+    for(let i=0; i<len; ++i){
+     sum+=letterPts[word.charAt(i)]
+    }
+    return [sum, len, index]
+ }
+
+}
+
+// console.log(
+//   getBestWord(points, [
+//     "NOQ",
+//     "TXAY",
+//     "S",
+//     "OM",
+//     "ESFT",
+//     "CJUKQ",
+//     "QL",
+//     "QO",
+//     "ASTK",
+//     "Y",
+//   ])
+// );
