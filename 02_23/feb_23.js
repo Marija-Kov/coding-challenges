@@ -172,3 +172,29 @@ function getBestWord(points, words){
 //     "Y",
 //   ])
 // );
+
+// 82. Create a function that generates n random strings of random length (2-l inclusive)
+// Input:  1. n: number of strings to be generated, integer > 2,
+//         2. l: max length of strings generated
+// Output: array of random strings;
+
+function genRandomStrArr(n, l) {
+  let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let arr = [];
+   for(let i=0; i<n; ++i){
+    arr.push(randomStr())
+   }
+   return arr
+
+   function randomStr(){
+    let len = Math.random() * (l-1) + 2;
+    let str = '';
+     while(len>1){
+      str+=alphabet.charAt(Math.random()*26);
+      --len
+     }
+    return str;
+   }
+}
+
+//console.log(genRandomStrArr(5, 7))
