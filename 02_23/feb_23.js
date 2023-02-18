@@ -197,4 +197,34 @@ function genRandomStrArr(n, l) {
    }
 }
 
-//console.log(genRandomStrArr(5, 7))
+//console.log(genRandomStrArr(5, 7))//console.log(genRandomStrArr(5, 7))
+// Input: unsorted array of integers, positive and negative; may be of any length including 0;
+// Output: integer, sum of the differences of every n[i] and n[i+1] where i = 0 -- arr.length-1 exclusive
+
+// Solution: 1. sort the array in the descending order;
+//           2. initiate a variable sum to the value 0;
+//           3. iterate through the array, take each number (except the last one) and the one after that
+//              - calculate the difference an add it to sum
+//           4. return sum
+
+// function sumOfDifferences(arr) {
+// if(arr.length<2) return 0;
+//  let l = arr.length-1;
+//  let arrCopy = Array(...arr).sort((a,b)=> -a+b);
+//  let sum = 0;
+//   for(let i=0; i<l; ++i){
+//    sum += arrCopy[i] - arrCopy[i+1];
+//   }
+//  return sum
+// }
+
+// Or, with a bit of math..
+// In a sorted array [A,B,C] where a is the highest value, we can observe that the sum of the differences is A-B+B-C
+// or simply A-C
+
+function sumOfDifferences(arr) {
+ if (arr.length < 2) return 0;
+ return Math.max(...arr)-Math.min(...arr);
+}
+
+//console.log(sumOfDifferences([1, 2, -10, 22, 12]))
