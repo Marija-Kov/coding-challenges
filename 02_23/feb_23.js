@@ -227,4 +227,57 @@ function sumOfDifferences(arr) {
  return Math.max(...arr)-Math.min(...arr);
 }
 
-//console.log(sumOfDifferences([1, 2, -10, 22, 12]))
+//console.log(sumOfDifferences([1, 2, -10, 22, 12]))//console.log(sumOfDifferences([1, 2, -10, 22, 12]))
+// Input: x, y : integers from 1 to very large, no invalid input
+// Output: gcd : greatest common divsor
+
+// Solution I:
+// 0. ANY SOLUTION: Absolute values of input integers must be used to avoid incorrect results when an input value is negative
+// 1. The gcd can be as large as the lesser of |x| and |y|, so first assume that's the common divisor
+// 2. then decrement the gcd by one as long as x%gcd or y%gcd have a remainder
+// 3. return gcd
+
+// function mygcd(a, b) {
+//   let [x, y] = [Math.abs(x), Math.abs(y)]
+//   let gcd = x > y ? x : y;
+//    while(x%gcd || y%gcd) {
+//     --gcd;
+//    }
+//   return gcd
+// }
+
+// Solution II:
+// Taking into consideration that gcd of (|x|,|y|), where |x|>|y|, is also the gcd of (|x|, |y|, x%y),
+// we could be moving towards the gcd value by re-running the function passing |y| (in place of |x|) and x%y (in place of |y|) as arguments..
+// as long as x%y > 0. As the input values are being replaced by the remainders with every recursion, once x%y === 0, y is returned as the gcd;
+// We have to make sure that the lower value is the divisor with every recursive function call (which takes care of itself after the initial destructuring assignment)
+
+function mygcd(a, b) {
+  let [x, y] = [Math.abs(a), Math.abs(b)];
+  [x,y] = x > y ? [x, y] : [y, x]; // make sure x stores the greater value so that x%y makes sense
+  if (x%y) return mygcd(y, x%y)
+  return y
+}
+
+// Solution III:
+// Iterative version;
+// Here we're overwriting input values with the remainders until one of them reaches the value of 0;
+// Then, the other value is returned as the gcd;
+
+// function mygcd(a, b) {
+//     let [x, y] = [Math.abs(a), Math.abs(b)];
+//      if (y > x) [x]=[y] // make sure x stores the greater value
+//      while (x!==0 || y!==0) { 
+//        if (y === 0) return x;
+//        x %= y; // x being overwritten by x%y
+//        if (x === 0) return y;
+//        y %= x;
+//      }
+// }
+
+//console.log(mygcd(60, -36),"______" );
+// console.log(mygcd(43438, 610), "______");
+// console.log(mygcd(1,3333), "______");
+
+// console.log(mygcd1(60, -36));
+// console.log(mygcd(60, -36))
