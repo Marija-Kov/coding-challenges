@@ -279,5 +279,29 @@ function mygcd(a, b) {
 // console.log(mygcd(43438, 610), "______");
 // console.log(mygcd(1,3333), "______");
 
-// console.log(mygcd1(60, -36));
-// console.log(mygcd(60, -36))
+// 85. https://www.codewars.com/kata/5ce9c1000bab0b001134f5af/train/javascript
+// Input: m: integer 1-12 inclusive, no invalid input
+// Output: integer 1-4 inclusive
+
+// Solution I:
+// Quarters: | 1 2 3 | 4 5 6 | 7 8 9 | 10 11 12 |
+// We could write a series of if statements to check which range the number is in:
+ 
+// const quarterOf = (m) => {
+//   if(m < 4) return 1
+//   if(m < 7) return 2
+//   if (m < 10) return 3;
+//   if (m > 9) return 4;
+// };
+
+// Solution II:
+// How would you ask: "What quarter of 12 is m?" in Math ?
+// x/4 * 12 = m --> 3*x = m --> x = m/3 , but --> x = ceil(m/3) because we need integers 1-4
+
+const quarterOf = (m) => {
+  return Math.ceil(m / 3);
+};
+
+//console.log(quarterOf(2))
+
+//86. https://www.codewars.com/kata/5a6b24d4e626c59d5b000066
