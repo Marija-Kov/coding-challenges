@@ -5,15 +5,31 @@
 // Output: an array of non-negative integers, representing the sum of input linked lists
 // Example: l1 = [2,4,3], l2 = [5,6,4]; should return [7,0,8] because 342 + 465 = 807
 
-const addTwoNumbers = function(l1, l2) {
+const addTwoNumbersArr = function(l1, l2) {
  let num1 = Number(l1.reverse().join(''))
  let num2 = Number(l2.reverse().join(""));
  return `${num1+num2}`.split('').map(n=>Number(n)).reverse()
 }
 
-console.log(addTwoNumbers([2, 4, 3], [5, 6, 4]));
-console.log(addTwoNumbers([9, 9, 9, 9, 9, 9, 9], [9, 9, 9, 9]));
-console.log(addTwoNumbers([0], [0]));
+// The linked list way
+
+class ListNode {
+    constructor(val, next) {
+        this.val = (val === undefined ? 0 : val);
+        this.next = (next === undefined ? null : next);
+    }
+}
+
+const addTwoNumbers = function(l1, l2) {
+
+}
+let node = new ListNode(3,5)
+// console.log(node.val)
+
+// console.log(addTwoNumbers([2, 4, 3], [5, 6, 4]));
+// console.log(addTwoNumbers([9, 9, 9, 9, 9, 9, 9], [9, 9, 9, 9]));
+// console.log(addTwoNumbers([0], [0]));
+
 // 78. https://www.codewars.com/kata/56269eb78ad2e4ced1000013
 // Input: sq, integer, no invalid input
 // Output: -1 or integer: pow(sqrt(sq)+1)
@@ -30,7 +46,9 @@ function findNextSquare(sq) {
 }
 
 // console.log(findNextSquare(121))
-// console.log(findNextSquare(114));// console.log(findNextSquare(114));
+// console.log(findNextSquare(114));
+
+// 79. https://www.codewars.com/kata/58e16de3a312d34d000000bd/train/javascript
 
 // In other words: Replace the number in the array with the number corresponding to what its index+1 would be if the array was sorted in the descending order
 // Input: array of random positive integers, no invalid input
@@ -81,7 +99,9 @@ function rankings(arr) {
 // interesting solution (the way positions of numbers were obtained without using extra space): https://www.codewars.com/kata/reviews/58e19f807bf60324f30002ca/groups/63c96e55424ee40001084a26
 
 // console.log(rankings([10, 20, 40, 50, 30]));
-// console.log(rankings([22, 33, 18, 9, 110, 4, 1, 88, 6, 50]));// console.log(rankings([22, 33, 18, 9, 110, 4, 1, 88, 6, 50]));
+// console.log(rankings([22, 33, 18, 9, 110, 4, 1, 88, 6, 50]));
+
+// 80. https://www.codewars.com/kata/55d24f55d7dd296eb9000030/train/javascript
 // Input: num: positive integer > 0, no invalid input
 // Output: positive integer, sum of all integers in the range 1-num inclusive
 
@@ -106,7 +126,9 @@ function summation(num){
     return num/2*(num + 1)
 }
 
-//console.log(summation(2))//console.log(summation(2))
+//console.log(summation(2))
+
+// 81. https://www.codewars.com/kata/563f960e3c73813942000015/train/javascript
 // Input: 1. points - array of 26 positive integers, each representing the number of points for letters A-Z in alphabetical order;
 //        2. words - array of strings, uppercase; no invalid input, empty array, non-string values nor empty strings; may be actual words as well as strings of random alphabetical characters
 // Output: shortest string worth the most points; if two strings are worth the same number of points, return the shorter one;
@@ -197,7 +219,9 @@ function genRandomStrArr(n, l) {
    }
 }
 
-//console.log(genRandomStrArr(5, 7))//console.log(genRandomStrArr(5, 7))
+//console.log(genRandomStrArr(5, 7))
+
+// 83. https://www.codewars.com/kata/5b73fe9fb3d9776fbf00009e/train/javascript
 // Input: unsorted array of integers, positive and negative; may be of any length including 0;
 // Output: integer, sum of the differences of every n[i] and n[i+1] where i = 0 -- arr.length-1 exclusive
 
@@ -227,7 +251,9 @@ function sumOfDifferences(arr) {
  return Math.max(...arr)-Math.min(...arr);
 }
 
-//console.log(sumOfDifferences([1, 2, -10, 22, 12]))//console.log(sumOfDifferences([1, 2, -10, 22, 12]))
+//console.log(sumOfDifferences([1, 2, -10, 22, 12]))
+
+// 84. https://www.codewars.com/kata/5500d54c2ebe0a8e8a0003fd/train/javascript
 // Input: x, y : integers from 1 to very large, no invalid input
 // Output: gcd : greatest common divsor
 
@@ -304,4 +330,59 @@ const quarterOf = (m) => {
 
 //console.log(quarterOf(2))
 
-//86. https://www.codewars.com/kata/5a6b24d4e626c59d5b000066
+
+//86. Convert number to reversed array of digits
+// Example: 54321 --> [1,2,3,4,5]
+// Input: n: integer, positive, no invalid input;
+// Output: array of integers of n in reversed order
+
+// Solution I: 
+// 1. convert the input to string and 
+// 2. pick the chars one by one from the back, convert them to numbers and push them into the array
+//   --chars can also be picked from the front and "unshifted" into the array
+// 3. return the arr
+
+// function digitize(n) {
+//   let str = n+"";
+//   let len = str.length;
+//   let arr = [];
+//   while(--len+1){
+//     arr.push(Number(str.charAt(len)))
+//   }
+//   return arr
+// }
+
+// Solution II:
+// 1. divide the input (n) by 10 and push the remainder into the array
+// 2. replace n with the value of n/10 only taking the digits on the left side of the decimal point
+// 3. repeat until n === 0
+// 4. return the array
+
+function digitize(num) {
+  if (num === 0) return [num];
+  let n = num;
+  let arr = [];
+  while (n) {
+   arr.push(n%10)
+   n=Math.trunc(n/10)
+  }
+  return arr
+}
+//console.log(digitize(54321))
+
+
+//87. https://www.codewars.com/kata/5a6b24d4e626c59d5b000066
+// Input: n : integer in range 2-43, no invalid input;
+// Output: arr : array of integers 1-n arranged in a way so the sum of each 2 consecutive numbers is a square.
+//  if there is no arrangement for the given range of numbers, return false;
+
+// Solution:
+// Some facts:
+// 1. Some input values can be automatically excluded from consideration;
+// 2. possible squares in the range 2-43 are [4, 9, 16, 25, 36, 49, 64, 81]; - that makes the largest possible square in the range: pow(floor(sqrt(2n)))
+//    -- if a square in the range is sq[i],  then sq[i+1] = sq[i] + o ; (o --> odd number starting with 5) and  sq[i+2] = sq[i+1]+o+2
+// 3. every number will have to be able to make a square with at least two other values and those squares will be different and always adjacent 
+//  - i.e: 14 makes a square with 22 (36), 11 (25), 2 (16) 
+
+
+
