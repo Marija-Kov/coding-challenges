@@ -4,19 +4,69 @@
 // Output: one-digit positive integer
 // Example: 128 --> 1+2+8 == 11 --> 1+1 == 2
 
+// Solution I - Recursive approach:
 
 // function digitalRoot(n) {
-//   let arr = n.toString().split(''); 
-//   let len = arr.length;
+//   let str = n.toString()
+//   let len = str.length;
 //   let sum = 0;
-//   while(--len+1){ 
-//    sum+=Number(arr[len]) 
+//   while (--len + 1) {
+//     sum += Number(str.charAt(len));
 //   }
-//   if(sum>=10) return digitalRoot(sum)
-//   return sum
+//   if (sum >= 10) return digitalRoot(sum);
+//   return sum;
 // }
 
-//console.log(digitalRoot(345));
+// Solution II - Iterative approach;
+
+// function digitalRoot(n) {
+//   let arr = n.toString().split("").map(e=>Number(e));
+//   let sum = arr.reduce((a,b) => (a+b));
+//   while (sum >= 10) {
+//     arr = sum
+//       .toString()
+//       .split("")
+//       .map((e) => Number(e));
+//     sum = arr.reduce((a, b) => a + b);
+//   }
+//   return sum;
+// }
+
+// Solution III - Iterative approach without converting to array and built-in array methods;
+
+// function digitalRoot(n) {
+//   let str = `${n}`;
+//   let len = str.length;
+//   let sum = 0;
+//   for(let i=0; i<len; ++i){
+//    sum+=Number(str.charAt(i))
+//   }
+//   while(sum >= 10){
+//     str = `${sum}`;
+//     len = str.length;
+//     sum = 0;
+//     for (let i = 0; i < len; ++i) {
+//       sum += Number(str.charAt(i));
+//     }
+//   }
+//   return sum;
+// }
+
+function digitalRoot(n) {
+  let num = n;
+  let sum = num;
+  while(sum>=10){
+    sum=0;
+    while(num){
+      sum+=num%10;
+      num = Math.trunc(num/10);
+    }
+    num = sum
+  }
+  return sum;
+}
+
+console.log(digitalRoot(345));
 
 // https://mathworld.wolfram.com/DigitalRoot.html
 
