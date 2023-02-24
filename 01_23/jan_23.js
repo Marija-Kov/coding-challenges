@@ -52,6 +52,9 @@
 //   return sum;
 // }
 
+// Solution IV - Iterative approach without any type conversion:
+// * starts as the fastest, slows down as the input value goes up
+
 function digitalRoot(n) {
   let num = n;
   let sum = num;
@@ -66,7 +69,7 @@ function digitalRoot(n) {
   return sum;
 }
 
-console.log(digitalRoot(345));
+//console.log(digitalRoot(345));
 
 // https://mathworld.wolfram.com/DigitalRoot.html
 
