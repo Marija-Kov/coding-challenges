@@ -6,7 +6,7 @@
 
 // Solution I - Recursive approach:
 
-// function digitalRoot(n) {
+// function digitalRoot(n: number): number {
 //   let str = n.toString()
 //   let len = str.length;
 //   let sum = 0;
@@ -19,7 +19,7 @@
 
 // Solution II - Iterative approach;
 
-// function digitalRoot(n) {
+// function digitalRoot(n: number): number {
 //   let arr = n.toString().split("").map(e=>Number(e));
 //   let sum = arr.reduce((a,b) => (a+b));
 //   while (sum >= 10) {
@@ -34,10 +34,10 @@
 
 // Solution III - Iterative approach without converting to array and built-in array methods;
 
-// function digitalRoot(n) {
-//   let str = `${n}`;
+// function digitalRoot(n: number): number {
+//   let str: string = `${n}`;
 //   let len = str.length;
-//   let sum = 0;
+//   let sum: number = 0;
 //   for(let i=0; i<len; ++i){
 //    sum+=Number(str.charAt(i))
 //   }
@@ -55,7 +55,7 @@
 // Solution IV - Iterative approach without any type conversion:
 // * starts as the fastest, slows down as the input value goes up
 
-function digitalRoot(n) {
+function digitalRoot(n: number): number {
   let num = n;
   let sum = num;
   while(sum>=10){
@@ -72,7 +72,6 @@ function digitalRoot(n) {
 //console.log(digitalRoot(345));
 
 // https://mathworld.wolfram.com/DigitalRoot.html
-
 
 // 69. Given a string, return another string that replaces every single-time-occurring (in the input string) char 
 // with "(" and multiple-times-occurring chars with ")"
@@ -98,13 +97,17 @@ function digitalRoot(n) {
 //  return newStr;
 // }
 
-function duplicateEncode(str){
+
+function duplicateEncode(str: string): string{
+    interface Temp {
+    [key: string]: number[]
+    }
     let len = str.length;
     let arr = str.toLowerCase().split('');
-    let cache = {};
-    let newArr = [];
+    let cache: Temp = {};
+    let newArr: string[] = [];
     for (let i=0; i< len; ++i){
-        let letter = arr[i];
+        let letter: string = arr[i];
         if (cache[letter]) {
         cache[letter] = [...cache[letter], i];
         newArr.push(')');
@@ -118,80 +121,7 @@ function duplicateEncode(str){
     return newArr.join('')
 }
 
-
-
 //console.log(duplicateEncode('keecheerrrf 2r4 5%'))
-
-// WORK IN PROGRESS // 70. Snail sort 
-// https://www.codewars.com/kata/521c2db8ddc89b9b7a0000c1/train/javascript
-
-// Input: two-dimensional array s, size n x n where each element is s[i][j]
-// Output: one-dimensional array a, length n^2
-
-// Solution:
-// It can be observed that:
-//
-// 1) the last input element pushed in the output array is 
-//   s[Math.ceil((n-1)/2)][Math.floor((n-1)/2)];
-//   So the iteration is completed when i === Math.ceil((n-1)/2) and j === Math.floor((n-1)/2)
-
-// 2) During the iteration both indexes will switch between incrementing and decrementing
-// 3) Only one index can be incremented/decremented at a time
-// 4) The iteration starts with the incr of [j] followed by the incr of [i] 
-// followed by decr of [j] then [i] and so on.. 
-// 5) [j] then [i] incr until [n-x] where x=0 is incr by 1 after [i] finish incr
-// 6) [j] then [i] decr until [y] where y=0 is incr by 1 after each [j] and [i] finish decr
-// 7) at the point a.length === n^2 the process breaks and a is returned; this can happen
-//    at the end of any loop
-// 8) if a.length is < n^2 after both [i] and [j] have gone through incr and decr cycle,
-//  the function is called recursively
-
-function helix(arr){
-    if (arr===[[]]) return [];
-    if (arr[0].length===1) return arr[0]; 
-     
-    // const lastI = Math.ceil((n - 1) / 2);
-    // const lastJ = Math.floor((n - 1) / 2);
-    // const last = arr[lastI][lastJ];
-    
-    //let flat = [];
-    // for (let i=0; i<n; ++i){
-    //     flat = [...flat, ...arr[i]]
-    // }
-    let n = arr.length;
-    let len = n**2; // final length of the output array
-    let snail = arr[0];
-    let i=1; let j=n-1; 
-    let x=0;
-    while(snail.length < len){
-        while(i < n+x){
-            snail.push(arr[i][j]); ++i
-        }
-        --j; 
-        --i;
-        while(j > x){
-            snail.push(arr[i][j]); --j;
-        }
-        
-        while(i > x){
-            snail.push(arr[i][j]); --i;
-        }
-        ++j;
-        ++x;
-        while(j < n-x){
-            snail.push(arr[i][j]); ++j
-        }
-        
-    }
-
-    
-    return snail
-}
-
-
-//console.log(helix([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]))
-
-
 
 // 71. Reorder an array so that, ex: [1,2,3,4,5,6] becomes [1,6,2,5,3,4]; [1,2,3,4,5] --> [1,5,2,4,3]
 
@@ -201,36 +131,35 @@ function helix(arr){
 // Solution: 
 // This works for both odd and even length arrays:
 
-function reorder(arr){
-    let len = arr.length;
-    let newArr;
-      newArr = [...arr]
-      for(let i=1; i<len-1; i+=2){
-        newArr.splice(i,0,newArr[len-1]);
-        newArr.pop()
-      }
-   return newArr 
-}
+// function reorder(arr: number[]): number[] {
+//     let len = arr.length;
+//      let newArr = [...arr]
+//       for(let i=1; i<len-1; i+=2){
+//         newArr.splice(i,0,newArr[len-1]);
+//         newArr.pop()
+//       }
+//    return newArr 
+// }
 
-function reorderEven(arr){
-    let len = arr.length;
-    if (len%2!==0){
-        return 'array length not even'
-    }else {
-    let newArr =[];
-    for (let i=0; i<len/2; ++i){
-        newArr.push(arr[i], arr[len-i-1])
-    }
-     return newArr
-    }
-}
+// function reorderEven(arr: number[]): number[] | string {
+//     let len = arr.length;
+//     if (len%2!==0){
+//         return 'array length not even'
+//      } else {
+//     let newArr = [];
+//     for (let i=0; i<len/2; ++i){
+//         newArr.push(arr[i], arr[len-i-1])
+//     }
+//      return newArr
+//     }
+// }
 
 // Since we can see that in this type of reordering, in case arr.length is even
 // the two elements in the middle of the input arr i.e
 // at the end of the output arr stay in the same order, we can loop less times and just add them at the end
 // which makes the program run consistently faster
 
-function reorderEven2(arr) {
+function reorderEven(arr: number[]): number[] | string {
   let len = arr.length;
   if (len % 2 !== 0) {
     return "array length not even";
@@ -247,7 +176,7 @@ function reorderEven2(arr) {
 
 // In case of arr.length being odd, we can do the similar thing: loop mid times and push the mid element at the end
 
-function reorderOdd(arr){
+function reorderOdd(arr: number[]): number[] | string {
     let len = arr.length;
     if(len % 2 === 0){
         return "array not odd"
@@ -262,9 +191,8 @@ function reorderOdd(arr){
     }
 }
 
-//console.log(reorderOdd([1,2,3,4,5,6,7,8,9]))
-//console.log(reorderOdd([1, 2, 3, 4, 5, 6, 7, 8]));
-
+// console.log(reorderEven([1,2,3,4,5,6,7,8,9]))
+// console.log(reorderEven([1, 2, 3, 4, 5, 6, 7, 8]));
 
 // 72. Reverse the order of letters in words
 // a word is a string of contiguous non-empty characters
@@ -282,7 +210,7 @@ function reorderOdd(arr){
 // 3) after looping is over, join the array by a single empty char
 
 
-function reverseWords(str){
+function reverseWords(str: string): string{
  let arr = str.split(' ');
  let len = arr.length;
  for (let i = 0; i<len; ++i){
@@ -305,7 +233,7 @@ function reverseWords(str){
 // make sure it's concatenated with reversed before it's returned
 
 
-function reverseWords2(str){
+function reverseWords2(str: string): string {
     let len = str.length;
     let word = '';
     let reversed = '';
@@ -337,21 +265,24 @@ function reverseWords2(str){
 // get object entries
 // loop through the entries to count the number of vals >= 2
 
-function duplicateCount(str) {
- let len = str.length;   
- let obj = {};
- let count = 0;
- while(--len+1){
-    let char = str.charAt(len).toLowerCase();
-    obj[char] = obj[char]+1 || 1
- }
- let vals = Object.values(obj)
- len = vals.length;
- while(--len+1){
-    if (vals[len] > 1) ++count
- }
- return count
-}
+// function duplicateCount(str: string): number {
+//     interface Obj {
+//         [key: string]: number
+//     }
+//  let len = str.length;   
+//  let obj: Obj = {};
+//  let count = 0;
+//  while(--len+1){
+//     let char = str.charAt(len).toLowerCase();
+//     obj[char] = obj[char]+1 || 1
+//  }
+//  let vals = Object.values(obj);
+//  len = vals.length;
+//  while(--len+1){
+//     if (vals[len] > 1) ++count
+//  }
+//  return count
+// }
 
 // Solution 2:
 // Since we only care if a character appears once or more than once and not about which character it is
@@ -363,8 +294,8 @@ function duplicateCount(str) {
 // 5) if the char nor `+char` are present, push the char into the array
 // 6) return count
 
-function duplicateCount2(str){
-    let vals = [];
+function duplicateCount(str: string): number{
+    let vals: string[] = [];
     let count = 0;
     let len = str.length;
     while (--len+1){
@@ -381,65 +312,88 @@ function duplicateCount2(str){
    return count
 }
 
-// console.log(duplicateCount2('Invincible334'))
-// console.log(duplicateCount2("aaaaaaaaaaaaab"));
+// console.log(duplicateCount('Invincible334'))
+// console.log(duplicateCount("aaaaaaaaaaaaab"));
 
 
 // 74. https://www.codewars.com/kata/59302a6af1c4f0a8fe0000a6/train/javascript
 
-function sum(...args){
-  if(args[0].length===0) return 0
+// Input: 1. one array, may be empty or containing arrays of integers of various lengths
+//        2. an optional callback that takes in at least one argument of type number
+// Output: integer 
+
+// Solution: 
+// If an empty array is passed as an argument, return 0;
+// If there's no callback argument, simply calculate the sum of all values in all input arrays (passed as number[][]);
+// If there is a callback argument:
+//   1. Using a helper function (getLargestArrayLength) get the length of the largest array (L) 
+//   2. Using another helper (getArrayOfElsWithIndex) create as many arrays containing elements with the same index (y, where 0 <= y < L) from every input array (arr[i] where 0 <= i < arr.length)
+//   example of one such array: [arr[i][y], arr[i+1][y],...arr[arr.length-1][y]]
+//   - since for the purpose of the challenge all of the said arrays need to be the same length, "even out" their lengths by pushing zeros 
+//   3. Loop L times running the input callback function with the parameters returned from running getArrayOfElsWithIndex
+//    - each time add the value returned by the callback to the sum;
+//   4. return the sum
+function sum(args: number[][] | [], callB?: (...nums: number[]) => number) {
+  if(args.length===0) return 0
   let len = args.length;
-  // get the total length of array-parameters
+   // get the length of the input array i.e. the number of arrays within it
   let arr = [...args];
   let sum = 0;
-  let callB = null;
-  // check if the last arg is a callback
-  if (typeof args[len - 1] == "function") {
-    callB = args[len - 1];
-    len -= 1;
-    arr.pop();
-  }
   if(!callB){
-    let a = [];
+    let a: any[] = [];
     for(let i=0; i<len; ++i){
       a = [...a, ...args[i]]
     }
     sum = a.reduce((x,y)=>x+y)
   } else {
-    // get the length of the largest array-parameter
-    function getLargestArray() {
-      let L = args[0].length;
+    // get the length of the largest array-parameter:
+    function getLargestArrayLength(): number {
+      let L = 0;
       for (let i = 0; i < len; ++i) {
         if (args[i].length > L) L = args[i].length;
       }
       return L;
     }
-    let largestArr = getLargestArray();
-    // dynamically pass correct number of arrays to the callback
-    function getArrays(num) {
+    let largestArr = getLargestArrayLength();
+    // the helper function right below will return a new array composed out of elements 
+    // from each input array with the index 'num' 
+    // (or 0 as a filler if an element with a certain index doesn't exist in the array):
+    function getArrayOfElsWithIndex(num: number): number[] {
       let a = [];
       for (let i = 0; i < len; ++i) {
         a.push(arr[i][num] || 0);
       }
       return a;
     }
+    // this loop will create j arrays using the helper f(), pass all elements from each of them to the callback and add the result to the sum
     for (let j = 0; j < largestArr; ++j) {
-      sum += callB(...getArrays(j));
+      sum += callB(...getArrayOfElsWithIndex(j));
     }
   }
   return sum;
 }
 
-//console.log(sum([3, 3, 3],[4, 5], (a, b) => a * b))
-//console.log(sum([1,2], [3]))
-//console.log(sum([]))
+// console.log(sum([[3, 3, 3],[4, 5]], (a, b) => a * b))
+// console.log(sum([[1,2],[3]]))
+// console.log(sum([]))
 
 
 // 75. Convert Roman to Integer
+// Input: a string containing of uppercase alphabetical characters always representing a valid Roman number 1-3999
+// Output: an integer
 
-function romanToInt(inp){
-  const rom = {
+// Solution:
+// 1. create a chart of individual letters and their integer values
+// 2. create an array out of the input string chars
+// 3. replace the chars in the array with the corresponding integers using the chart
+//   -- keeping the "composite" numbers like IV, XL, CD in mind, check if char[i] makes a "composite" with char[i+1]
+//    - if yes, replace the char with its negative integer value
+//    - if no, replace it with its positive integer value
+// 4. calculate the sum of the integers in the array and return it  
+
+function romanToInt(inp: string): number{
+  interface Chart { [key: string]: number }
+  const rom: Chart = {
     M: 1000,
     D: 500,
     C: 100,
@@ -448,7 +402,7 @@ function romanToInt(inp){
     V: 5,
     I: 1,
   };
-  let chars = [...inp];
+  let chars: any[] = [...inp];
   let len = chars.length;
   for(let i=0; i<len; ++i){
       let curr = chars[i];
@@ -475,25 +429,3 @@ function romanToInt(inp){
 // console.log(romanToInt("CXL")) 
 // console.log(romanToInt("XC"))
 // console.log(romanToInt("MCDIX")) 
-
-
-// 76. https://www.codewars.com/kata/61123a6f2446320021db987d/train/javascript
-
-
-function prevMultOfThree(n) {
-  if (n % 3) return n;
-  let str = n.toString()
-  let len = str.length;
-  while(--len){
-    let s = str.slice(0,len)
-    let num = Number(s);
-    if(num%3===0){
-      return num
-    } 
-  }
-  return null
-}
-
-// console.log(prevMultOfThree(25))
-// console.log(prevMultOfThree(1244));
-
